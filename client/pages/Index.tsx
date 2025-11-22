@@ -435,11 +435,11 @@ export default function Index() {
             </div>
 
             {/* Categories Section */}
-            <div className="mb-0">
-              <h3 className="text-sm font-black text-foreground mb-6 uppercase tracking-widest flex items-center gap-2">
-                📂 Look into Categories
+            <div className="mb-0 animate-fadeIn" style={{ animationDelay: "0.3s" }}>
+              <h3 className="text-sm font-black text-foreground mb-6 uppercase tracking-widest">
+                📂 Filter by Category
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {/* Country Dropdown */}
                 <div className="relative group">
                   <label className="text-sm font-bold text-foreground block mb-2">
