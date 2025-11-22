@@ -10,3 +10,46 @@
 export interface DemoResponse {
   message: string;
 }
+
+/**
+ * Post interface with R2 storage details
+ */
+export interface Post {
+  id: string;
+  title: string;
+  description: string;
+  country?: string;
+  city?: string;
+  server?: string;
+  thumbnail?: string;
+  mediaFiles: Array<{
+    name: string;
+    url: string;
+    type: string;
+  }>;
+  createdAt: string;
+}
+
+/**
+ * Response type for /api/posts
+ */
+export interface PostsResponse {
+  posts: Post[];
+  total: number;
+}
+
+/**
+ * Response type for /api/servers
+ */
+export interface ServersResponse {
+  servers: string[];
+}
+
+/**
+ * Response type for /api/upload
+ */
+export interface UploadResponse {
+  success: boolean;
+  message: string;
+  postId: string;
+}
