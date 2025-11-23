@@ -106,6 +106,8 @@ export default function UppostPanel() {
       console.error("Logout error:", error);
     }
 
+    localStorage.removeItem("auth_token");
+    localStorage.removeItem("auth_username");
     setAuth({
       isAuthenticated: false,
       username: "",
