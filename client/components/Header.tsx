@@ -92,6 +92,13 @@ export default function Header() {
                 >
                   🔍 Dox Anyone
                 </Link>
+                <Link
+                  to="/admin-panel"
+                  onClick={closeSidebar}
+                  className="flex items-center gap-3 w-full px-4 py-3 text-foreground font-semibold hover:bg-muted rounded-lg transition-colors"
+                >
+                  ⚙️ Admin Panel
+                </Link>
               </nav>
             </div>
           </>
