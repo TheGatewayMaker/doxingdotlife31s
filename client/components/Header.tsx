@@ -58,13 +58,13 @@ export default function Header() {
             <>
               <Link
                 to="/uppostpanel"
-                className="flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-accent transition-colors"
+                className="flex items-center gap-2 text-sm font-semibold text-gray-300 hover:text-white transition-colors"
               >
                 📤 Upload
               </Link>
               <Link
                 to="/admin-panel"
-                className="flex items-center gap-2 px-4 py-2 bg-amber-500/10 text-amber-500 font-semibold rounded-lg hover:bg-amber-500 hover:text-amber-950 transition-all"
+                className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white font-semibold rounded-lg hover:bg-yellow-700 transition-all"
               >
                 ⚙️ Admin
               </Link>
