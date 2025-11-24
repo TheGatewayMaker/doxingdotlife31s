@@ -1,129 +1,61 @@
 import { RequestHandler } from "express";
-import { randomBytes } from "crypto";
+import { verifyFirebaseToken } from "../utils/firebase-admin";
 
-interface AuthRequest {
-  username: string;
-  password: string;
-}
-
-interface AuthSession {
-  token: string;
-  createdAt: number;
-  expiresAt: number;
-}
-
-// In-memory session store (in production, use Redis or a database)
-const sessions: Map<string, AuthSession> = new Map();
-
-// Token validity: 24 hours
-const TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000;
-
-// Generate a secure random token
-const generateToken = (): string => {
-  return randomBytes(32).toString("hex");
-};
-
-export const handleLogin: RequestHandler = async (req, res) => {
+/**
+ * Check authentication status
+ * Verifies Firebase ID token sent by client
+ */
+export const handleCheckAuth: RequestHandler = async (req, res) => {
   try {
-    let username: string | undefined;
-    let password: string | undefined;
+    const authHeader = req.headers.authorization;
 
-    // Handle both JSON body and form data
-    if (typeof req.body === "string") {
-      try {
-        const parsed = JSON.parse(req.body);
-        username = parsed.username;
-        password = parsed.password;
-      } catch {
-        console.error("Failed to parse request body as JSON:", req.body);
-      }
-    } else if (typeof req.body === "object" && req.body !== null) {
-      username = req.body.username;
-      password = req.body.password;
-    }
-
-    // Validate that username and password are provided
-    if (!username || !password) {
-      console.error("Missing credentials in request. Body:", req.body);
-      res.status(400).json({ error: "Username and password required" });
-      return;
-    }
-
-    // Get credentials from environment variables
-    const validUsername = process.env.ADMIN_USERNAME;
-    const validPassword = process.env.ADMIN_PASSWORD;
-
-    if (!validUsername || !validPassword) {
-      console.error(
-        "Admin credentials not configured in environment variables. Available env keys:",
-        Object.keys(process.env)
-          .filter((k) => k.includes("ADMIN") || k.includes("R2"))
-          .join(", "),
-      );
-      res.status(500).json({
-        error: "Server configuration error",
-        debug: {
-          hasUsername: !!validUsername,
-          hasPassword: !!validPassword,
-        },
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      res.status(401).json({
+        authenticated: false,
+        message: "No valid authorization header provided",
       });
       return;
     }
 
-    // Validate credentials
-    if (username !== validUsername || password !== validPassword) {
-      console.warn(
-        `Login attempt failed. Provided username: ${username}, Expected: ${validUsername}`,
-      );
-      res.status(401).json({ error: "Invalid username or password" });
-      return;
-    }
+    const idToken = authHeader.replace("Bearer ", "");
 
-    // Generate session token
-    const token = generateToken();
-    const now = Date.now();
-    const session: AuthSession = {
-      token,
-      createdAt: now,
-      expiresAt: now + TOKEN_EXPIRY_MS,
-    };
+    try {
+      const verifiedToken = await verifyFirebaseToken(idToken);
 
-    sessions.set(token, session);
-
-    // Clean up old sessions
-    for (const [key, value] of sessions.entries()) {
-      if (value.expiresAt < now) {
-        sessions.delete(key);
+      if (!verifiedToken.isAuthorized) {
+        res.status(403).json({
+          authenticated: false,
+          message: "Email is not authorized to access this resource",
+          email: verifiedToken.email,
+        });
+        return;
       }
+
+      res.json({
+        authenticated: true,
+        message: "Token is valid and authorized",
+        uid: verifiedToken.uid,
+        email: verifiedToken.email,
+      });
+    } catch (tokenError) {
+      res.status(401).json({
+        authenticated: false,
+        message:
+          tokenError instanceof Error ? tokenError.message : "Invalid token",
+      });
     }
-
-    console.log(
-      `[${new Date().toISOString()}] ✅ User "${username}" logged in successfully`,
-    );
-
-    res.json({
-      success: true,
-      message: "Login successful",
-      token,
-      expiresIn: TOKEN_EXPIRY_MS,
-    });
   } catch (error) {
-    console.error(
-      `[${new Date().toISOString()}] ❌ Login error:`,
-      error instanceof Error ? error.message : error,
-    );
-    res.status(500).json({ error: "Login failed" });
+    console.error("Auth check error:", error);
+    res.status(500).json({ error: "Auth check failed" });
   }
 };
 
+/**
+ * Logout endpoint (for cleanup on client side)
+ * Firebase handles session on client, this is just for logging
+ */
 export const handleLogout: RequestHandler = async (req, res) => {
   try {
-    const token = req.headers.authorization?.replace("Bearer ", "");
-
-    if (token) {
-      sessions.delete(token);
-    }
-
     res.json({
       success: true,
       message: "Logout successful",
@@ -134,68 +66,59 @@ export const handleLogout: RequestHandler = async (req, res) => {
   }
 };
 
-export const handleCheckAuth: RequestHandler = async (req, res) => {
+/**
+ * Auth middleware to protect routes
+ * Verifies Firebase ID token and checks authorization
+ */
+export const authMiddleware: (
+  req: any,
+  res: any,
+  next: any,
+) => Promise<void> = async (req, res, next) => {
   try {
-    const token = req.headers.authorization?.replace("Bearer ", "");
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
-      res
-        .status(401)
-        .json({ authenticated: false, message: "No token provided" });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      res.status(401).json({
+        error: "No authentication token provided",
+      });
       return;
     }
 
-    const session = sessions.get(token);
-    const now = Date.now();
+    const idToken = authHeader.replace("Bearer ", "");
 
-    if (!session || session.expiresAt < now) {
-      if (session) {
-        sessions.delete(token);
+    try {
+      const verifiedToken = await verifyFirebaseToken(idToken);
+
+      if (!verifiedToken.isAuthorized) {
+        console.warn(
+          `Unauthorized access attempt from email: ${verifiedToken.email}`,
+        );
+        res.status(403).json({
+          error: "Email is not authorized to access this resource",
+        });
+        return;
       }
-      res
-        .status(401)
-        .json({ authenticated: false, message: "Token expired or invalid" });
-      return;
+
+      // Attach user info to request for use in route handlers
+      req.user = {
+        uid: verifiedToken.uid,
+        email: verifiedToken.email,
+      };
+
+      console.log(
+        `[${new Date().toISOString()}] ✅ Authorized access: ${verifiedToken.email}`,
+      );
+      next();
+    } catch (tokenError) {
+      console.warn(
+        `Token verification failed:`,
+        tokenError instanceof Error ? tokenError.message : tokenError,
+      );
+      res.status(401).json({
+        error: "Invalid or expired authentication token",
+      });
     }
-
-    res.json({
-      authenticated: true,
-      message: "Token is valid",
-      expiresAt: session.expiresAt,
-    });
-  } catch (error) {
-    console.error("Auth check error:", error);
-    res.status(500).json({ error: "Auth check failed" });
-  }
-};
-
-// Middleware to verify authentication
-export const authMiddleware: (req: any, res: any, next: any) => void = (
-  req,
-  res,
-  next,
-) => {
-  try {
-    const token = req.headers.authorization?.replace("Bearer ", "");
-
-    if (!token) {
-      res.status(401).json({ error: "No authentication token provided" });
-      return;
-    }
-
-    const session = sessions.get(token);
-    const now = Date.now();
-
-    if (!session || session.expiresAt < now) {
-      if (session) {
-        sessions.delete(token);
-      }
-      res.status(401).json({ error: "Token expired or invalid" });
-      return;
-    }
-
-    // Token is valid, continue
-    next();
   } catch (error) {
     console.error("Auth middleware error:", error);
     res.status(500).json({ error: "Authentication failed" });
