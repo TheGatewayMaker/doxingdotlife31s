@@ -391,8 +391,8 @@ export default function Index() {
 
                 {/* Server Dropdown */}
                 <div className="relative group">
-                  <label className="text-xs sm:text-sm font-bold text-gray-300 block mb-2 flex items-center gap-2">
-                    <ServerIcon className="w-4 h-4 text-blue-400" />
+                  <label className="text-xs sm:text-sm font-bold text-gray-400 block mb-2 flex items-center gap-2">
+                    <ServerIcon className="w-4 h-4 text-gray-500" />
                     By Server
                   </label>
                   <div className="relative">
@@ -403,7 +403,7 @@ export default function Index() {
                       }
                       value={serverSearch}
                       onChange={(e) => setServerSearch(e.target.value)}
-                      className="w-full px-4 py-2.5 sm:py-3 pr-10 bg-slate-800/60 border border-blue-500/30 hover:border-blue-500/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-sm transition-all"
+                      className="w-full px-4 py-2.5 sm:py-3 pr-10 bg-gray-800 border border-gray-700 hover:border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-600 text-sm transition-all"
                     />
                     {selectedServer && (
                       <button
@@ -411,7 +411,7 @@ export default function Index() {
                           setSelectedServer("");
                           setServerSearch("");
                         }}
-                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
                         title="Clear selection"
                       >
                         <CloseIcon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -419,7 +419,7 @@ export default function Index() {
                     )}
                   </div>
                   {serverSearch && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-blue-500/30 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-xl">
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-gray-800 border border-gray-700 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-xl">
                       {filteredServers.length > 0 ? (
                         filteredServers.map((server) => (
                           <button
@@ -428,13 +428,13 @@ export default function Index() {
                               setSelectedServer(server);
                               setServerSearch("");
                             }}
-                            className="w-full text-left px-4 py-2.5 hover:bg-blue-600/30 text-white text-sm transition-all duration-200 border-b border-slate-700/50 last:border-b-0"
+                            className="w-full text-left px-4 py-2.5 hover:bg-gray-700 text-white text-sm transition-all duration-200 border-b border-gray-700/50 last:border-b-0"
                           >
                             {server}
                           </button>
                         ))
                       ) : (
-                        <div className="px-4 py-3 text-gray-400 text-sm text-center">
+                        <div className="px-4 py-3 text-gray-500 text-sm text-center">
                           No servers found
                         </div>
                       )}
