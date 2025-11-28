@@ -398,36 +398,59 @@ export default function AdminPanel() {
           <div className="mb-10 sm:mb-12 animate-fadeIn">
             {isLoadingPosts ? (
               <>
-                <h2 className="text-5xl md:text-6xl font-black mb-3 mt-0 flex items-center gap-3">
+                <div className="flex items-center gap-4 mb-4">
                   <span className="inline-block animate-spin">
-                    <div className="w-10 h-10 border-3 border-muted border-t-accent rounded-full"></div>
+                    <div className="w-12 h-12 border-4 border-muted border-t-blue-600 rounded-full"></div>
                   </span>
-                  Loading Posts
-                </h2>
-                <p className="text-muted-foreground">
-                  Fetching posts for management...
-                </p>
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                      Loading Posts
+                    </h2>
+                    <p className="text-muted-foreground mt-1">
+                      Fetching your posts for management...
+                    </p>
+                  </div>
+                </div>
               </>
             ) : filteredPosts.length === 0 ? (
               <>
-                <h2 className="text-5xl md:text-6xl font-black mb-3">
-                  No Posts Found
-                </h2>
-                <p className="text-muted-foreground">
-                  {searchQuery || selectedCountry
-                    ? "Try adjusting your search filters"
-                    : "No posts available at the moment"}
-                </p>
+                <div className="text-center py-16">
+                  <div className="mb-6 flex justify-center">
+                    <div className="p-4 bg-muted rounded-2xl">
+                      <svg className="w-16 h-16 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+                    No Posts Found
+                  </h2>
+                  <p className="text-muted-foreground max-w-md mx-auto">
+                    {searchQuery || selectedCountry
+                      ? "Your search didn't match any posts. Try adjusting your filters or search terms."
+                      : "No posts available at the moment. Start by uploading new content."}
+                  </p>
+                </div>
               </>
             ) : (
               <>
-                <h2 className="text-5xl md:text-6xl font-black mb-3">
-                  Manage Posts
-                </h2>
-                <p className="text-muted-foreground">
-                  Showing {displayedPosts.length} of {filteredPosts.length}{" "}
-                  posts
-                </p>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+                      Manage Posts
+                    </h2>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      <span className="font-semibold text-foreground">{filteredPosts.length}</span> post{filteredPosts.length !== 1 ? 's' : ''} found
+                      {searchQuery || selectedCountry ? ' (filtered)' : ''}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 bg-blue-600/10 px-4 py-3 rounded-lg border border-blue-600/20">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                    <span className="text-sm font-medium text-foreground">
+                      Displaying {displayedPosts.length} of {filteredPosts.length}
+                    </span>
+                  </div>
+                </div>
               </>
             )}
           </div>
