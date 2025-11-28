@@ -583,13 +583,9 @@ export default function Index() {
             ) : (
               <>
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 text-orange-500">
-                    <svg fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 1C11.4 1 11 1.4 11 2V12C11 12.6 11.4 13 12 13C12.6 13 13 12.6 13 12V2C13 1.4 12.6 1 12 1ZM15.8 5.3C15.3 4.9 14.5 5 14.1 5.5L11.5 9.4C11.2 9.8 11.2 10.4 11.5 10.8C11.8 11.2 12.3 11.4 12.8 11.2L16.6 8.6C17.1 8.3 17.2 7.5 16.8 7C16.5 6.5 15.9 6.1 15.8 5.3ZM19.2 8.2C19 7.6 18.4 7.2 17.8 7.4C17.2 7.6 16.8 8.2 17 8.8L20 15.4C20.2 16 20.8 16.4 21.4 16.2C22 16 22.4 15.4 22.2 14.8L19.2 8.2ZM8.2 5.3C8.1 6.1 7.5 6.5 7.2 7C6.8 7.5 6.9 8.3 7.4 8.6L11.2 11.2C11.7 11.4 12.2 11.2 12.5 10.8C12.8 10.4 12.8 9.8 12.5 9.4L9.9 5.5C9.5 5 8.7 4.9 8.2 5.3Z" />
-                    </svg>
-                  </div>
+                  <Flame className="w-8 h-8 text-orange-500" />
                   <h2 className="text-5xl md:text-6xl font-black text-white">
-                    Hot & Recent Posts
+                    Posts
                   </h2>
                 </div>
                 <p className="text-gray-400 mt-3">
