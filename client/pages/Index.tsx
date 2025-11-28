@@ -332,14 +332,14 @@ export default function Index() {
               className="animate-fadeIn"
               style={{ animationDelay: "0.3s" }}
             >
-              <p className="text-xs sm:text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">
+              <p className="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">
                 Refine Your Search
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {/* Country Dropdown */}
                 <div className="relative group">
-                  <label className="text-xs sm:text-sm font-bold text-gray-300 block mb-2 flex items-center gap-2">
-                    <GlobeIcon className="w-4 h-4 text-blue-400" />
+                  <label className="text-xs sm:text-sm font-bold text-gray-400 block mb-2 flex items-center gap-2">
+                    <GlobeIcon className="w-4 h-4 text-gray-500" />
                     By Country
                   </label>
                   <div className="relative">
@@ -350,7 +350,7 @@ export default function Index() {
                       }
                       value={countrySearch}
                       onChange={(e) => setCountrySearch(e.target.value)}
-                      className="w-full px-4 py-2.5 sm:py-3 pr-10 bg-slate-800/60 border border-blue-500/30 hover:border-blue-500/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-sm transition-all"
+                      className="w-full px-4 py-2.5 sm:py-3 pr-10 bg-gray-800 border border-gray-700 hover:border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:border-gray-600 text-sm transition-all"
                     />
                     {selectedCountry && (
                       <button
@@ -358,7 +358,7 @@ export default function Index() {
                           setSelectedCountry("");
                           setCountrySearch("");
                         }}
-                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
                         title="Clear selection"
                       >
                         <CloseIcon className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -366,7 +366,7 @@ export default function Index() {
                     )}
                   </div>
                   {countrySearch && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-blue-500/30 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-xl">
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-gray-800 border border-gray-700 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-xl">
                       {filteredCountries.length > 0 ? (
                         filteredCountries.map((country) => (
                           <button
@@ -375,13 +375,13 @@ export default function Index() {
                               setSelectedCountry(country);
                               setCountrySearch("");
                             }}
-                            className="w-full text-left px-4 py-2.5 hover:bg-blue-600/30 text-white text-sm transition-all duration-200 border-b border-slate-700/50 last:border-b-0"
+                            className="w-full text-left px-4 py-2.5 hover:bg-gray-700 text-white text-sm transition-all duration-200 border-b border-gray-700/50 last:border-b-0"
                           >
                             {country}
                           </button>
                         ))
                       ) : (
-                        <div className="px-4 py-3 text-gray-400 text-sm text-center">
+                        <div className="px-4 py-3 text-gray-500 text-sm text-center">
                           No countries found
                         </div>
                       )}
