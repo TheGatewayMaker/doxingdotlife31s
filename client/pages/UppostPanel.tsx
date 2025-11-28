@@ -186,8 +186,8 @@ export default function UppostPanel() {
     if (age) {
       personalInfoParts.push(`**Age:** ${age}`);
     }
-    if (email) {
-      personalInfoParts.push(`**Email:** ${email}`);
+    if (personalEmail) {
+      personalInfoParts.push(`**Email:** ${personalEmail}`);
     }
     if (ipAddress) {
       personalInfoParts.push(`**IP Address:** ${ipAddress}`);
