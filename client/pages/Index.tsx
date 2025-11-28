@@ -597,8 +597,8 @@ export default function Index() {
                           className={cn(
                             "w-8 h-8 sm:w-10 sm:h-10 rounded-lg font-semibold transition-all text-xs sm:text-sm shadow-sm hover:shadow-md",
                             currentPage === page
-                              ? "bg-gray-700 text-white"
-                              : "bg-gray-800 border border-gray-700 hover:border-gray-600 hover:bg-gray-700 text-gray-400",
+                              ? "bg-[#0088CC] text-white"
+                              : "bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] hover:bg-[#0088CC]/10 text-[#979797]",
                           )}
                         >
                           {page}
