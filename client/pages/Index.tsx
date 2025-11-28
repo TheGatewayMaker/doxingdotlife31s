@@ -528,15 +528,29 @@ export default function Index() {
                     <GlobeIcon className="w-4 h-4 text-blue-400" />
                     By Country
                   </label>
-                  <input
-                    type="text"
-                    placeholder={
-                      selectedCountry ? selectedCountry : "Select country..."
-                    }
-                    value={countrySearch}
-                    onChange={(e) => setCountrySearch(e.target.value)}
-                    className="w-full px-4 py-3 bg-slate-800 border border-slate-700 hover:border-blue-500 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm hover:shadow-md hover:shadow-blue-500/20"
-                  />
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder={
+                        selectedCountry ? selectedCountry : "Select country..."
+                      }
+                      value={countrySearch}
+                      onChange={(e) => setCountrySearch(e.target.value)}
+                      className="w-full px-4 py-3 pr-10 bg-slate-800 border border-slate-700 hover:border-blue-500 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm transition-all shadow-sm hover:shadow-md hover:shadow-blue-500/20"
+                    />
+                    {selectedCountry && (
+                      <button
+                        onClick={() => {
+                          setSelectedCountry("");
+                          setCountrySearch("");
+                        }}
+                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-accent hover:text-accent/80 transition-colors hover:scale-110"
+                        title="Clear selection"
+                      >
+                        <CloseIcon className="w-5 h-5" />
+                      </button>
+                    )}
+                  </div>
                   {countrySearch && (
                     <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-lg">
                       {filteredCountries.length > 0 ? (
@@ -546,7 +560,6 @@ export default function Index() {
                             onClick={() => {
                               setSelectedCountry(country);
                               setCountrySearch("");
-                              setSelectedCity("");
                             }}
                             className="w-full text-left px-4 py-2 hover:bg-blue-600/30 hover:border-l-2 hover:border-l-blue-500 text-white text-sm transition-all duration-200"
                           >
@@ -559,19 +572,6 @@ export default function Index() {
                         </div>
                       )}
                     </div>
-                  )}
-                  {selectedCountry && (
-                    <button
-                      onClick={() => {
-                        setSelectedCountry("");
-                        setSelectedCity("");
-                        setCountrySearch("");
-                      }}
-                      className="absolute top-3 right-3 text-accent hover:text-accent/80 transition-colors"
-                      title="Clear selection"
-                    >
-                      <CloseIcon className="w-4 h-4" />
-                    </button>
                   )}
                 </div>
 
