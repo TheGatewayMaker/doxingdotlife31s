@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Menu, X, LogOut } from "lucide-react";
-import { HomeIcon } from "@/components/Icons";
+import { HomeIcon, UploadIcon, SettingsIcon, SearchAltIcon } from "@/components/Icons";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function Header() {
