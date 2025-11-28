@@ -37,11 +37,11 @@ export default function AdminPostCard({
       >
         {/* Thumbnail */}
         {post.thumbnail && (
-          <div className="w-full h-40 bg-muted overflow-hidden flex items-center justify-center">
+          <div className="w-full h-28 bg-muted overflow-hidden flex items-center justify-center">
             <img
               src={post.thumbnail}
               alt={post.title}
-              className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+              className="w-full h-full object-cover"
               onError={(e) => {
                 const img = e.target as HTMLImageElement;
                 img.style.display = "none";
