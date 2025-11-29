@@ -57,8 +57,10 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
         filesType: typeof req.files,
         filesKeys: req.files ? Object.keys(req.files) : [],
       });
-      res.status(400).json({ error: "Files object is missing or invalid" });
-      responseSent = true;
+      if (!res.headersSent) {
+        res.status(400).json({ error: "Files object is missing or invalid" });
+        responseSent = true;
+      }
       return;
     }
 
@@ -77,8 +79,15 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
         mediaCount: Array.isArray(files?.media) ? files.media.length : 0,
         thumbnail: !!files?.thumbnail,
       });
-      res.status(400).json({ error: "Missing required fields" });
-      responseSent = true;
+      if (!res.headersSent) {
+        res
+          .status(400)
+          .json({
+            error:
+              "Missing required fields: title, description, media files, and thumbnail are all required",
+          });
+        responseSent = true;
+      }
       return;
     }
 
@@ -96,6 +105,7 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
     }
 
     if (files.media.length === 0) {
+      console.error("No media files provided");
       if (!res.headersSent) {
         res.status(400).json({ error: "At least one media file is required" });
         responseSent = true;
@@ -266,19 +276,26 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
           details:
             process.env.NODE_ENV === "development"
               ? errorMessage
-              : "Failed to upload files to storage. Please check your server configuration.",
+              : "Failed to upload files to storage. Please check your R2 configuration and try again.",
         });
         responseSent = true;
       }
-      return;
+      // Don't return here to let it fall through to the outer catch
+      throw r2Error;
     }
   } catch (error) {
+    // Prevent double response
+    if (responseSent) {
+      return;
+    }
+
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error(
       `[${new Date().toISOString()}] ❌ Upload error (general):`,
       errorMessage,
     );
     console.error("Full error details:", error);
+
     if (!res.headersSent) {
       res.status(500).json({
         error: "Upload failed",

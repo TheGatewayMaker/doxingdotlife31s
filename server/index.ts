@@ -200,6 +200,23 @@ export function createServer() {
     next(err);
   };
 
+  // Catch-all async error handler wrapper - defined before routes that use it
+  const asyncHandler = (
+    fn: (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction,
+    ) => Promise<any>,
+  ) => {
+    return (
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction,
+    ) => {
+      Promise.resolve(fn(req, res, next)).catch(next);
+    };
+  };
+
   app.post(
     "/api/upload",
     uploadTimeout,
@@ -220,7 +237,7 @@ export function createServer() {
         return multerErrorHandler(error, req, res, next);
       }
     },
-    handleUpload,
+    asyncHandler(handleUpload),
   );
 
   app.get("/api/posts", handleGetPosts);
@@ -283,23 +300,6 @@ export function createServer() {
       res.status(500).json({ error: "Failed to fetch media" });
     }
   });
-
-  // Catch-all async error handler wrapper
-  const asyncHandler = (
-    fn: (
-      req: express.Request,
-      res: express.Response,
-      next: express.NextFunction,
-    ) => Promise<any>,
-  ) => {
-    return (
-      req: express.Request,
-      res: express.Response,
-      next: express.NextFunction,
-    ) => {
-      Promise.resolve(fn(req, res, next)).catch(next);
-    };
-  };
 
   // Global error handler middleware - MUST be last
   app.use(
