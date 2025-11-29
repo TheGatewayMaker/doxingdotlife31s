@@ -45,14 +45,22 @@ const getR2Client = (): S3Client => {
 
   const endpoint = `https://${accountId}.r2.cloudflarestorage.com`;
 
-  return new S3Client({
-    region: "auto",
-    endpoint: endpoint,
-    credentials: {
-      accessKeyId: accessKeyId,
-      secretAccessKey: secretAccessKey,
-    },
-  });
+  try {
+    const client = new S3Client({
+      region: "auto",
+      endpoint: endpoint,
+      credentials: {
+        accessKeyId: accessKeyId,
+        secretAccessKey: secretAccessKey,
+      },
+    });
+
+    console.log(`[${new Date().toISOString()}] R2 Client initialized successfully with endpoint: ${endpoint}`);
+    return client;
+  } catch (error) {
+    console.error("Failed to initialize R2 client:", error);
+    throw error;
+  }
 };
 
 const getBucketName = (): string => {
