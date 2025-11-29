@@ -102,24 +102,40 @@ export const uploadMediaFile = async (
   buffer: Buffer,
   contentType: string,
 ): Promise<string> => {
-  const client = getR2Client();
-  const bucketName = getBucketName();
-  const key = `posts/${postId}/${fileName}`;
+  try {
+    const client = getR2Client();
+    const bucketName = getBucketName();
+    const key = `posts/${postId}/${fileName}`;
 
-  await client.send(
-    new PutObjectCommand({
-      Bucket: bucketName,
-      Key: key,
-      Body: buffer,
-      ContentType: contentType,
-      CacheControl: "public, max-age=31536000",
-      Metadata: {
-        "Cache-Control": "public, max-age=31536000",
-      },
-    }),
-  );
+    console.log(
+      `[${new Date().toISOString()}] Uploading file to R2: ${key} (${(buffer.length / 1024 / 1024).toFixed(2)}MB)`,
+    );
 
-  return getMediaUrl(key);
+    await client.send(
+      new PutObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+        Body: buffer,
+        ContentType: contentType,
+        CacheControl: "public, max-age=31536000",
+        Metadata: {
+          "Cache-Control": "public, max-age=31536000",
+        },
+      }),
+    );
+
+    console.log(`✅ File uploaded successfully: ${key}`);
+    return getMediaUrl(key);
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error(
+      `Failed to upload file ${fileName} for post ${postId}:`,
+      errorMsg,
+    );
+    throw new Error(
+      `Failed to upload file to R2 storage: ${errorMsg}`,
+    );
+  }
 };
 
 export const uploadPostMetadata = async (
