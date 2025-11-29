@@ -41,14 +41,25 @@ const getServerlessHandler = () => {
         "image/*",
         "video/*",
         "application/octet-stream",
-        "multipart/form-data",
+        "multipart/*",
+        "application/x-www-form-urlencoded",
         "*/*",
       ],
       request: (request: any, event: any, context: any) => {
         // Log request details for debugging
         console.log(
-          `[${new Date().toISOString()}] ${event.httpMethod} ${event.path}`,
+          `[${new Date().toISOString()}] ${event.httpMethod} ${event.path} - Content-Type: ${event.headers['content-type'] || 'unknown'}`,
         );
+      },
+      response: (response: any) => {
+        // Ensure Content-Type is always set for responses
+        if (!response.headers) {
+          response.headers = {};
+        }
+        if (!response.headers['content-type']) {
+          response.headers['content-type'] = 'application/json';
+        }
+        return response;
       },
     });
   }
