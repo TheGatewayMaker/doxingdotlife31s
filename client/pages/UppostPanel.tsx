@@ -262,15 +262,15 @@ export default function UppostPanel() {
         const errorDetails = failedUploads
           .map((r) => `${r.fileName}: ${r.error}`)
           .join("; ");
-        throw new Error(`Failed to upload ${failedUploads.length} file(s): ${errorDetails}`);
+        throw new Error(
+          `Failed to upload ${failedUploads.length} file(s): ${errorDetails}`,
+        );
       }
 
       // Step 3: Store metadata on server
       setUploadMessage("Finalizing post...");
 
-      const mediaFileNames = presignedUrls
-        .slice(1)
-        .map((url) => url.fileName);
+      const mediaFileNames = presignedUrls.slice(1).map((url) => url.fileName);
 
       const metadataResponse = await fetch("/api/upload-metadata", {
         method: "POST",

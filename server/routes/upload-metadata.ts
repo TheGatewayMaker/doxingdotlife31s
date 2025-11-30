@@ -39,7 +39,13 @@ export const handleUploadMetadata: RequestHandler = async (req, res) => {
     } = req.body as UploadMetadataRequest;
 
     // Validate required fields
-    if (!postId || !title || !description || !thumbnailFileName || !mediaFiles) {
+    if (
+      !postId ||
+      !title ||
+      !description ||
+      !thumbnailFileName ||
+      !mediaFiles
+    ) {
       console.error("Missing required metadata fields", {
         postId: !!postId,
         title: !!title,

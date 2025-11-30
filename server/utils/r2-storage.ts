@@ -139,9 +139,7 @@ export const generatePresignedUploadUrls = async (
 };
 
 const sanitizePresignedFileName = (fileName: string): string => {
-  return fileName
-    .replace(/[^a-zA-Z0-9._-]/g, "_")
-    .substring(0, 100);
+  return fileName.replace(/[^a-zA-Z0-9._-]/g, "_").substring(0, 100);
 };
 
 export const validateR2Configuration = async (): Promise<{

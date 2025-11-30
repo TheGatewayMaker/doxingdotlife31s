@@ -135,8 +135,7 @@ export const uploadFilesToR2Parallel = async (
       completedCount++;
       onProgress?.(completedCount, files.length);
     } catch (error) {
-      const errorMsg =
-        error instanceof Error ? error.message : "Unknown error";
+      const errorMsg = error instanceof Error ? error.message : "Unknown error";
 
       results[index] = {
         fileName: file.name,
