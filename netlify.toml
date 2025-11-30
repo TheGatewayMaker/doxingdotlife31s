@@ -12,6 +12,7 @@
 [[function]]
   name = "api"
   timeout = 26
+  memory = 3008
 
 # Redirect API calls to Netlify Functions (rewrite)
 [[redirects]]
