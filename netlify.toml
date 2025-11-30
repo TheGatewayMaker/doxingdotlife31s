@@ -7,6 +7,11 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
   included_files = ["server/**/*", "shared/**/*"]
+  timeout = 26
+
+[[function]]
+  name = "api"
+  timeout = 26
 
 # Redirect API calls to Netlify Functions (rewrite)
 [[redirects]]
