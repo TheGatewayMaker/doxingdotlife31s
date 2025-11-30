@@ -6,6 +6,11 @@ import Footer from "@/components/Footer";
 import { UploadIcon, ImageIcon } from "@/components/Icons";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { toast } from "sonner";
+import {
+  generatePresignedUrls,
+  uploadFilesToR2Parallel,
+  validateUploadInputs,
+} from "@/lib/r2-upload";
 
 export default function UppostPanel() {
   const navigate = useNavigate();
@@ -147,40 +152,11 @@ export default function UppostPanel() {
       return;
     }
 
-    // Validate file sizes (500MB = 500 * 1024 * 1024 bytes per file)
-    const MAX_FILE_SIZE = 500 * 1024 * 1024;
-    const MAX_TOTAL_SIZE = 150 * 1024 * 1024; // 150MB total for all files combined on Netlify
-    const oversizedFiles: string[] = [];
-
-    if (thumbnail && thumbnail.size > MAX_FILE_SIZE) {
-      oversizedFiles.push(
-        `Thumbnail (${(thumbnail.size / 1024 / 1024).toFixed(2)}MB)`,
-      );
-    }
-
-    let totalSize = thumbnail ? thumbnail.size : 0;
-
-    for (const file of mediaFiles) {
-      if (file.size > MAX_FILE_SIZE) {
-        oversizedFiles.push(
-          `${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`,
-        );
-      }
-      totalSize += file.size;
-    }
-
-    if (oversizedFiles.length > 0) {
-      setUploadError(
-        `The following files exceed 500MB: ${oversizedFiles.join(", ")}`,
-      );
-      return;
-    }
-
-    // Check total upload size
-    if (totalSize > MAX_TOTAL_SIZE) {
-      setUploadError(
-        `Total upload size (${(totalSize / 1024 / 1024).toFixed(2)}MB) exceeds 150MB limit. Please upload fewer files or use smaller files.`,
-      );
+    // Validate file sizes
+    const filesWithThumbnail = [thumbnail, ...mediaFiles];
+    const validation = validateUploadInputs(filesWithThumbnail);
+    if (!validation.valid) {
+      setUploadError(validation.error || "File validation failed");
       return;
     }
 
@@ -220,21 +196,6 @@ export default function UppostPanel() {
       completeDescription = `${completeDescription}\n\n**Personal Information:**\n${personalInfoParts.join("\n")}`;
     }
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", completeDescription);
-    formData.append("country", country);
-    formData.append("city", city);
-    formData.append("server", server);
-    formData.append("nsfw", String(nsfw));
-    formData.append("isTrend", String(isTrend));
-    formData.append("trendRank", isTrend ? trendRank : "");
-    formData.append("thumbnail", thumbnail);
-
-    mediaFiles.forEach((file) => {
-      formData.append("media", file);
-    });
-
     setUploading(true);
 
     try {
@@ -243,20 +204,99 @@ export default function UppostPanel() {
         throw new Error("Authentication token not available");
       }
 
-      const response = await fetch("/api/upload", {
+      // Step 1: Generate presigned URLs for all files
+      setUploadMessage("Preparing upload URLs...");
+
+      const filesForPresignedUrls = [
+        {
+          fileName: `thumbnail-${Date.now()}`,
+          contentType: thumbnail.type || "image/jpeg",
+          fileSize: thumbnail.size,
+        },
+        ...mediaFiles.map((file, idx) => ({
+          fileName: file.name,
+          contentType: file.type || "application/octet-stream",
+          fileSize: file.size,
+        })),
+      ];
+
+      const urlsResponse = await generatePresignedUrls(
+        filesForPresignedUrls,
+        idToken,
+      );
+
+      const postId = urlsResponse.postId;
+      const presignedUrls = urlsResponse.presignedUrls;
+
+      // Step 2: Upload all files directly to R2 using presigned URLs
+      setUploadMessage("Uploading files to storage...");
+
+      const thumbnailPresignedUrl = presignedUrls[0];
+      const mediaPresignedUrls = presignedUrls.slice(1);
+
+      // Upload thumbnail first
+      await uploadFilesToR2Parallel(
+        [thumbnail],
+        [thumbnailPresignedUrl],
+        (completed, total) => {
+          setUploadMessage(
+            `Uploading files (${completed}/${total + mediaFiles.length})...`,
+          );
+        },
+      );
+
+      // Upload media files in parallel
+      const uploadResults = await uploadFilesToR2Parallel(
+        mediaFiles,
+        mediaPresignedUrls,
+        (completed, total) => {
+          setUploadMessage(
+            `Uploading files (${completed + 1}/${total + mediaFiles.length})...`,
+          );
+        },
+      );
+
+      // Check for upload errors
+      const failedUploads = uploadResults.filter((r) => !r.success);
+      if (failedUploads.length > 0) {
+        const errorDetails = failedUploads
+          .map((r) => `${r.fileName}: ${r.error}`)
+          .join("; ");
+        throw new Error(
+          `Failed to upload ${failedUploads.length} file(s): ${errorDetails}`,
+        );
+      }
+
+      // Step 3: Store metadata on server
+      setUploadMessage("Finalizing post...");
+
+      const mediaFileNames = presignedUrls.slice(1).map((url) => url.fileName);
+
+      const metadataResponse = await fetch("/api/upload-metadata", {
         method: "POST",
-        body: formData,
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${idToken}`,
         },
-        // Increase timeout for mobile devices with multiple files
-        signal: AbortSignal.timeout(5 * 60 * 1000), // 5 minutes
+        body: JSON.stringify({
+          postId,
+          title,
+          description: completeDescription,
+          country: country || "",
+          city: city || "",
+          server: server || "",
+          nsfw: nsfw,
+          thumbnailFileName: thumbnailPresignedUrl.fileName,
+          mediaFiles: mediaFileNames,
+          isTrend: isTrend,
+          trendRank: isTrend ? trendRank : "",
+        }),
       });
 
-      if (!response.ok) {
-        let errorMsg = "Upload failed";
+      if (!metadataResponse.ok) {
+        let errorMsg = "Failed to store post metadata";
         try {
-          const errorData = await response.json();
+          const errorData = await metadataResponse.json();
           if (errorData.error) {
             errorMsg = errorData.error;
           }
@@ -265,14 +305,14 @@ export default function UppostPanel() {
           }
         } catch (parseError) {
           console.error("Failed to parse error response", parseError);
-          errorMsg = `Upload failed with status ${response.status}`;
+          errorMsg = `Failed with status ${metadataResponse.status}`;
         }
         throw new Error(errorMsg);
       }
 
-      const data = await response.json();
+      const metadataData = await metadataResponse.json();
       setUploadMessage(
-        `Post uploaded successfully! ${data.mediaCount ? `(${data.mediaCount} media file(s))` : ""}`,
+        `Post uploaded successfully! ${metadataData.mediaCount ? `(${metadataData.mediaCount} media file(s))` : ""}`,
       );
       toast.success("Post uploaded successfully!");
       resetForm();
