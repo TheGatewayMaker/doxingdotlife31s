@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { UploadIcon, ImageIcon } from "@/components/Icons";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import { validateUploadInputs } from "@/lib/r2-upload";
+import { validateUploadInputs, generatePresignedUrls, uploadFilesToR2Parallel } from "@/lib/r2-upload";
 
 export default function UppostPanel() {
   const navigate = useNavigate();
