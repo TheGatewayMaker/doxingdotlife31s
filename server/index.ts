@@ -15,18 +15,15 @@ import {
 import { handleLogout, handleCheckAuth, authMiddleware } from "./routes/auth";
 import { validateR2Configuration } from "./utils/r2-storage";
 
-// On Netlify Functions, use smaller limits due to request size constraints
-// Local dev can handle larger files
-const isNetlify = process.env.NETLIFY === "true";
-const MAX_FILE_SIZE = isNetlify
-  ? 100 * 1024 * 1024 // 100MB per file on Netlify
-  : 500 * 1024 * 1024; // 500MB per file locally
+// VPS with R2 storage can handle large files
+// Files are uploaded directly to R2, not through this endpoint
+const MAX_FILE_SIZE = 500 * 1024 * 1024; // 500MB per file
 
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
     fileSize: MAX_FILE_SIZE,
-    fieldSize: MAX_FILE_SIZE, // Also set field size limit
+    fieldSize: MAX_FILE_SIZE,
   },
 });
 
@@ -131,47 +128,21 @@ export function createServer() {
   app.get("/api/auth/check", handleCheckAuth);
 
   // Forum API routes
-  // Longer timeout for upload endpoint (10 minutes) to handle large files and multiple attachments
+  // Timeout middleware for presigned URL generation and metadata storage
+  // (Note: File uploads now go directly to R2, not through this endpoint)
   const uploadTimeout = (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction,
   ) => {
-    // In serverless environments like Netlify Functions, sockets are not available
-    // Skip socket timeout handling in serverless contexts
-    if (process.env.NETLIFY === "true" || !req.socket) {
-      console.log("Serverless environment detected: skipping socket timeout");
-      next();
-      return;
-    }
+    const timeout = 30 * 1000; // 30 seconds for metadata operations
 
-    const timeout = 10 * 60 * 1000; // 10 minutes
-
-    // Set timeout on the underlying socket, not the request/response objects
     try {
       if (req.socket) {
         req.socket.setTimeout(timeout);
       }
       if (res.socket) {
         res.socket.setTimeout(timeout);
-      }
-
-      // Handle timeout errors
-      const handleTimeout = () => {
-        console.error("Request timeout for upload");
-        if (!res.headersSent) {
-          res.status(408).json({
-            error: "Request timeout",
-            details: "Upload took too long to complete",
-          });
-        }
-      };
-
-      if (req.socket) {
-        req.socket.on("timeout", handleTimeout);
-      }
-      if (res.socket) {
-        res.socket.on("timeout", handleTimeout);
       }
     } catch (error) {
       console.error("Error setting socket timeout:", error);
@@ -247,27 +218,6 @@ export function createServer() {
     "/api/upload",
     uploadTimeout,
     authMiddleware,
-    // Pre-check: Validate request size early, especially for Netlify Functions
-    (req, res, next) => {
-      const contentLength = parseInt(req.headers["content-length"] || "0", 10);
-      const isNetlify = process.env.NETLIFY === "true";
-      // Netlify Functions have practical limits around 250MB for the entire request
-      // but real-world performance degrades significantly above 50MB
-      const maxSize = isNetlify ? 200 * 1024 * 1024 : 1024 * 1024 * 1024;
-
-      console.log(
-        `[${new Date().toISOString()}] Upload request content-length: ${(contentLength / 1024 / 1024).toFixed(2)}MB (max: ${(maxSize / 1024 / 1024).toFixed(2)}MB on ${isNetlify ? "NETLIFY" : "LOCAL"})`,
-      );
-
-      if (contentLength > maxSize) {
-        return res.status(413).json({
-          error: "Request too large",
-          details: `Total upload size (${(contentLength / 1024 / 1024).toFixed(2)}MB) exceeds maximum allowed (${(maxSize / 1024 / 1024).toFixed(2)}MB). ${isNetlify ? "Please upload fewer or smaller files." : ""}`,
-        });
-      }
-
-      next();
-    },
     (req, res, next) => {
       try {
         upload.fields([
