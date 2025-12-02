@@ -230,13 +230,22 @@ export default function UppostPanel() {
         formData.append("media", file, file.name);
       });
 
+      console.log(
+        `[Upload] Sending request with ${mediaFiles.length} media files and 1 thumbnail`,
+      );
+
       const uploadResponse = await fetch("/api/upload", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${idToken}`,
+          // Note: Content-Type is NOT set for FormData - browser will set it with correct boundary
         },
         body: formData,
       });
+
+      console.log(
+        `[Upload] Response status: ${uploadResponse.status} ${uploadResponse.statusText}`,
+      );
 
       if (!uploadResponse.ok) {
         let errorMsg = `HTTP ${uploadResponse.status}: ${uploadResponse.statusText}`;
@@ -246,12 +255,28 @@ export default function UppostPanel() {
             errorMsg = errorData.error;
           }
           if (errorData.details) {
-            errorMsg += `: ${errorData.details}`;
+            errorMsg += ` - ${errorData.details}`;
           }
         } catch (parseError) {
           console.error("Error parsing error response:", parseError);
           // Keep the default HTTP error message if parsing fails
         }
+
+        // Provide specific guidance based on status code
+        if (uploadResponse.status === 413) {
+          errorMsg +=
+            " (This might be due to large file sizes. Try reducing the number of files or their sizes.)";
+        } else if (uploadResponse.status === 401) {
+          errorMsg +=
+            " (Your authentication token may have expired. Please sign out and sign in again.)";
+        } else if (uploadResponse.status === 403) {
+          errorMsg +=
+            " (Your email is not authorized to upload. Contact the administrator.)";
+        } else if (uploadResponse.status === 500) {
+          errorMsg +=
+            " (Server error - the administrator has been notified.)";
+        }
+
         throw new Error(errorMsg);
       }
 
