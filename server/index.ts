@@ -200,6 +200,43 @@ export function createServer() {
     next();
   };
 
+  // Request validation middleware for multipart uploads
+  const validateUploadRequest = (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction,
+  ) => {
+    const contentType = req.get("content-type") || "";
+
+    // Validate this is a multipart form upload
+    if (!contentType.includes("multipart/form-data")) {
+      console.error(
+        `[${new Date().toISOString()}] Invalid Content-Type for upload: ${contentType}`,
+      );
+      return res.status(400).json({
+        error: "Invalid request format",
+        details: "Content-Type must be multipart/form-data",
+      });
+    }
+
+    // Validate Authorization header exists
+    const authHeader = req.get("authorization");
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      console.error(
+        `[${new Date().toISOString()}] Missing or invalid Authorization header`,
+      );
+      return res.status(401).json({
+        error: "Unauthorized",
+        details: "Authorization header is required",
+      });
+    }
+
+    console.log(
+      `[${new Date().toISOString()}] Valid upload request: ${contentType}`,
+    );
+    next();
+  };
+
   // Multer error handling middleware
   const multerErrorHandler = (
     err: any,
@@ -208,16 +245,32 @@ export function createServer() {
     next: express.NextFunction,
   ) => {
     if (err.name === "MulterError") {
-      console.error("Multer error:", err);
+      console.error(
+        `[${new Date().toISOString()}] Multer error:`,
+        err.code,
+        err.message,
+      );
       if (err.code === "FILE_TOO_LARGE") {
         return res.status(413).json({
           error: "File too large",
-          details: `Maximum file size is ${err.limit} bytes`,
+          details: `Maximum file size is 500MB per file. Received: ${(err.limit / 1024 / 1024).toFixed(2)}MB`,
         });
       }
       if (err.code === "LIMIT_FILE_COUNT") {
         return res.status(400).json({
           error: "Too many files",
+          details: `Maximum 100 files allowed per upload. ${err.message}`,
+        });
+      }
+      if (err.code === "LIMIT_FIELD_KEY") {
+        return res.status(400).json({
+          error: "Field name too long",
+          details: err.message,
+        });
+      }
+      if (err.code === "LIMIT_FIELD_VALUE") {
+        return res.status(400).json({
+          error: "Field value too large",
           details: err.message,
         });
       }
