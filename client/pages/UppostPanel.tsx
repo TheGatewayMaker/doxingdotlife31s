@@ -491,8 +491,8 @@ export default function UppostPanel() {
             style={{ animationDelay: "0.2s" }}
           >
             {/* Title */}
-            <div>
-              <label className="block text-sm font-bold mb-3 text-foreground">
+            <div className="animate-slideInDown" style={{ animationDelay: "0.25s" }}>
+              <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                 Post Title <span className="text-destructive">*</span>
               </label>
               <div className="relative">
@@ -500,23 +500,23 @@ export default function UppostPanel() {
                   type="text"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
                   placeholder="Enter post title"
                 />
               </div>
             </div>
 
             {/* Description */}
-            <div>
-              <label className="block text-sm font-bold mb-3 text-foreground">
+            <div className="animate-slideInUp" style={{ animationDelay: "0.27s" }}>
+              <label className="block text-xs sm:text-sm font-bold mb-2 sm:mb-3 text-foreground">
                 Description <span className="text-destructive">*</span>
               </label>
               <div className="relative">
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-4 py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent resize-none transition-all duration-200"
-                  rows={5}
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent resize-none transition-all duration-200 text-sm"
+                  rows={4}
                   placeholder="Enter post description"
                 />
               </div>
