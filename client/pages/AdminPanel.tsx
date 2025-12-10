@@ -462,7 +462,6 @@ export default function AdminPanel() {
                     onDelete={handleDeletePost}
                     onUpdate={handlePostUpdated}
                     animationDelay={idx * 0.08}
-                    getIdToken={getIdToken}
                   />
                 ))}
               </div>
