@@ -159,7 +159,9 @@ export default function EditPostModal({
       onClose();
     } catch (error) {
       console.error("Error updating post:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to update post");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to update post",
+      );
     } finally {
       setIsSaving(false);
     }

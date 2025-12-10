@@ -207,7 +207,9 @@ export default function AdminPanel() {
       toast.success("Post deleted successfully");
     } catch (error) {
       console.error("Error deleting post:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to delete post");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to delete post",
+      );
     } finally {
       setIsDeletingPost(false);
       setDeletingPostId(null);

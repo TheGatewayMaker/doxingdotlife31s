@@ -158,7 +158,16 @@ const getMimeType = (fileName: string): string => {
 export const handleUpdatePost: RequestHandler = async (req, res) => {
   try {
     const { postId } = req.params;
-    const { title, description, country, city, server, nsfw, isTrend, trendRank } = req.body;
+    const {
+      title,
+      description,
+      country,
+      city,
+      server,
+      nsfw,
+      isTrend,
+      trendRank,
+    } = req.body;
 
     if (!postId) {
       res.status(400).json({ error: "Post ID is required" });
@@ -188,8 +197,12 @@ export const handleUpdatePost: RequestHandler = async (req, res) => {
     if (city !== undefined) updates.city = city;
     if (server !== undefined) updates.server = server;
     if (nsfw !== undefined) updates.nsfw = nsfw === "true" || nsfw === true;
-    if (isTrend !== undefined) updates.isTrend = isTrend === "true" || isTrend === true;
-    if (trendRank !== undefined) updates.trendRank = trendRank ? parseInt(String(trendRank), 10) : undefined;
+    if (isTrend !== undefined)
+      updates.isTrend = isTrend === "true" || isTrend === true;
+    if (trendRank !== undefined)
+      updates.trendRank = trendRank
+        ? parseInt(String(trendRank), 10)
+        : undefined;
 
     const updatedMetadata = await updatePostMetadataField(postId, updates);
     if (!updatedMetadata) {

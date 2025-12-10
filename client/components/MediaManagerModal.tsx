@@ -88,7 +88,9 @@ export default function MediaManagerModal({
       toast.success("Media file deleted successfully");
     } catch (error) {
       console.error("Error deleting media file:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to delete media file");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to delete media file",
+      );
     } finally {
       setIsDeletingFile(false);
       setDeletingFileName(null);
