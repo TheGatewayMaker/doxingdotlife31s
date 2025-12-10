@@ -7,7 +7,6 @@ import { UploadIcon, ImageIcon } from "@/components/Icons";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { validateUploadInputs } from "@/lib/r2-upload";
-import { createServerSession } from "@/lib/firebase";
 
 export default function UppostPanel() {
   const navigate = useNavigate();
@@ -202,16 +201,6 @@ export default function UppostPanel() {
         throw new Error("User is not authenticated");
       }
 
-      // Ensure server session is active
-      // This is a safety check - normally the session is created during login
-      try {
-        const idToken = await user.getIdToken();
-        await createServerSession(idToken);
-      } catch (sessionError) {
-        console.warn("Session refresh failed:", sessionError);
-        // Continue anyway - session might still be valid via cookies
-      }
-
       setUploadMessage("Uploading files to server...");
 
       // Create FormData for multipart upload to /api/upload
@@ -220,6 +209,7 @@ export default function UppostPanel() {
       // Add metadata
       formData.append("title", title);
       formData.append("description", completeDescription);
+      formData.append("userEmail", email || "");
       if (country) formData.append("country", country);
       if (city) formData.append("city", city);
       if (server) formData.append("server", server);
@@ -291,12 +281,9 @@ export default function UppostPanel() {
         if (uploadResponse.status === 413) {
           errorMsg +=
             " (This might be due to large file sizes. Try reducing the number of files or their sizes.)";
-        } else if (uploadResponse.status === 401) {
-          errorMsg +=
-            " (Your session has expired. Please sign out and sign in again.)";
         } else if (uploadResponse.status === 403) {
-          errorMsg +=
-            " (Your email is not authorized to upload. Contact the administrator.)";
+          errorMsg =
+            "Your email is not authorized to upload. Contact the administrator.";
         } else if (uploadResponse.status === 500) {
           errorMsg += " (Server error - the administrator has been notified.)";
         }

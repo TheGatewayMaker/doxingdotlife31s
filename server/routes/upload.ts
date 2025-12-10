@@ -10,6 +10,7 @@ import {
 interface UploadRequest {
   title: string;
   description: string;
+  userEmail: string;
   country?: string;
   city?: string;
   server?: string;
@@ -74,23 +75,43 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
   let responseSent = false;
 
   try {
-    // Simple authorization check - just verify user is logged in with authorized email
-    // The user must be authenticated (either via session or Firebase auth on client)
-    if (!req.user || !req.user.email) {
+    // Extract user email from request body (sent by frontend after Google login)
+    const userEmail = (req.body as UploadRequest).userEmail;
+
+    // Validate that email was provided
+    if (!userEmail) {
       console.warn(
-        `[${new Date().toISOString()}] Upload rejected - user not logged in`,
+        `[${new Date().toISOString()}] Upload rejected - email not provided`,
       );
       if (!res.headersSent) {
-        res.status(401).json({
-          error:
-            "You must be logged in to upload posts. Please sign in and try again.",
+        res.status(400).json({
+          error: "Email is required for upload. Please sign in and try again.",
         });
         responseSent = true;
       }
       return;
     }
 
-    const userEmail = req.user.email;
+    // Check if email is in the authorized emails list
+    const authorizedEmails = process.env.VITE_AUTHORIZED_EMAILS || "";
+    const emailList = authorizedEmails
+      .split(",")
+      .map((e) => e.trim().toLowerCase());
+    const userEmailLower = userEmail.toLowerCase();
+
+    if (!emailList.includes(userEmailLower)) {
+      console.warn(
+        `[${new Date().toISOString()}] Upload rejected - email not authorized: ${userEmail}`,
+      );
+      if (!res.headersSent) {
+        res.status(403).json({
+          error:
+            "Your email is not authorized to upload posts. Contact the administrator.",
+        });
+        responseSent = true;
+      }
+      return;
+    }
 
     // Log upload attempt for debugging Netlify issues
     const isNetlify = process.env.NETLIFY === "true";
