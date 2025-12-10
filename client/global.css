@@ -316,6 +316,28 @@ html {
     align-items: center;
   }
 
+  /* Responsive image loading */
+  img[loading="lazy"] {
+    background-color: #0a0a0a;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Focus visible for accessibility */
+  *:focus-visible {
+    outline: 2px solid hsl(200, 100%, 40%);
+    outline-offset: 2px;
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid hsl(200, 100%, 40%);
+    outline-offset: 2px;
+  }
+
   .animate-fadeIn {
     animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     opacity: 0;
