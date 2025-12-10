@@ -140,7 +140,10 @@ export default function PostMediaSection({
 
           {/* Video Player */}
           <div className="bg-[#1a1a1a] rounded-lg overflow-hidden border border-[#666666]">
-            <div className="relative bg-black flex items-center justify-center w-full" style={{ aspectRatio: "16/9", minHeight: "300px" }}>
+            <div
+              className="relative bg-black flex items-center justify-center w-full"
+              style={{ aspectRatio: "16/9", minHeight: "300px" }}
+            >
               <video
                 controls
                 controlsList="nodownload"

@@ -494,8 +494,8 @@ export default function AllPosts() {
                   </h2>
                 </div>
                 <p className="text-[#979797] text-xs sm:text-sm md:text-base mt-2 sm:mt-3">
-                  Showing {displayedPosts.length} of {filteredPosts.length}{" "}
-                  post{filteredPosts.length !== 1 ? "s" : ""}
+                  Showing {displayedPosts.length} of {filteredPosts.length} post
+                  {filteredPosts.length !== 1 ? "s" : ""}
                 </p>
               </>
             )}

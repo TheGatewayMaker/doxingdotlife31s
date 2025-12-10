@@ -168,7 +168,9 @@ export default function Header() {
             >
               {/* Header padding for mobile menu */}
               <div className="h-16 sm:h-20 border-b border-[#666666] flex items-center px-4 sm:px-6 flex-shrink-0">
-                <h2 className="text-lg sm:text-xl font-bold text-white">Navigation</h2>
+                <h2 className="text-lg sm:text-xl font-bold text-white">
+                  Navigation
+                </h2>
               </div>
 
               {/* Scrollable menu content */}
