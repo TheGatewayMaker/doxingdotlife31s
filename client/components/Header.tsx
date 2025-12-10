@@ -122,7 +122,9 @@ export default function Header() {
         <button
           className="lg:hidden p-2 hover:bg-[#666666]/40 active:bg-[#666666]/60 rounded-lg transition-all duration-200 z-50 -mr-2 touch-manipulation"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          aria-label={isSidebarOpen ? "Close navigation menu" : "Toggle navigation menu"}
+          aria-label={
+            isSidebarOpen ? "Close navigation menu" : "Toggle navigation menu"
+          }
           aria-expanded={isSidebarOpen}
           aria-controls="mobile-menu"
         >
