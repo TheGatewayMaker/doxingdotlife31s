@@ -938,27 +938,27 @@ export default function UppostPanel() {
                     </p>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
                       {mediaPreviews.map((media, idx) => (
-                        <div key={idx} className="relative group">
+                        <div key={idx} className="relative group animate-scaleUpFadeIn" style={{ animationDelay: `${idx * 0.05}s` }}>
                           {media.type.startsWith("image/") ? (
                             <img
                               src={media.preview}
                               alt={`Preview ${idx}`}
-                              className="w-full aspect-square rounded-lg border border-border object-cover"
+                              className="w-full aspect-square rounded-lg border border-border object-cover hover:border-accent/60 transition-colors"
                             />
                           ) : (
                             <video
                               src={media.preview}
-                              className="w-full aspect-square rounded-lg border border-border object-cover bg-muted"
+                              className="w-full aspect-square rounded-lg border border-border object-cover bg-muted hover:border-accent/60 transition-colors"
                             />
                           )}
                           <button
                             type="button"
                             onClick={() => removeMediaFile(idx)}
-                            className="absolute top-1 right-1 bg-destructive text-destructive-foreground p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                            className="absolute top-0.5 right-0.5 bg-destructive text-destructive-foreground p-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
                           >
-                            <X className="w-4 h-4" />
+                            <X className="w-3 h-3 sm:w-4 sm:h-4" />
                           </button>
-                          <div className="absolute bottom-1 left-1 bg-black/50 text-white text-xs px-2 py-1 rounded">
+                          <div className="absolute bottom-0.5 left-0.5 bg-black/50 text-white text-xs px-1.5 py-0.5 rounded">
                             {idx + 1}
                           </div>
                         </div>
