@@ -108,10 +108,12 @@ html {
     background: #000000;
     min-height: 100vh;
     transition: overflow 0.2s ease;
+    position: relative;
   }
 
   body.overflow-hidden {
     overflow: hidden;
+    height: 100vh;
   }
 
   h1,
