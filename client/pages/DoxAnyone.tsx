@@ -13,7 +13,7 @@ export default function DoxAnyone() {
       <main className="flex-1 w-full">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
           {/* Header Section */}
-          <div className="text-center mb-6 sm:mb-8">
+          <div className="text-center mb-6 sm:mb-8 animate-slideInDown" style={{ animationDelay: "0.1s" }}>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-black mb-2 text-[#0088CC]">
               Dox Anyone
             </h1>
@@ -23,7 +23,7 @@ export default function DoxAnyone() {
           </div>
 
           {/* Pricing Section */}
-          <div className="bg-[#1a1a1a] border-2 border-[#666666] rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
+          <div className="bg-[#1a1a1a] border-2 border-[#666666] rounded-lg p-4 sm:p-6 mb-6 sm:mb-8 animate-scaleUpFadeIn" style={{ animationDelay: "0.2s" }}>
             <h2 className="text-lg sm:text-xl font-black mb-4 text-white">
               Pricing
             </h2>
