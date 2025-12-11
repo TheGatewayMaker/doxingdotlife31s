@@ -225,25 +225,26 @@ export default function AllPosts() {
                       </div>
                     )}
                     <div className="p-3 sm:p-4 flex-1 flex flex-col">
-                      <div className="flex items-start justify-between gap-2 mb-2 sm:mb-3">
-                        <h3 className="font-bold text-sm sm:text-base lg:text-lg line-clamp-2 flex-1 text-white group-hover:text-[#0088CC] transition-colors">
+                      <div className="flex items-start justify-between gap-2 mb-2.5 sm:mb-3">
+                        <h3 className="font-black text-base sm:text-lg lg:text-xl line-clamp-2 flex-1 text-white group-hover:text-[#0088CC] transition-colors">
                           {post.title}
                         </h3>
                         {post.nsfw && (
                           <div className="relative inline-flex items-center flex-shrink-0">
-                            <span className="inline-flex items-center gap-0.5 bg-red-600 text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded text-xs sm:text-sm font-black flex-shrink-0 whitespace-nowrap transition-all duration-200 cursor-default shadow-lg hover:shadow-xl hover:shadow-red-600/40 hover:bg-red-700">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-red-500 rounded-md blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
+                            <span className="relative inline-flex items-center bg-gradient-to-br from-red-600 to-red-700 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-black flex-shrink-0 whitespace-nowrap transition-all duration-200 cursor-default shadow-lg">
                               NSFW
                             </span>
                           </div>
                         )}
                       </div>
-                      <p className="text-xs sm:text-sm line-clamp-2 mb-3 sm:mb-4 text-[#979797] flex-1 leading-relaxed">
+                      <p className="text-xs sm:text-sm line-clamp-2 mb-3 sm:mb-4 text-[#d0d0d0] font-semibold flex-1 leading-relaxed">
                         {post.description.replace(/\*\*/g, "")}
                       </p>
-                      <div className="flex flex-wrap gap-1.5 opacity-70 group-hover:opacity-90 transition-opacity">
+                      <div className="flex flex-wrap gap-2 opacity-100 group-hover:opacity-100 transition-opacity">
                         {post.country && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#333333] text-[#b0b0b0] flex-shrink-0">
-                            <GlobeIcon className="w-3 h-3" />
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold bg-[#2a2a2a] text-[#e0e0e0] border border-[#444444] flex-shrink-0 hover:border-[#0088CC] transition-all">
+                            <GlobeIcon className="w-3.5 h-3.5" />
                             <span className="hidden sm:inline">
                               {post.country}
                             </span>
@@ -253,8 +254,8 @@ export default function AllPosts() {
                           </span>
                         )}
                         {post.city && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#333333] text-[#b0b0b0] flex-shrink-0">
-                            <MapPinIcon className="w-3 h-3" />
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold bg-[#2a2a2a] text-[#e0e0e0] border border-[#444444] flex-shrink-0 hover:border-[#0088CC] transition-all">
+                            <MapPinIcon className="w-3.5 h-3.5" />
                             <span className="hidden sm:inline">
                               {post.city}
                             </span>
@@ -264,8 +265,8 @@ export default function AllPosts() {
                           </span>
                         )}
                         {post.server && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium bg-[#333333] text-[#b0b0b0] flex-shrink-0">
-                            <ServerIcon className="w-3 h-3" />
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold bg-[#2a2a2a] text-[#e0e0e0] border border-[#444444] flex-shrink-0 hover:border-[#0088CC] transition-all">
+                            <ServerIcon className="w-3.5 h-3.5" />
                             <span className="hidden sm:inline">
                               {post.server}
                             </span>
