@@ -130,8 +130,8 @@ export default function AllPosts() {
         </div>
 
         {/* All Posts */}
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-10 md:py-12 lg:py-16">
-          <div className="mb-8 sm:mb-10 md:mb-12 animate-slideInUp">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8">
+          <div className="mb-4 sm:mb-6 md:mb-8 animate-slideInUp">
             {isLoadingPosts ? (
               <>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3 text-white">
@@ -157,13 +157,13 @@ export default function AllPosts() {
               </>
             ) : (
               <>
-                <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3">
+                <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 mb-0.5 sm:mb-1 md:mb-2">
                   <Flame className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 text-orange-500" />
                   <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white">
                     All Posts
                   </h2>
                 </div>
-                <p className="text-[#979797] text-xs sm:text-sm md:text-base mt-2 sm:mt-3">
+                <p className="text-[#979797] text-xs sm:text-sm md:text-base mt-0">
                   Showing {displayedPosts.length} of {filteredPosts.length} post
                   {filteredPosts.length !== 1 ? "s" : ""}
                 </p>
@@ -173,16 +173,18 @@ export default function AllPosts() {
 
           {displayedPosts.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-8 sm:mb-10 md:mb-12">
+              <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 mb-4 sm:mb-6 md:mb-8">
                 {displayedPosts.map((post, idx) => (
                   <div
                     key={post.id}
                     onClick={() => navigate(`/post/${post.id}`)}
                     className={cn(
                       "group rounded-lg sm:rounded-xl overflow-hidden transition-all duration-300 cursor-pointer animate-scaleUpFadeIn flex flex-col h-full active:scale-95 sm:active:scale-100",
-                      post.isTrend
-                        ? "bg-gradient-to-br from-[#4a3a1a] via-[#3a2a1a] to-[#2a1a0a] hover:shadow-[0_0_30px_rgba(255,215,0,0.3)] hover:bg-gradient-to-br hover:from-[#5a4a2a] hover:via-[#4a3a2a] hover:to-[#3a2a1a]"
-                        : "bg-[#1a1a1a] hover:shadow-[0_0_20px_rgba(0,136,204,0.25)] hover:bg-[#242424]",
+                      post.nsfw && !post.isTrend
+                        ? "bg-gradient-to-br from-[#2a1a1a] via-[#1a0a0a] to-[#1a0a0a] hover:shadow-[0_0_25px_rgba(239,68,68,0.35)] hover:from-[#3a2a1f] hover:via-[#2a1a0f] hover:to-[#1a0a0a]"
+                        : post.isTrend
+                        ? "bg-gradient-to-br from-[#4a3a1a] via-[#3a2a1a] to-[#2a1a0a] hover:shadow-[0_0_35px_rgba(255,215,0,0.4)] hover:from-[#5a4a2a] hover:via-[#4a3a2a] hover:to-[#3a2a1a]"
+                        : "bg-[#1a1a1a] hover:shadow-[0_0_30px_rgba(0,136,204,0.3)] hover:bg-[#252525]",
                     )}
                     style={{ animationDelay: `${idx * 0.08}s` }}
                     role="link"
