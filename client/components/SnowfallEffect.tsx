@@ -21,17 +21,17 @@ const SnowfallEffect = () => {
     const generateSnowflakes = () => {
       const flakes: Snowflake[] = [];
       const count =
-        window.innerWidth < 768 ? 20 : window.innerWidth < 1024 ? 30 : 50;
+        window.innerWidth < 768 ? 30 : window.innerWidth < 1024 ? 40 : 60;
 
       for (let i = 0; i < count; i++) {
         flakes.push({
           id: `snowflake-${i}`,
           x: Math.random() * 100,
-          size: Math.random() * (4 - 1.5) + 1.5,
-          duration: Math.random() * (20 - 10) + 10,
-          delay: Math.random() * 5,
+          size: Math.random() * (6 - 2.5) + 2.5,
+          duration: Math.random() * (20 - 12) + 12,
+          delay: Math.random() * 3,
           swingAmount: Math.random() * 100 - 50,
-          opacity: Math.random() * (0.8 - 0.3) + 0.3,
+          opacity: Math.random() * (1 - 0.4) + 0.4,
         });
       }
       return flakes;
