@@ -52,8 +52,7 @@ const SnowfallEffect = () => {
       flakes.forEach((flake) => {
         const snowflake = document.createElement("div");
         snowflake.id = flake.id;
-        snowflake.className =
-          "fixed pointer-events-none select-none font-bold";
+        snowflake.className = "fixed pointer-events-none select-none font-bold";
         snowflake.innerHTML = "❄";
 
         snowflake.style.cssText = `
