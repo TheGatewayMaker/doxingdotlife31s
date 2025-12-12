@@ -53,7 +53,7 @@ const SnowfallEffect = () => {
         const snowflake = document.createElement("div");
         snowflake.id = flake.id;
         snowflake.className =
-          "fixed pointer-events-none select-none font-semibold";
+          "fixed pointer-events-none select-none font-bold";
         snowflake.innerHTML = "❄";
 
         snowflake.style.cssText = `
@@ -61,8 +61,13 @@ const SnowfallEffect = () => {
           top: -10px;
           font-size: ${flake.size}px;
           opacity: ${flake.opacity};
-          z-index: 10;
-          text-shadow: 0 0 8px rgba(0, 136, 204, 0.3);
+          z-index: 20;
+          color: rgba(255, 255, 255, 0.9);
+          text-shadow:
+            0 0 10px rgba(0, 136, 204, 0.6),
+            0 0 20px rgba(100, 200, 255, 0.4),
+            0 0 5px rgba(255, 255, 255, 0.8);
+          filter: drop-shadow(0 0 4px rgba(0, 136, 204, 0.5));
         `;
 
         container.appendChild(snowflake);
