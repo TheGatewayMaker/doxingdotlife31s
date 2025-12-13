@@ -224,10 +224,10 @@ export default function AllPosts() {
                           <>
                             <div className="absolute top-0 right-0 w-1/5 h-1/5 bg-gradient-to-bl from-black/40 to-transparent pointer-events-none blur-xl" />
                             <div className="absolute top-1 sm:top-3 right-1 sm:right-3 flex flex-col gap-1 z-10">
-                              <span className="bg-[#FF0000] text-white font-black text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1.5 rounded-md">
+                              <span className="bg-[#FF0000] text-white font-black text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1.5 rounded-md drop-shadow-lg">
                                 NSFW
                               </span>
-                              <span className="bg-[#FF0000] text-white font-black text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1.5 rounded-md">
+                              <span className="bg-[#FF0000] text-white font-black text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1.5 rounded-md drop-shadow-lg">
                                 18+
                               </span>
                             </div>
