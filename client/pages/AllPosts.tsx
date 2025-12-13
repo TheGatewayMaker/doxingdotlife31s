@@ -241,9 +241,6 @@ export default function AllPosts() {
                           {post.title}
                         </h3>
                       </div>
-                      <p className="hidden sm:block text-xs sm:text-sm line-clamp-1 mb-1 sm:mb-2 text-[#d0d0d0] font-semibold flex-1 leading-relaxed">
-                        {post.description.replace(/\*\*|[*]/g, "")}
-                      </p>
                       <div className="hidden sm:flex flex-wrap gap-1 opacity-100 group-hover:opacity-100 transition-opacity">
                         {post.country && (
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-[#2a2a2a] text-[#e0e0e0] border border-[#444444] flex-shrink-0 hover:border-[#0088CC] transition-all">

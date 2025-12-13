@@ -242,9 +242,6 @@ export default function Index() {
                           {post.title}
                         </h3>
                       </div>
-                      <p className="hidden sm:block text-xs sm:text-sm line-clamp-1 mb-1 sm:mb-2 text-[#d0d0d0] font-semibold flex-1 leading-relaxed">
-                        {post.description.replace(/\*\*|[*]/g, "")}
-                      </p>
                       <div className="hidden sm:flex flex-wrap gap-1 opacity-100 group-hover:opacity-100 transition-opacity">
                         {post.country && (
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md text-[#d0d0d0] border border-white/20 flex-shrink-0 hover:bg-white/20 hover:border-[#0088CC] transition-all">
