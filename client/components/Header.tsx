@@ -194,6 +194,7 @@ export default function Header() {
               }`}
               style={{
                 zIndex: 50,
+                willChange: "transform",
               }}
               role="navigation"
               aria-label="Mobile navigation"
