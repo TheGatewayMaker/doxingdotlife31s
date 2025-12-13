@@ -242,6 +242,9 @@ export default function Index() {
                           {post.title}
                         </h3>
                       </div>
+                      <p className="text-xs sm:text-sm font-bold text-[#0088CC] cursor-pointer hover:text-[#00AADD] transition-colors">
+                        Click to see Full Post
+                      </p>
                       <div className="hidden sm:flex flex-wrap gap-1 opacity-100 group-hover:opacity-100 transition-opacity">
                         {post.country && (
                           <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md text-[#d0d0d0] border border-white/20 flex-shrink-0 hover:bg-white/20 hover:border-[#0088CC] transition-all">
