@@ -64,7 +64,7 @@ export const handleWatermarkVideo: RequestHandler = async (req, res) => {
     let isProcessing = false;
 
     const command = ffmpeg()
-      .input(videoUrl)
+      .input(absoluteUrl)
       .videoFilter(watermarkFilter)
       .audioCodec("aac")
       .videoCodec("libx264")
