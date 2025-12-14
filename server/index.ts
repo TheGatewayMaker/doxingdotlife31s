@@ -20,6 +20,8 @@ import {
   authMiddleware,
   optionalAuthMiddleware,
 } from "./routes/auth";
+import { handleWatermarkVideo } from "./routes/watermark-video";
+import { checkFFmpegAvailability } from "./utils/ffmpeg-check";
 import { validateR2Configuration } from "./utils/r2-storage";
 
 // VPS configuration with proper size handling
@@ -35,6 +37,9 @@ const upload = multer({
 
 export function createServer() {
   const app = express();
+
+  // Initialize FFmpeg availability check
+  checkFFmpegAvailability();
 
   // Security headers middleware - MUST be before CORS to prevent browser blocking
   app.use((req, res, next) => {
@@ -345,6 +350,9 @@ export function createServer() {
 
   app.get("/api/posts", handleGetPosts);
   app.get("/api/servers", handleGetServers);
+
+  // Video watermarking endpoint
+  app.post("/api/watermark-video", asyncHandler(handleWatermarkVideo));
 
   // Admin routes (no auth required)
   app.delete("/api/posts/:postId", handleDeletePost);

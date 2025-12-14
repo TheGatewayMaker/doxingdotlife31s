@@ -58,73 +58,63 @@ export async function addWatermarkToImage(
 }
 
 /**
- * Add watermark to a video by capturing the first frame
+ * Add watermark to a video using server-side FFmpeg processing
  */
 export async function addWatermarkToVideo(
   videoUrl: string,
   videoName: string,
 ): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const video = document.createElement("video");
-    video.crossOrigin = "anonymous";
-    video.src = videoUrl;
-    video.preload = "metadata";
+  try {
+    // Call server endpoint to process video with watermark
+    const response = await fetch("/api/watermark-video", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ videoUrl }),
+    });
 
-    video.onloadedmetadata = () => {
+    if (!response.ok) {
+      let errorMessage = "";
+
       try {
-        // Seek to the middle of the video to get a representative frame
-        video.currentTime = Math.min(video.duration / 2, 5);
-      } catch (error) {
-        reject(error);
+        const errorData = await response.json();
+        errorMessage = errorData.error || errorData.message || "";
+      } catch {
+        errorMessage = response.statusText;
       }
-    };
 
-    video.onseeked = () => {
-      try {
-        const canvas = document.createElement("canvas");
-        canvas.width = video.videoWidth || 800;
-        canvas.height = video.videoHeight || 600;
-
-        const ctx = canvas.getContext("2d");
-        if (!ctx) {
-          throw new Error("Failed to get canvas context");
-        }
-
-        // Draw video frame
-        ctx.drawImage(video, 0, 0);
-
-        // Apply watermark
-        applyWatermarkToCanvas(ctx, canvas.width, canvas.height);
-
-        // Download
-        canvas.toBlob((blob) => {
-          if (blob) {
-            // Change extension to .png for the thumbnail
-            const fileName = videoName.replace(/\.[^/.]+$/, ".png");
-            downloadBlob(blob, fileName);
-            resolve();
-          } else {
-            reject(new Error("Failed to convert canvas to blob"));
-          }
-        }, "image/png");
-      } catch (error) {
-        reject(error);
+      if (response.status === 503) {
+        throw new Error(
+          "Video watermarking service is unavailable. FFmpeg needs to be installed on the server.",
+        );
       }
-    };
 
-    video.onerror = () => {
-      reject(new Error("Failed to load video"));
-    };
+      throw new Error(
+        errorMessage ||
+          `Server error ${response.status}: ${response.statusText}`,
+      );
+    }
 
-    // Add to DOM temporarily
-    video.style.display = "none";
-    document.body.appendChild(video);
+    // Get the blob from the response
+    const blob = await response.blob();
 
-    // Cleanup after a delay
-    setTimeout(() => {
-      document.body.removeChild(video);
-    }, 2000);
-  });
+    if (blob.size === 0) {
+      throw new Error("Received empty video file from server");
+    }
+
+    // Ensure the filename has .mp4 extension
+    const fileName = videoName.replace(/\.[^/.]+$/, "") + ".mp4";
+
+    // Download the watermarked video
+    downloadBlob(blob, fileName);
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Failed to process video with watermark";
+    throw new Error(message);
+  }
 }
 
 /**
