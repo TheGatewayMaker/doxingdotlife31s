@@ -22,11 +22,30 @@ export const handleWatermarkVideo: RequestHandler = async (req, res) => {
       return res.status(400).json({ error: "Video URL is required" });
     }
 
+    // Convert relative URLs to absolute URLs
+    let absoluteUrl = videoUrl;
+
+    // If URL is relative, make it absolute
+    if (!videoUrl.startsWith("http://") && !videoUrl.startsWith("https://")) {
+      // Build the origin from the request
+      const protocol = req.get("x-forwarded-proto") || req.protocol || "http";
+      const host =
+        req.get("x-forwarded-host") || req.get("host") || "localhost";
+      const origin = `${protocol}://${host}`;
+      absoluteUrl = new URL(videoUrl, origin).toString();
+    }
+
     // Validate URL to prevent SSRF attacks
+    let urlObject;
     try {
-      new URL(videoUrl);
-    } catch {
-      return res.status(400).json({ error: "Invalid video URL" });
+      urlObject = new URL(absoluteUrl);
+    } catch (error) {
+      return res.status(400).json({ error: "Invalid video URL format" });
+    }
+
+    // Prevent SSRF by checking if it's a valid HTTP(S) URL
+    if (!urlObject.protocol.startsWith("http")) {
+      return res.status(400).json({ error: "Invalid video URL protocol" });
     }
 
     // Check if FFmpeg path is set
@@ -46,7 +65,7 @@ export const handleWatermarkVideo: RequestHandler = async (req, res) => {
     let isProcessing = false;
 
     const command = ffmpeg()
-      .input(videoUrl)
+      .input(absoluteUrl)
       .videoFilter(watermarkFilter)
       .audioCodec("aac")
       .videoCodec("libx264")
@@ -58,6 +77,7 @@ export const handleWatermarkVideo: RequestHandler = async (req, res) => {
       })
       .on("error", (err) => {
         console.error("FFmpeg error:", err);
+        console.error("Attempted to process video URL:", absoluteUrl);
         if (!res.headersSent) {
           res.status(500).json({
             error: "Video processing failed",
