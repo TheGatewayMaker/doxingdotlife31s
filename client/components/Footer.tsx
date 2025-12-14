@@ -6,17 +6,13 @@ import {
   FileTextIcon,
   ScaleIcon,
   AlertIcon,
-  ShoppingCartIcon,
-  CreditCardIcon,
-  PhoneIcon,
-  MailIcon,
 } from "@/components/Icons";
 
 export default function Footer() {
   return (
     <footer className="w-full bg-[#000000] border-t border-[#666666] mt-12 sm:mt-16 lg:mt-20 shadow-lg animate-slideInUp">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-6 sm:mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 mb-6 sm:mb-8">
           <div
             className="animate-slideInLeftFade"
             style={{ animationDelay: "0.1s" }}
@@ -108,41 +104,6 @@ export default function Footer() {
                 >
                   <AlertIcon className="w-4 h-4 flex-shrink-0" />
                   <span>Disclaimer</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="animate-slideInUp" style={{ animationDelay: "0.4s" }}>
-            <h4 className="font-bold text-white mb-3 sm:mb-4 flex items-center gap-2 text-xs sm:text-sm uppercase tracking-wider">
-              <MessageIcon className="w-4 h-4 text-[#979797] flex-shrink-0" />
-              <span>Support</span>
-            </h4>
-            <ul className="space-y-2 sm:space-y-2.5 text-xs sm:text-sm text-[#979797]">
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-[#0088CC] transition-colors duration-200 flex items-center gap-2 hover:translate-x-1 py-1"
-                >
-                  <FileTextIcon className="w-4 h-4 flex-shrink-0" />
-                  <span className="line-clamp-1">API Documentation</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-[#0088CC] transition-colors duration-200 flex items-center gap-2 hover:translate-x-1 py-1"
-                >
-                  <MessageIcon className="w-4 h-4 flex-shrink-0" />
-                  <span>FAQ & Help</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="hover:text-[#0088CC] transition-colors duration-200 flex items-center gap-2 hover:translate-x-1 py-1"
-                >
-                  <AlertIcon className="w-4 h-4 flex-shrink-0" />
-                  <span className="line-clamp-1">Report Data Issue</span>
                 </a>
               </li>
             </ul>
