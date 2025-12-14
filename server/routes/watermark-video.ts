@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import ffmpeg from "fluent-ffmpeg";
 import { PassThrough } from "stream";
-import path from "path";
 
 const WATERMARK_TEXT = "www.doxing.life";
 
@@ -26,30 +25,41 @@ export const handleWatermarkVideo: RequestHandler = async (req, res) => {
       ffmpeg.setFfmpegPath(ffmpegPath);
     }
 
-    // Create watermark text overlay filter
-    // This will add diagonal watermark text across the video
-    const watermarkFilter = `drawtext=text='${WATERMARK_TEXT}':fontsize=60:fontcolor=white@0.6:x=(w-text_w)/2:y=(h-text_h)/2:rotation=atan2(h\\,w):shadowx=2:shadowy=2:shadowcolor=black@0.5`;
+    // Escape special characters in watermark text for FFmpeg
+    const escapedText = WATERMARK_TEXT.replace(/'/g, "\\'");
+
+    // Create watermark text overlay filter with diagonal text
+    // The filter applies a semi-transparent white text rotated diagonally
+    const watermarkFilter = `drawtext=text='${escapedText}':fontsize=60:fontcolor=white@0.6:x=(w-text_w)/2:y=(h-text_h)/2:angle=atan2(h\\,w)*180/PI:shadowx=2:shadowy=2:shadowcolor=black@0.5`;
 
     const passThrough = new PassThrough();
+    let isProcessing = false;
 
-    ffmpeg()
+    const command = ffmpeg()
       .input(videoUrl)
       .videoFilter(watermarkFilter)
       .audioCodec("aac")
       .videoCodec("libx264")
+      .preset("medium")
       .format("mp4")
+      .on("start", (commandLine) => {
+        isProcessing = true;
+        console.log("FFmpeg process started:", commandLine);
+      })
       .on("error", (err) => {
         console.error("FFmpeg error:", err);
         if (!res.headersSent) {
           res.status(500).json({
             error: "Video processing failed",
             details:
-              process.env.NODE_ENV === "development" ? err.message : undefined,
+              process.env.NODE_ENV === "development"
+                ? err.message
+                : "FFmpeg processing error",
           });
         }
       })
       .on("end", () => {
-        console.log("Video watermarking completed");
+        console.log("Video watermarking completed successfully");
       })
       .pipe(passThrough, { end: true });
 
@@ -58,18 +68,29 @@ export const handleWatermarkVideo: RequestHandler = async (req, res) => {
       "Content-Type": "video/mp4",
       "Content-Disposition": `attachment; filename="video-watermarked.mp4"`,
       "Cache-Control": "no-cache, no-store, must-revalidate",
+      "Transfer-Encoding": "chunked",
     });
 
     passThrough.pipe(res);
+
+    // Handle client disconnect
+    res.on("close", () => {
+      if (isProcessing) {
+        console.log("Client disconnected, killing FFmpeg process");
+        command.kill();
+      }
+    });
   } catch (error) {
     console.error("Watermark video error:", error);
     if (!res.headersSent) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
       res.status(500).json({
         error: "Failed to process video",
         details:
           process.env.NODE_ENV === "development"
-            ? (error as Error).message
-            : undefined,
+            ? errorMessage
+            : "Video processing error",
       });
     }
   }
