@@ -1,11 +1,21 @@
 import { RequestHandler } from "express";
 import ffmpeg from "fluent-ffmpeg";
 import { PassThrough } from "stream";
+import { checkFFmpegAvailability } from "../utils/ffmpeg-check";
 
 const WATERMARK_TEXT = "www.doxing.life";
 
 export const handleWatermarkVideo: RequestHandler = async (req, res) => {
   try {
+    // Check if FFmpeg is available
+    if (!checkFFmpegAvailability()) {
+      return res.status(503).json({
+        error: "Video watermarking service unavailable",
+        details:
+          "FFmpeg is not installed on the server. Please contact the administrator to install FFmpeg.",
+      });
+    }
+
     const { videoUrl } = req.body;
 
     if (!videoUrl || typeof videoUrl !== "string") {
@@ -19,7 +29,7 @@ export const handleWatermarkVideo: RequestHandler = async (req, res) => {
       return res.status(400).json({ error: "Invalid video URL" });
     }
 
-    // Check if FFmpeg is available
+    // Check if FFmpeg path is set
     const ffmpegPath = process.env.FFMPEG_PATH;
     if (ffmpegPath) {
       ffmpeg.setFfmpegPath(ffmpegPath);
@@ -44,7 +54,7 @@ export const handleWatermarkVideo: RequestHandler = async (req, res) => {
       .format("mp4")
       .on("start", (commandLine) => {
         isProcessing = true;
-        console.log("FFmpeg process started:", commandLine);
+        console.log("FFmpeg process started");
       })
       .on("error", (err) => {
         console.error("FFmpeg error:", err);
