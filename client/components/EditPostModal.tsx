@@ -106,7 +106,9 @@ export default function EditPostModal({
   const [city, setCity] = useState(post.city || "");
   const [server, setServer] = useState(post.server || "");
   const [nsfw, setNsfw] = useState(post.nsfw || false);
-  const [blurThumbnail, setBlurThumbnail] = useState(post.blurThumbnail || false);
+  const [blurThumbnail, setBlurThumbnail] = useState(
+    post.blurThumbnail || false,
+  );
   const [isTrend, setIsTrend] = useState(post.isTrend || false);
   const [trendRank, setTrendRank] = useState(String(post.trendRank || ""));
   const [isSaving, setIsSaving] = useState(false);
@@ -198,7 +200,7 @@ export default function EditPostModal({
     } catch (error) {
       console.error("Error uploading attachments:", error);
       toast.error(
-        error instanceof Error ? error.message : "Failed to upload attachments"
+        error instanceof Error ? error.message : "Failed to upload attachments",
       );
       throw error;
     } finally {
@@ -683,9 +685,7 @@ export default function EditPostModal({
             className="flex-1 px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:opacity-40 transition-all flex items-center justify-center gap-2"
           >
             <CheckIcon className="w-4 h-4" />
-            {isSaving || isUploadingAttachments
-              ? "Saving..."
-              : "Save Changes"}
+            {isSaving || isUploadingAttachments ? "Saving..." : "Save Changes"}
           </button>
         </div>
       </div>

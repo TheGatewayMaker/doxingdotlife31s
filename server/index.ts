@@ -296,7 +296,7 @@ export function createServer() {
   };
 
   // Catch-all async error handler wrapper - defined before routes that use it
-    // Catch-all async error handler wrapper - defined before routes that use it
+  // Catch-all async error handler wrapper - defined before routes that use it
   const asyncHandler = (
     fn: (
       req: express.Request,

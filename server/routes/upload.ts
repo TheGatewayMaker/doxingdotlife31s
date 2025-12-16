@@ -132,8 +132,17 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    const { title, description, country, city, server, nsfw, blurThumbnail, isTrend, trendRank } =
-      req.body as UploadRequest;
+    const {
+      title,
+      description,
+      country,
+      city,
+      server,
+      nsfw,
+      blurThumbnail,
+      isTrend,
+      trendRank,
+    } = req.body as UploadRequest;
     const files = req.files as
       | { [fieldname: string]: Express.Multer.File[] }
       | undefined;
@@ -306,7 +315,11 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
         nsfw: nsfw === "true" || nsfw === true,
         blurThumbnail: blurThumbnail === "true" || blurThumbnail === true,
         isTrend: isTrend === "true" || isTrend === true,
-        trendRank: trendRank ? (typeof trendRank === "string" ? parseInt(trendRank, 10) : trendRank) : undefined,
+        trendRank: trendRank
+          ? typeof trendRank === "string"
+            ? parseInt(trendRank, 10)
+            : trendRank
+          : undefined,
         mediaFiles: mediaFileNames,
         createdAt: new Date().toISOString(),
       };

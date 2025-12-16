@@ -200,7 +200,9 @@ export const handleUpdatePost: RequestHandler = async (req, res) => {
     if (city !== undefined) updates.city = city;
     if (server !== undefined) updates.server = server;
     if (nsfw !== undefined) updates.nsfw = nsfw === "true" || nsfw === true;
-    if (blurThumbnail !== undefined) updates.blurThumbnail = blurThumbnail === "true" || blurThumbnail === true;
+    if (blurThumbnail !== undefined)
+      updates.blurThumbnail =
+        blurThumbnail === "true" || blurThumbnail === true;
     if (isTrend !== undefined)
       updates.isTrend = isTrend === "true" || isTrend === true;
     if (trendRank !== undefined)
@@ -307,9 +309,7 @@ export const handleAddAttachments: RequestHandler = async (req, res) => {
         errors.push({
           fileName: file.originalname || "unknown",
           error:
-            fileError instanceof Error
-              ? fileError.message
-              : "Unknown error",
+            fileError instanceof Error ? fileError.message : "Unknown error",
         });
       }
     }
