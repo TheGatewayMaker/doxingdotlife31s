@@ -247,19 +247,15 @@ export default function Index() {
                       </p>
                       <div className="hidden sm:flex flex-wrap gap-1 opacity-100 group-hover:opacity-100 transition-opacity">
                         {post.country && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md text-[#d0d0d0] border border-white/20 flex-shrink-0 hover:bg-white/20 hover:border-[#0088CC] transition-all">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md text-[#d0d0d0] border border-white/20 hover:bg-white/20 hover:border-[#0088CC] transition-all">
                             <GlobeIcon className="w-2.5 h-2.5" />
-                            <span className="hidden sm:inline">
-                              {post.country.substring(0, 3)}
-                            </span>
+                            <span>{post.country}</span>
                           </span>
                         )}
                         {post.city && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md text-[#d0d0d0] border border-white/20 flex-shrink-0 hover:bg-white/20 hover:border-[#0088CC] transition-all">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold bg-white/10 backdrop-blur-md text-[#d0d0d0] border border-white/20 hover:bg-white/20 hover:border-[#0088CC] transition-all">
                             <MapPinIcon className="w-2.5 h-2.5" />
-                            <span className="hidden sm:inline">
-                              {post.city.substring(0, 3)}
-                            </span>
+                            <span>{post.city}</span>
                           </span>
                         )}
                       </div>
