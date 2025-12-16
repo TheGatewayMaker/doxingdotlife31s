@@ -22,6 +22,7 @@ export interface Post {
   city?: string;
   server?: string;
   thumbnail?: string;
+  blurThumbnail?: boolean;
   nsfw?: boolean;
   isTrend?: boolean;
   trendRank?: number;
