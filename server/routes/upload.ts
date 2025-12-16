@@ -15,6 +15,9 @@ interface UploadRequest {
   city?: string;
   server?: string;
   nsfw?: string | boolean;
+  blurThumbnail?: string | boolean;
+  isTrend?: string | boolean;
+  trendRank?: string | number;
 }
 
 const sanitizeFileName = (fileName: string): string => {
@@ -129,7 +132,7 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    const { title, description, country, city, server, nsfw } =
+    const { title, description, country, city, server, nsfw, blurThumbnail, isTrend, trendRank } =
       req.body as UploadRequest;
     const files = req.files as
       | { [fieldname: string]: Express.Multer.File[] }
@@ -301,6 +304,9 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
         city: city || "",
         server: server || "",
         nsfw: nsfw === "true" || nsfw === true,
+        blurThumbnail: blurThumbnail === "true" || blurThumbnail === true,
+        isTrend: isTrend === "true" || isTrend === true,
+        trendRank: trendRank ? (typeof trendRank === "string" ? parseInt(trendRank, 10) : trendRank) : undefined,
         mediaFiles: mediaFileNames,
         createdAt: new Date().toISOString(),
       };
