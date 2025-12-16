@@ -246,18 +246,18 @@ export default function AllPosts() {
                       </p>
                       <div className="hidden sm:flex flex-wrap gap-1 opacity-100 group-hover:opacity-100 transition-opacity">
                         {post.country && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-[#2a2a2a] text-[#e0e0e0] border border-[#444444] flex-shrink-0 hover:border-[#0088CC] transition-all">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-[#2a2a2a] text-[#e0e0e0] border border-[#444444] hover:border-[#0088CC] transition-all">
                             <GlobeIcon className="w-2.5 h-2.5" />
-                            <span className="hidden sm:inline">
-                              {post.country.substring(0, 3)}
+                            <span>
+                              {post.country}
                             </span>
                           </span>
                         )}
                         {post.city && (
-                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-[#2a2a2a] text-[#e0e0e0] border border-[#444444] flex-shrink-0 hover:border-[#0088CC] transition-all">
+                          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold bg-[#2a2a2a] text-[#e0e0e0] border border-[#444444] hover:border-[#0088CC] transition-all">
                             <MapPinIcon className="w-2.5 h-2.5" />
-                            <span className="hidden sm:inline">
-                              {post.city.substring(0, 3)}
+                            <span>
+                              {post.city}
                             </span>
                           </span>
                         )}
