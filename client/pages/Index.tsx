@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
+import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import { Post, PostsResponse } from "@shared/api";
 import { GlobeIcon, MapPinIcon, DiscordIcon } from "@/components/Icons";
 import { Flame } from "lucide-react";
@@ -17,6 +18,10 @@ export default function Index() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [displayedPosts, setDisplayedPosts] = useState<Post[]>([]);
+  const [cachedPostCount, setCachedPostCount] = useState(() => {
+    const cached = localStorage.getItem("doxPostCount");
+    return cached ? parseInt(cached, 10) : 0;
+  });
   const [postsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
@@ -26,12 +31,30 @@ export default function Index() {
     const loadPosts = async () => {
       setIsLoadingPosts(true);
       try {
-        const response = await fetch("/api/posts");
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+        const response = await fetch("/api/posts", {
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+          throw new Error(`API responded with status ${response.status}`);
+        }
+
         const data: PostsResponse = await response.json();
-        setPosts(Array.isArray(data.posts) ? data.posts : []);
+        const postArray = Array.isArray(data.posts) ? data.posts : [];
+        setPosts(postArray);
+        localStorage.setItem("doxPostCount", postArray.length.toString());
+        setCachedPostCount(postArray.length);
       } catch (error) {
         console.error("Error loading posts:", error);
         setPosts([]);
+        if (error instanceof Error && error.name === "AbortError") {
+          console.warn("Posts request timed out after 30 seconds");
+        }
       } finally {
         setIsLoadingPosts(false);
       }
@@ -39,7 +62,19 @@ export default function Index() {
 
     const loadServers = async () => {
       try {
-        const response = await fetch("/api/servers");
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+        const response = await fetch("/api/servers", {
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+          throw new Error(`API responded with status ${response.status}`);
+        }
+
         const data = await response.json();
         setServers(Array.isArray(data.servers) ? data.servers : []);
       } catch (error) {
@@ -102,7 +137,7 @@ export default function Index() {
 
       <main className="flex-1 w-full">
         {/* Hero Section */}
-        <div className="bg-[#000000] py-6 sm:py-10 md:py-16 lg:py-20 border-b border-[#666666]">
+        <div className="bg-[#000000] py-6 sm:py-10 md:py-16 lg:py-20">
           <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
             <div
               className="animate-slideInLeftFade"
@@ -129,6 +164,16 @@ export default function Index() {
             />
           </div>
         </div>
+
+        {/* Animated Counter Section */}
+        {!hasSearchFilters && (
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 -mt-2 sm:-mt-3 md:-mt-4">
+            <AnimatedNumberCounter
+              endValue={cachedPostCount}
+              isLoading={isLoadingPosts}
+            />
+          </div>
+        )}
 
         {/* Posts Section */}
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8">
@@ -241,7 +286,7 @@ export default function Index() {
                     )}
                     <div className="p-2 sm:p-4 flex-1 flex flex-col sm:gap-2">
                       <div className="flex items-start justify-between gap-2 mb-1 sm:mb-2">
-                        <h3 className="font-black text-xs sm:text-base lg:text-lg line-clamp-2 flex-1 text-white group-hover:text-[#0088CC] transition-colors leading-tight">
+                        <h3 className="font-black text-sm sm:text-lg lg:text-xl line-clamp-2 flex-1 text-white group-hover:text-[#0088CC] transition-colors leading-tight">
                           {post.title}
                         </h3>
                       </div>
