@@ -131,6 +131,9 @@ export default function Index() {
           </div>
         </div>
 
+        {/* Animated Counter Section */}
+        {!hasSearchFilters && <AnimatedNumberCounter endValue={posts.length} />}
+
         {/* Posts Section */}
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8">
           <div className="mb-4 sm:mb-6 md:mb-8 animate-slideInUp">
