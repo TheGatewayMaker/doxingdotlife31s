@@ -245,7 +245,7 @@ export default function Index() {
                     )}
                     <div className="p-2 sm:p-4 flex-1 flex flex-col sm:gap-2">
                       <div className="flex items-start justify-between gap-2 mb-1 sm:mb-2">
-                        <h3 className="font-black text-xs sm:text-base lg:text-lg line-clamp-2 flex-1 text-white group-hover:text-[#0088CC] transition-colors leading-tight">
+                        <h3 className="font-black text-sm sm:text-lg lg:text-xl line-clamp-2 flex-1 text-white group-hover:text-[#0088CC] transition-colors leading-tight">
                           {post.title}
                         </h3>
                       </div>
