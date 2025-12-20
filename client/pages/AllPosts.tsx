@@ -31,7 +31,19 @@ export default function AllPosts() {
     const loadPosts = async () => {
       setIsLoadingPosts(true);
       try {
-        const response = await fetch("/api/posts");
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
+        const response = await fetch("/api/posts", {
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+          throw new Error(`API responded with status ${response.status}`);
+        }
+
         const data: PostsResponse = await response.json();
         const postArray = Array.isArray(data.posts) ? data.posts : [];
         setPosts(postArray);
@@ -40,6 +52,9 @@ export default function AllPosts() {
       } catch (error) {
         console.error("Error loading posts:", error);
         setPosts([]);
+        if (error instanceof Error && error.name === "AbortError") {
+          console.warn("Posts request timed out after 30 seconds");
+        }
       } finally {
         setIsLoadingPosts(false);
       }
