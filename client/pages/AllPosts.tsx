@@ -18,6 +18,10 @@ export default function AllPosts() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [displayedPosts, setDisplayedPosts] = useState<Post[]>([]);
+  const [cachedPostCount, setCachedPostCount] = useState(() => {
+    const cached = localStorage.getItem("doxPostCount");
+    return cached ? parseInt(cached, 10) : 0;
+  });
   const [postsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoadingPosts, setIsLoadingPosts] = useState(true);
