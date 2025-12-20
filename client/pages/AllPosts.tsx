@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
+import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import { Post, PostsResponse } from "@shared/api";
 import { GlobeIcon, MapPinIcon, ServerIcon } from "@/components/Icons";
 import { Flame } from "lucide-react";
