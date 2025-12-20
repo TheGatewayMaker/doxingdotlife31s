@@ -57,7 +57,19 @@ export default function UppostPanel() {
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        const response = await fetch("/api/posts");
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 30000);
+
+        const response = await fetch("/api/posts", {
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+          throw new Error(`API responded with status ${response.status}`);
+        }
+
         const data: PostsResponse = await response.json();
         setAllPosts(Array.isArray(data.posts) ? data.posts : []);
       } catch (error) {
