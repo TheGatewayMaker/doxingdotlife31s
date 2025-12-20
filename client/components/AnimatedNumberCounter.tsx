@@ -1,0 +1,61 @@
+import { useState, useEffect } from "react";
+
+interface AnimatedNumberCounterProps {
+  endValue: number;
+  text?: string;
+}
+
+export default function AnimatedNumberCounter({
+  endValue,
+  text = "People have been Doxed",
+}: AnimatedNumberCounterProps) {
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (endValue <= 0) {
+      setDisplayValue(0);
+      return;
+    }
+
+    let animationFrameId: number;
+    let currentValue = 0;
+    const duration = 2000; // 2 seconds total animation
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsedTime = Date.now() - startTime;
+      const progress = Math.min(elapsedTime / duration, 1);
+
+      // Easing function: fast start, slow end (easeOutQuad)
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+      currentValue = Math.floor(easeProgress * endValue);
+      setDisplayValue(currentValue);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
+  }, [endValue]);
+
+  return (
+    <div className="flex flex-col items-center justify-center py-6 sm:py-8 md:py-10 lg:py-12 animate-slideInUp">
+      <div className="text-center">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-2 sm:mb-3 md:mb-4 tabular-nums">
+          {displayValue.toLocaleString()}
+        </h2>
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#979797]">
+          {text}
+        </p>
+      </div>
+    </div>
+  );
+}
