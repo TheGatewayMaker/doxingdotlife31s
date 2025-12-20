@@ -62,7 +62,19 @@ export default function AllPosts() {
 
     const loadServers = async () => {
       try {
-        const response = await fetch("/api/servers");
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+        const response = await fetch("/api/servers", {
+          signal: controller.signal,
+        });
+
+        clearTimeout(timeout);
+
+        if (!response.ok) {
+          throw new Error(`API responded with status ${response.status}`);
+        }
+
         const data = await response.json();
         setServers(Array.isArray(data.servers) ? data.servers : []);
       } catch (error) {
