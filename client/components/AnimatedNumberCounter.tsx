@@ -3,30 +3,43 @@ import { useState, useEffect } from "react";
 interface AnimatedNumberCounterProps {
   endValue: number;
   text?: string;
+  isLoading?: boolean;
 }
 
 export default function AnimatedNumberCounter({
   endValue,
   text = "People have been Doxed",
+  isLoading = false,
 }: AnimatedNumberCounterProps) {
   const [displayValue, setDisplayValue] = useState(0);
+  const [shouldShowNumber, setShouldShowNumber] = useState(false);
 
   useEffect(() => {
-    if (endValue <= 0) {
+    if (isLoading) {
+      setShouldShowNumber(false);
       setDisplayValue(0);
+      return;
+    }
+
+    if (endValue > 0) {
+      setShouldShowNumber(true);
+    }
+  }, [isLoading, endValue]);
+
+  useEffect(() => {
+    if (!shouldShowNumber || endValue <= 0) {
       return;
     }
 
     let animationFrameId: number;
     let currentValue = 0;
-    const duration = 2000; // 2 seconds total animation
+    const duration = 2000;
     const startTime = Date.now();
 
     const animate = () => {
       const elapsedTime = Date.now() - startTime;
       const progress = Math.min(elapsedTime / duration, 1);
 
-      // Easing function: fast start, slow end (easeOutQuad)
       const easeProgress = 1 - Math.pow(1 - progress, 3);
 
       currentValue = Math.floor(easeProgress * endValue);
@@ -44,7 +57,7 @@ export default function AnimatedNumberCounter({
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [endValue]);
+  }, [shouldShowNumber, endValue]);
 
   return (
     <div className="flex flex-col items-center justify-center py-2 sm:py-3 md:py-4 animate-slideInUp">
