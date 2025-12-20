@@ -33,7 +33,10 @@ export default function AllPosts() {
       try {
         const response = await fetch("/api/posts");
         const data: PostsResponse = await response.json();
-        setPosts(Array.isArray(data.posts) ? data.posts : []);
+        const postArray = Array.isArray(data.posts) ? data.posts : [];
+        setPosts(postArray);
+        localStorage.setItem("doxPostCount", postArray.length.toString());
+        setCachedPostCount(postArray.length);
       } catch (error) {
         console.error("Error loading posts:", error);
         setPosts([]);
