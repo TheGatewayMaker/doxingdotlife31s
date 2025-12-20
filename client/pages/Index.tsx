@@ -139,7 +139,14 @@ export default function Index() {
         </div>
 
         {/* Animated Counter Section */}
-        {!hasSearchFilters && <AnimatedNumberCounter endValue={cachedPostCount} />}
+        {!hasSearchFilters && (
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 -mt-2 sm:-mt-3 md:-mt-4">
+            <AnimatedNumberCounter
+              endValue={cachedPostCount}
+              isLoading={isLoadingPosts}
+            />
+          </div>
+        )}
 
         {/* Posts Section */}
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8">
