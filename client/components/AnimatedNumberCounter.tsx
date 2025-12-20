@@ -47,9 +47,9 @@ export default function AnimatedNumberCounter({
   }, [endValue]);
 
   return (
-    <div className="flex flex-col items-center justify-center py-6 sm:py-8 md:py-10 lg:py-12 animate-slideInUp">
+    <div className="flex flex-col items-center justify-center py-2 sm:py-3 md:py-4 animate-slideInUp">
       <div className="text-center">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-2 sm:mb-3 md:mb-4 tabular-nums">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-1 sm:mb-1.5 md:mb-2 tabular-nums">
           {displayValue.toLocaleString()}
         </h2>
         <p className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#979797]">
