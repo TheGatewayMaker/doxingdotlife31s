@@ -76,19 +76,12 @@ export const handleGetPosts: RequestHandler = async (req, res) => {
     let successCount = 0;
     let errorCount = 0;
 
-    for (const postId of postIds) {
+    // Process posts in parallel for better performance
+    const postPromises = postIds.map(async (postId) => {
       try {
         const postData = await getPostWithThumbnail(postId);
         if (postData) {
-          const mediaFiles = await listPostFiles(postId);
-          const mediaFileObjects = mediaFiles
-            .map((fileName) => ({
-              name: fileName,
-              url: `/api/media/${postId}/${fileName}`,
-              type: getMimeType(fileName),
-            }))
-            .filter((f) => f.name !== "metadata.json");
-
+          // Don't wait for media files in list - they'll be fetched on-demand
           const post: Post = {
             id: postData.id,
             title: postData.title,
@@ -101,17 +94,27 @@ export const handleGetPosts: RequestHandler = async (req, res) => {
             nsfw: postData.nsfw || false,
             isTrend: postData.isTrend || false,
             trendRank: postData.trendRank,
-            mediaFiles: mediaFileObjects,
+            mediaFiles: [], // Empty for now - can be loaded per-post detail
             createdAt: postData.createdAt,
           };
 
-          posts.push(post);
-          successCount++;
+          return { post, success: true };
         }
+        return { success: false };
       } catch (postError) {
-        errorCount++;
         console.warn(`Error loading post ${postId}:`, postError);
-        continue;
+        return { success: false };
+      }
+    });
+
+    const results = await Promise.all(postPromises);
+
+    for (const result of results) {
+      if (result.success && result.post) {
+        posts.push(result.post);
+        successCount++;
+      } else {
+        errorCount++;
       }
     }
 
