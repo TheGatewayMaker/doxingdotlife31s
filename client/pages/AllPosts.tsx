@@ -147,7 +147,7 @@ export default function AllPosts() {
                 All Posts
               </h1>
               <p className="hidden sm:block text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-[#979797] mb-5 sm:mb-6 max-w-2xl leading-relaxed">
-                Browse all the doxed individuals in our database
+                Browse all the doxxed individuals in our database
               </p>
             </div>
 
@@ -208,7 +208,7 @@ export default function AllPosts() {
                     All Posts
                   </h2>
                 </div>
-                <p className="text-[#979797] text-xs sm:text-sm md:text-base mt-0">
+                <p className="text-[#979797] text-sm sm:text-base md:text-lg font-bold mt-0">
                   Showing {displayedPosts.length} of {filteredPosts.length} post
                   {filteredPosts.length !== 1 ? "s" : ""}
                 </p>

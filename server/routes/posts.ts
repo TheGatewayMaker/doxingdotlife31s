@@ -61,23 +61,27 @@ const getMimeType = (fileName: string): string => {
 };
 
 export const handleGetPosts: RequestHandler = async (req, res) => {
+  const startTime = Date.now();
   try {
-    const postIds = await listPostFolders();
-    const posts: Post[] = [];
+    console.log(`[${new Date().toISOString()}] Starting to fetch posts...`);
 
-    for (const postId of postIds) {
+    const listStart = Date.now();
+    const postIds = await listPostFolders();
+    const listDuration = Date.now() - listStart;
+    console.log(
+      `[${new Date().toISOString()}] Listed ${postIds.length} post folders in ${listDuration}ms`,
+    );
+
+    const posts: Post[] = [];
+    let successCount = 0;
+    let errorCount = 0;
+
+    // Process posts in parallel for better performance
+    const postPromises = postIds.map(async (postId) => {
       try {
         const postData = await getPostWithThumbnail(postId);
         if (postData) {
-          const mediaFiles = await listPostFiles(postId);
-          const mediaFileObjects = mediaFiles
-            .map((fileName) => ({
-              name: fileName,
-              url: `/api/media/${postId}/${fileName}`,
-              type: getMimeType(fileName),
-            }))
-            .filter((f) => f.name !== "metadata.json");
-
+          // Don't wait for media files in list - they'll be fetched on-demand
           const post: Post = {
             id: postData.id,
             title: postData.title,
@@ -90,15 +94,27 @@ export const handleGetPosts: RequestHandler = async (req, res) => {
             nsfw: postData.nsfw || false,
             isTrend: postData.isTrend || false,
             trendRank: postData.trendRank,
-            mediaFiles: mediaFileObjects,
+            mediaFiles: [], // Empty for now - can be loaded per-post detail
             createdAt: postData.createdAt,
           };
 
-          posts.push(post);
+          return { post, success: true };
         }
+        return { success: false };
       } catch (postError) {
         console.warn(`Error loading post ${postId}:`, postError);
-        continue;
+        return { success: false };
+      }
+    });
+
+    const results = await Promise.all(postPromises);
+
+    for (const result of results) {
+      if (result.success && result.post) {
+        posts.push(result.post);
+        successCount++;
+      } else {
+        errorCount++;
       }
     }
 
@@ -107,12 +123,21 @@ export const handleGetPosts: RequestHandler = async (req, res) => {
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 
+    const totalDuration = Date.now() - startTime;
+    console.log(
+      `[${new Date().toISOString()}] Fetched posts: ${successCount} successful, ${errorCount} errors in ${totalDuration}ms`,
+    );
+
     res.json({
       posts,
       total: posts.length,
     });
   } catch (error) {
-    console.error("Error getting posts:", error);
+    const duration = Date.now() - startTime;
+    console.error(
+      `[${new Date().toISOString()}] Error getting posts after ${duration}ms:`,
+      error,
+    );
     res.status(200).json({ posts: [], total: 0 });
   }
 };

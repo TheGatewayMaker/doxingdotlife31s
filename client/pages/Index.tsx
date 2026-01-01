@@ -28,12 +28,14 @@ export default function Index() {
   const [hasSearchFilters, setHasSearchFilters] = useState(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadPosts = async () => {
       setIsLoadingPosts(true);
-      try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
+      try {
         const response = await fetch("/api/posts", {
           signal: controller.signal,
         });
@@ -46,25 +48,32 @@ export default function Index() {
 
         const data: PostsResponse = await response.json();
         const postArray = Array.isArray(data.posts) ? data.posts : [];
-        setPosts(postArray);
-        localStorage.setItem("doxPostCount", postArray.length.toString());
-        setCachedPostCount(postArray.length);
+
+        if (isMounted) {
+          setPosts(postArray);
+          localStorage.setItem("doxPostCount", postArray.length.toString());
+          setCachedPostCount(postArray.length);
+        }
       } catch (error) {
-        console.error("Error loading posts:", error);
-        setPosts([]);
-        if (error instanceof Error && error.name === "AbortError") {
-          console.warn("Posts request timed out after 30 seconds");
+        if (isMounted) {
+          console.error("Error loading posts:", error);
+          setPosts([]);
+          if (error instanceof Error && error.name === "AbortError") {
+            console.warn("Posts request timed out after 30 seconds");
+          }
         }
       } finally {
-        setIsLoadingPosts(false);
+        if (isMounted) {
+          setIsLoadingPosts(false);
+        }
       }
     };
 
     const loadServers = async () => {
-      try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
+      try {
         const response = await fetch("/api/servers", {
           signal: controller.signal,
         });
@@ -76,15 +85,25 @@ export default function Index() {
         }
 
         const data = await response.json();
-        setServers(Array.isArray(data.servers) ? data.servers : []);
+
+        if (isMounted) {
+          setServers(Array.isArray(data.servers) ? data.servers : []);
+        }
       } catch (error) {
-        console.error("Error loading servers:", error);
-        setServers([]);
+        if (isMounted) {
+          console.error("Error loading servers:", error);
+          setServers([]);
+        }
       }
     };
 
     loadPosts();
     loadServers();
+
+    // Cleanup function to prevent state updates after unmount
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -209,7 +228,7 @@ export default function Index() {
                     Trending
                   </h2>
                 </div>
-                <p className="text-[#979797] text-xs sm:text-sm md:text-base">
+                <p className="text-[#979797] text-sm sm:text-base md:text-lg font-bold">
                   Showing {displayedPosts.length} of {filteredPosts.length}{" "}
                   result{filteredPosts.length !== 1 ? "s" : ""}
                 </p>

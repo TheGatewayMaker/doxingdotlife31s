@@ -34,7 +34,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-xs sm:text-sm text-[#979797] leading-relaxed">
-              The largest database of exposed and doxed individuals. Find and
+              The largest database of exposed and doxxed individuals. Find and
               share information about anyone.
             </p>
           </div>
