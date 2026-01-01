@@ -8,7 +8,7 @@ interface AnimatedNumberCounterProps {
 
 export default function AnimatedNumberCounter({
   endValue,
-  text = "People have been Doxed",
+  text = "People have been Doxxed",
   isLoading = false,
 }: AnimatedNumberCounterProps) {
   const [displayValue, setDisplayValue] = useState(0);
