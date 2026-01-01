@@ -61,9 +61,20 @@ const getMimeType = (fileName: string): string => {
 };
 
 export const handleGetPosts: RequestHandler = async (req, res) => {
+  const startTime = Date.now();
   try {
+    console.log(`[${new Date().toISOString()}] Starting to fetch posts...`);
+
+    const listStart = Date.now();
     const postIds = await listPostFolders();
+    const listDuration = Date.now() - listStart;
+    console.log(
+      `[${new Date().toISOString()}] Listed ${postIds.length} post folders in ${listDuration}ms`,
+    );
+
     const posts: Post[] = [];
+    let successCount = 0;
+    let errorCount = 0;
 
     for (const postId of postIds) {
       try {
@@ -95,8 +106,10 @@ export const handleGetPosts: RequestHandler = async (req, res) => {
           };
 
           posts.push(post);
+          successCount++;
         }
       } catch (postError) {
+        errorCount++;
         console.warn(`Error loading post ${postId}:`, postError);
         continue;
       }
@@ -107,12 +120,21 @@ export const handleGetPosts: RequestHandler = async (req, res) => {
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 
+    const totalDuration = Date.now() - startTime;
+    console.log(
+      `[${new Date().toISOString()}] Fetched posts: ${successCount} successful, ${errorCount} errors in ${totalDuration}ms`,
+    );
+
     res.json({
       posts,
       total: posts.length,
     });
   } catch (error) {
-    console.error("Error getting posts:", error);
+    const duration = Date.now() - startTime;
+    console.error(
+      `[${new Date().toISOString()}] Error getting posts after ${duration}ms:`,
+      error,
+    );
     res.status(200).json({ posts: [], total: 0 });
   }
 };
