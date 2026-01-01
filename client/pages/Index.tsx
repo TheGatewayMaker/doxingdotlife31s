@@ -228,7 +228,7 @@ export default function Index() {
                     Trending
                   </h2>
                 </div>
-                <p className="text-[#979797] text-xs sm:text-sm md:text-base">
+                <p className="text-[#979797] text-sm sm:text-base md:text-lg font-bold">
                   Showing {displayedPosts.length} of {filteredPosts.length}{" "}
                   result{filteredPosts.length !== 1 ? "s" : ""}
                 </p>
