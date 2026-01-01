@@ -21,7 +21,11 @@ interface PostMetadata {
   createdAt: string;
 }
 
-const getR2Client = (): S3Client => {
+// Singleton R2 client - reuse across all operations
+let r2ClientInstance: S3Client | null = null;
+let r2ClientError: Error | null = null;
+
+const initializeR2Client = (): S3Client => {
   const accessKeyId = process.env.R2_ACCESS_KEY_ID;
   const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
   const accountId = process.env.R2_ACCOUNT_ID;
@@ -41,9 +45,11 @@ const getR2Client = (): S3Client => {
     );
     console.error("Environment:", process.env.NODE_ENV);
 
-    throw new Error(
+    const error = new Error(
       `Missing required R2 environment variables: ${missing.join(", ")}. Please set these in your Netlify environment settings.`,
     );
+    r2ClientError = error;
+    throw error;
   }
 
   const endpoint = `https://${accountId}.r2.cloudflarestorage.com`;
@@ -61,11 +67,24 @@ const getR2Client = (): S3Client => {
     console.log(
       `[${new Date().toISOString()}] R2 Client initialized successfully with endpoint: ${endpoint}`,
     );
+    r2ClientInstance = client;
+    r2ClientError = null;
     return client;
   } catch (error) {
     console.error("Failed to initialize R2 client:", error);
+    r2ClientError = error instanceof Error ? error : new Error(String(error));
     throw error;
   }
+};
+
+const getR2Client = (): S3Client => {
+  if (r2ClientInstance) {
+    return r2ClientInstance;
+  }
+  if (r2ClientError) {
+    throw r2ClientError;
+  }
+  return initializeR2Client();
 };
 
 const getBucketName = (): string => {
