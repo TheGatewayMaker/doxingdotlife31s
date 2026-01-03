@@ -236,7 +236,7 @@ export default function SearchBar({
     <div className="space-y-4 sm:space-y-5 md:space-y-6 flex flex-col items-center">
       {/* Main Search Input */}
       <div
-        className="relative animate-scaleUpFadeIn"
+        className="relative animate-scaleUpFadeIn w-full max-w-2xl"
         style={{ animationDelay: "0.2s" }}
       >
         <input
