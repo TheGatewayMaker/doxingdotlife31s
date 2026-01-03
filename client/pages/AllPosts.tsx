@@ -152,6 +152,9 @@ export default function AllPosts() {
               </p>
             </div>
 
+            {/* Animated Search Heading */}
+            <AnimatedSearchHeading />
+
             {/* Search Bar Component */}
             <SearchBar
               searchQuery={searchQuery}
