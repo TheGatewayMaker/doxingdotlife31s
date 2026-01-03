@@ -36,7 +36,7 @@ export default function DoxAnyone() {
               style={{ animationDelay: "0.2s" }}
             >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 text-white text-center">
-                Simple, Transparent Pricing
+                Pricing
               </h2>
               <p className="text-center text-[#979797] text-base sm:text-lg max-w-2xl mx-auto">
                 Access verified doxing services with competitive rates worldwide
