@@ -323,7 +323,7 @@ export default function AdminPanel() {
                   placeholder="Search posts..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-card border border-border hover:border-muted rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-muted/50 focus:border-muted text-xs sm:text-sm transition-all pl-8 sm:pl-9"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-2.5 bg-card border border-border hover:border-muted rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-muted text-xs sm:text-sm transition-all pl-8 sm:pl-9"
                 />
               </div>
             </div>
