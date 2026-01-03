@@ -215,7 +215,7 @@ export default function Header() {
                 <button
                   onClick={closeSidebar}
                   aria-label="Close navigation menu"
-                  className="p-2 rounded-lg hover:bg-[#0088CC]/20 transition-all duration-200 group hover:shadow-lg hover:shadow-[#0088CC]/30"
+                  className="p-2 rounded-lg hover:bg-[#0088CC]/20 transition-all duration-200 group"
                 >
                   <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#979797] group-hover:text-[#0088CC] group-hover:translate-x-1 transition-all" />
                 </button>
