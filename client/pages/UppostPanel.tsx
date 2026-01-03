@@ -132,7 +132,10 @@ export default function UppostPanel() {
 
     try {
       await loginWithGoogle();
-      toast.success("Successfully signed in with Google!");
+      // Get the authenticated user's email from the context
+      const authContext = useAuthContext();
+      const adminEmail = authContext.email || email;
+      toast.success(`Login Successful For ${adminEmail}`);
     } catch (error) {
       const errorMessage =
         error instanceof Error
@@ -140,6 +143,7 @@ export default function UppostPanel() {
           : "Login failed. Please try again.";
       setLoginError(errorMessage);
       toast.error(errorMessage);
+    } finally {
       setIsLoggingIn(false);
     }
   };
