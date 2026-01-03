@@ -12,22 +12,8 @@ interface SearchBarProps {
 
 export default function SearchBar({
   searchQuery,
-  selectedCountry,
-  selectedServer,
-  servers,
   onSearchChange,
-  onCountryChange,
-  onServerChange,
 }: SearchBarProps) {
-  const [isCountryOpen, setIsCountryOpen] = useState(false);
-  const [countrySearch, setCountrySearch] = useState("");
-
-  const filteredCountries = COUNTRIES.filter((country) =>
-    country.toLowerCase().includes(countrySearch.toLowerCase()),
-  );
-
-  const displayCategory = selectedCountry || "Category";
-
   return (
     <div className="w-full max-w-2xl mx-auto animate-scaleUpFadeIn mt-6" style={{ animationDelay: "0.2s" }}>
       {/* Main Search Bar - Search Input + Button */}
