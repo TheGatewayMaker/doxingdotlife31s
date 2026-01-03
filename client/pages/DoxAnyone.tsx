@@ -22,7 +22,8 @@ export default function DoxAnyone() {
                 Dox Anyone
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-[#979797] max-w-2xl mx-auto font-semibold leading-relaxed">
-                Expose individuals on our platform with a simple, transparent, and verified process
+                Expose individuals on our platform with a simple, transparent,
+                and verified process
               </p>
             </div>
           </div>
@@ -128,7 +129,8 @@ export default function DoxAnyone() {
                   How It Works
                 </h2>
                 <p className="text-lg sm:text-xl md:text-2xl text-[#979797] font-semibold leading-relaxed max-w-2xl">
-                  Follow our simple 5-step verification process to get your doxing submission live
+                  Follow our simple 5-step verification process to get your
+                  doxing submission live
                 </p>
               </div>
             </div>
@@ -136,7 +138,10 @@ export default function DoxAnyone() {
             {/* Steps Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
               {/* Step 1 */}
-              <div className="group animate-slideInLeft" style={{ animationDelay: "0.35s" }}>
+              <div
+                className="group animate-slideInLeft"
+                style={{ animationDelay: "0.35s" }}
+              >
                 <div className="flex gap-6 sm:gap-8">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gradient-to-br from-[#0088CC] to-[#0066AA] text-white font-black text-lg sm:text-2xl group-hover:shadow-lg group-hover:shadow-[#0088CC]/40 transition-all duration-300 transform group-hover:scale-110">
@@ -148,14 +153,18 @@ export default function DoxAnyone() {
                       Click Dox Button
                     </h3>
                     <p className="text-base sm:text-lg text-[#979797] font-semibold leading-relaxed">
-                      Start your doxing submission process by clicking the action button and connecting to our Discord.
+                      Start your doxing submission process by clicking the
+                      action button and connecting to our Discord.
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Step 2 */}
-              <div className="group animate-slideInRight" style={{ animationDelay: "0.37s" }}>
+              <div
+                className="group animate-slideInRight"
+                style={{ animationDelay: "0.37s" }}
+              >
                 <div className="flex gap-6 sm:gap-8">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gradient-to-br from-[#0088CC] to-[#0066AA] text-white font-black text-lg sm:text-2xl group-hover:shadow-lg group-hover:shadow-[#0088CC]/40 transition-all duration-300 transform group-hover:scale-110">
@@ -167,14 +176,18 @@ export default function DoxAnyone() {
                       Discord Ticket
                     </h3>
                     <p className="text-base sm:text-lg text-[#979797] font-semibold leading-relaxed">
-                      Create a support ticket on Discord with detailed information about the individual being doxed.
+                      Create a support ticket on Discord with detailed
+                      information about the individual being doxed.
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Step 3 */}
-              <div className="group animate-slideInLeft" style={{ animationDelay: "0.39s" }}>
+              <div
+                className="group animate-slideInLeft"
+                style={{ animationDelay: "0.39s" }}
+              >
                 <div className="flex gap-6 sm:gap-8">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gradient-to-br from-[#0088CC] to-[#0066AA] text-white font-black text-lg sm:text-2xl group-hover:shadow-lg group-hover:shadow-[#0088CC]/40 transition-all duration-300 transform group-hover:scale-110">
@@ -186,14 +199,18 @@ export default function DoxAnyone() {
                       Prepare Content
                     </h3>
                     <p className="text-base sm:text-lg text-[#979797] font-semibold leading-relaxed">
-                      Gather photos, links, and supporting details for verification by our moderation team.
+                      Gather photos, links, and supporting details for
+                      verification by our moderation team.
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Step 4 */}
-              <div className="group animate-slideInRight" style={{ animationDelay: "0.41s" }}>
+              <div
+                className="group animate-slideInRight"
+                style={{ animationDelay: "0.41s" }}
+              >
                 <div className="flex gap-6 sm:gap-8">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gradient-to-br from-[#0088CC] to-[#0066AA] text-white font-black text-lg sm:text-2xl group-hover:shadow-lg group-hover:shadow-[#0088CC]/40 transition-all duration-300 transform group-hover:scale-110">
@@ -205,14 +222,18 @@ export default function DoxAnyone() {
                       Secure Payment
                     </h3>
                     <p className="text-base sm:text-lg text-[#979797] font-semibold leading-relaxed">
-                      Complete payment securely. Your submission enters our verification queue for review.
+                      Complete payment securely. Your submission enters our
+                      verification queue for review.
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Step 5 */}
-              <div className="group lg:col-span-2 animate-slideInLeft" style={{ animationDelay: "0.43s" }}>
+              <div
+                className="group lg:col-span-2 animate-slideInLeft"
+                style={{ animationDelay: "0.43s" }}
+              >
                 <div className="flex gap-6 sm:gap-8">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gradient-to-br from-[#00D97E] to-[#06D6A0] text-white font-black text-lg sm:text-2xl group-hover:shadow-lg group-hover:shadow-[#06D6A0]/40 transition-all duration-300 transform group-hover:scale-110">
@@ -224,7 +245,8 @@ export default function DoxAnyone() {
                       Go Live
                     </h3>
                     <p className="text-base sm:text-lg text-[#979797] font-semibold leading-relaxed">
-                      After verification by our moderators, your doxing post goes live on our website and is visible to all users.
+                      After verification by our moderators, your doxing post
+                      goes live on our website and is visible to all users.
                     </p>
                   </div>
                 </div>
@@ -237,20 +259,49 @@ export default function DoxAnyone() {
         <div className="w-full bg-[#000000] py-16 sm:py-20 md:py-24 lg:py-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
-              <div className="text-center animate-scaleUpFadeIn" style={{ animationDelay: "0.45s" }}>
-                <div className="text-5xl sm:text-6xl font-black text-[#0088CC] mb-3 sm:mb-4">✓</div>
-                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">Verified & Moderated</h3>
-                <p className="text-base text-[#979797] font-semibold">All submissions are carefully reviewed and verified before publication</p>
+              <div
+                className="text-center animate-scaleUpFadeIn"
+                style={{ animationDelay: "0.45s" }}
+              >
+                <div className="text-5xl sm:text-6xl font-black text-[#0088CC] mb-3 sm:mb-4">
+                  ✓
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">
+                  Verified & Moderated
+                </h3>
+                <p className="text-base text-[#979797] font-semibold">
+                  All submissions are carefully reviewed and verified before
+                  publication
+                </p>
               </div>
-              <div className="text-center animate-scaleUpFadeIn" style={{ animationDelay: "0.47s" }}>
-                <div className="text-5xl sm:text-6xl font-black text-[#0088CC] mb-3 sm:mb-4">⚡</div>
-                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">Fast Processing</h3>
-                <p className="text-base text-[#979797] font-semibold">Quick turnaround time with our efficient verification process</p>
+              <div
+                className="text-center animate-scaleUpFadeIn"
+                style={{ animationDelay: "0.47s" }}
+              >
+                <div className="text-5xl sm:text-6xl font-black text-[#0088CC] mb-3 sm:mb-4">
+                  ⚡
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">
+                  Fast Processing
+                </h3>
+                <p className="text-base text-[#979797] font-semibold">
+                  Quick turnaround time with our efficient verification process
+                </p>
               </div>
-              <div className="text-center animate-scaleUpFadeIn" style={{ animationDelay: "0.49s" }}>
-                <div className="text-5xl sm:text-6xl font-black text-[#0088CC] mb-3 sm:mb-4">🔒</div>
-                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">Secure & Private</h3>
-                <p className="text-base text-[#979797] font-semibold">Your information and payment details are kept secure and private</p>
+              <div
+                className="text-center animate-scaleUpFadeIn"
+                style={{ animationDelay: "0.49s" }}
+              >
+                <div className="text-5xl sm:text-6xl font-black text-[#0088CC] mb-3 sm:mb-4">
+                  🔒
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">
+                  Secure & Private
+                </h3>
+                <p className="text-base text-[#979797] font-semibold">
+                  Your information and payment details are kept secure and
+                  private
+                </p>
               </div>
             </div>
           </div>
@@ -259,10 +310,7 @@ export default function DoxAnyone() {
         {/* CTA Section */}
         <div className="w-full bg-gradient-to-b from-[#000000] to-[#0a0a0a] py-16 sm:py-20 md:py-24 lg:py-28 border-t border-[#333333]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div
-              className="animate-popIn"
-              style={{ animationDelay: "0.5s" }}
-            >
+            <div className="animate-popIn" style={{ animationDelay: "0.5s" }}>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-6">
                 Ready to Get Started?
               </h2>
