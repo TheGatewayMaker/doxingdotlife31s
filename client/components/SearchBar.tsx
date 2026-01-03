@@ -360,7 +360,7 @@ export default function SearchBar({
                 }
                 value={serverSearch}
                 onChange={(e) => setServerSearch(e.target.value)}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 md:py-3.5 pr-10 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:ring-2 focus:ring-[#0088CC] focus:border-[#0088CC] text-xs sm:text-sm transition-all min-h-[44px] touch-target"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 md:py-3.5 pr-10 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:border-[#0088CC] text-xs sm:text-sm transition-all min-h-[44px] touch-target"
               />
               {selectedServer && (
                 <button
