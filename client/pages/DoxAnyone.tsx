@@ -48,7 +48,7 @@ export default function DoxAnyone() {
               <div className="group bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] rounded-2xl p-8 sm:p-10 border-2 border-[#00A8E8] hover:border-[#00C4FF] hover:shadow-2xl hover:shadow-[#00A8E8]/20 transition-all duration-300 transform hover:-translate-y-2">
                 <div className="flex items-start justify-between mb-6">
                   <div>
-                    <p className="text-sm font-black text-[#00A8E8] mb-2 uppercase tracking-widest">
+                    <p className="text-lg sm:text-xl font-black text-white mb-2 uppercase tracking-widest">
                       United States
                     </p>
                     <p className="text-5xl sm:text-6xl font-black text-[#00A8E8]">
