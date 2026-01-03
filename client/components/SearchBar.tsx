@@ -15,7 +15,10 @@ export default function SearchBar({
   onSearchChange,
 }: SearchBarProps) {
   return (
-    <div className="w-full max-w-2xl mx-auto animate-scaleUpFadeIn mt-6" style={{ animationDelay: "0.2s" }}>
+    <div
+      className="w-full max-w-2xl mx-auto animate-scaleUpFadeIn mt-6"
+      style={{ animationDelay: "0.2s" }}
+    >
       {/* Main Search Bar - Search Input + Button */}
       <div className="relative flex items-stretch gap-0 bg-[#1a1a1a] border border-[#666666] rounded-lg md:rounded-xl hover:border-[#0088CC]/50 transition-all duration-300 overflow-hidden shadow-lg">
         {/* Search Input */}
