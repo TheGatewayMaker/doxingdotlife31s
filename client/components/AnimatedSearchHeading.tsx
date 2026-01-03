@@ -1,6 +1,6 @@
 export default function AnimatedSearchHeading() {
   return (
-    <div className="mb-6 sm:mb-7 md:mb-8 lg:mb-10 animate-slideInUp">
+    <div className="mb-4 sm:mb-4 md:mb-5 lg:mb-6 animate-slideInUp">
       <h2 className="search-gradient-heading">
         Who are you looking for?
       </h2>
