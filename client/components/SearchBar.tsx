@@ -253,9 +253,9 @@ export default function SearchBar({
       <button
         onClick={() => setIsRefineOpen(!isRefineOpen)}
         className={cn(
-          "w-full flex items-center justify-between gap-2 px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 rounded-lg md:rounded-xl transition-all duration-200 border font-medium text-sm sm:text-base min-h-[44px] touch-target animate-slideInUp",
+          "w-full max-w-2xl flex items-center justify-between gap-2 px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 rounded-lg md:rounded-xl transition-all duration-200 border font-medium text-sm sm:text-base min-h-[44px] touch-target animate-slideInUp",
           isRefineOpen
-            ? "bg-[#0088CC]/20 border-[#0088CC] text-[#0088CC] shadow-lg shadow-[#0088CC]/30"
+            ? "bg-[#0088CC]/20 border-[#0088CC] text-[#0088CC]"
             : "bg-[#1a1a1a] border-[#666666] text-[#979797] hover:border-[#0088CC] hover:bg-[#0088CC]/10",
         )}
         style={{
