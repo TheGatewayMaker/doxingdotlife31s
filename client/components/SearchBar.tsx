@@ -1,7 +1,4 @@
-import { useState } from "react";
-import { Search, X, ChevronDown } from "lucide-react";
-import { GlobeIcon } from "@/components/Icons";
-import { cn } from "@/lib/utils";
+import { Search } from "lucide-react";
 
 const COUNTRIES = [
   "Afghanistan",
