@@ -284,7 +284,7 @@ export default function Header() {
                 <div className="p-4 sm:p-5 border-t border-[#333333]/50 bg-gradient-to-t from-[#0a0a0a] to-transparent flex-shrink-0">
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-200 shadow-lg hover:shadow-lg hover:shadow-red-600/40 active:shadow-inner text-sm sm:text-base touch-target group"
+                    className="w-full flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-200 text-sm sm:text-base touch-target group"
                   >
                     <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     <span>Logout</span>
