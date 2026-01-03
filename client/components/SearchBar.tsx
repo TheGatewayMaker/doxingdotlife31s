@@ -233,7 +233,7 @@ export default function SearchBar({
   const hasFilters = selectedCountry || selectedServer;
 
   return (
-    <div className="space-y-4 sm:space-y-5 md:space-y-6">
+    <div className="space-y-4 sm:space-y-5 md:space-y-6 flex flex-col items-center">
       {/* Main Search Input */}
       <div
         className="relative animate-scaleUpFadeIn"
