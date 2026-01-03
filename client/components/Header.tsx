@@ -87,7 +87,7 @@ export default function Header() {
         >
           <Link
             to="/"
-            className="flex items-center gap-2 text-sm font-semibold text-[#979797] hover:text-white transition-all duration-200 hover:scale-110 group"
+            className="flex items-center gap-2 text-sm font-semibold text-[#979797] hover:text-white transition-all duration-200 group"
           >
             <HomeIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-[#0088CC]" />
             <span className="hidden xl:inline group-hover:text-[#0088CC]">
