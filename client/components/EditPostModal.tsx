@@ -296,7 +296,7 @@ export default function EditPostModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               disabled={isSaving || isUploadingAttachments}
-              className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all disabled:opacity-50"
+              className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all disabled:opacity-50"
               placeholder="Enter post title"
             />
           </div>
@@ -311,7 +311,7 @@ export default function EditPostModal({
               onChange={(e) => setDescription(e.target.value)}
               disabled={isSaving || isUploadingAttachments}
               rows={4}
-              className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all resize-none disabled:opacity-50"
+              className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all resize-none disabled:opacity-50"
               placeholder="Enter post description"
             />
           </div>
@@ -328,7 +328,7 @@ export default function EditPostModal({
                 onChange={(e) => setCountrySearch(e.target.value)}
                 onFocus={() => setCountrySearch("")}
                 disabled={isSaving || isUploadingAttachments}
-                className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all disabled:opacity-50"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all disabled:opacity-50"
                 placeholder="Select or type country"
               />
               {countrySearch && (
@@ -471,7 +471,7 @@ export default function EditPostModal({
                 value={trendRank}
                 onChange={(e) => setTrendRank(e.target.value)}
                 disabled={isSaving || isUploadingAttachments}
-                className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all disabled:opacity-50"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all disabled:opacity-50"
                 placeholder="Enter rank number (1 = first, 2 = second, etc.)"
                 min="1"
               />
@@ -491,7 +491,7 @@ export default function EditPostModal({
               value={city}
               onChange={(e) => setCity(e.target.value)}
               disabled={isSaving || isUploadingAttachments}
-              className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all disabled:opacity-50"
+              className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all disabled:opacity-50"
               placeholder="Enter city name"
             />
           </div>
@@ -506,7 +506,7 @@ export default function EditPostModal({
               value={server}
               onChange={(e) => setServer(e.target.value)}
               disabled={isSaving || isUploadingAttachments}
-              className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all disabled:opacity-50"
+              className="w-full px-4 py-2 bg-muted border border-border rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all disabled:opacity-50"
               placeholder="Enter server name"
             />
           </div>
