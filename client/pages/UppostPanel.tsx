@@ -1017,7 +1017,7 @@ export default function UppostPanel() {
                   id="blur-checkbox"
                   checked={blurThumbnail}
                   onChange={(e) => setBlurThumbnail(e.target.checked)}
-                  className="w-4 h-4 sm:w-5 sm:h-5 accent-blue-600 rounded cursor-pointer flex-shrink-0 mt-0.5 sm:mt-0"
+                  className="w-4 h-4 sm:w-5 sm:h-5 accent-emerald-600 rounded cursor-pointer flex-shrink-0 mt-0.5 sm:mt-0"
                 />
                 <label
                   htmlFor="blur-checkbox"
