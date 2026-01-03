@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Search, ChevronDown, X } from "lucide-react";
-import { GlobeIcon, ServerIcon, CloseIcon } from "@/components/Icons";
+import { Search, X, ChevronDown } from "lucide-react";
+import { GlobeIcon } from "@/components/Icons";
 import { cn } from "@/lib/utils";
 
 const COUNTRIES = [
@@ -218,188 +218,120 @@ export default function SearchBar({
   onCountryChange,
   onServerChange,
 }: SearchBarProps) {
-  const [isRefineOpen, setIsRefineOpen] = useState(false);
+  const [isCountryOpen, setIsCountryOpen] = useState(false);
   const [countrySearch, setCountrySearch] = useState("");
-  const [serverSearch, setServerSearch] = useState("");
 
   const filteredCountries = COUNTRIES.filter((country) =>
     country.toLowerCase().includes(countrySearch.toLowerCase()),
   );
 
-  const filteredServers = servers.filter((server) =>
-    server.toLowerCase().includes(serverSearch.toLowerCase()),
-  );
-
-  const hasFilters = selectedCountry || selectedServer;
+  const displayCategory = selectedCountry || "Category";
 
   return (
-    <div className="space-y-4 sm:space-y-5 md:space-y-6 flex flex-col items-center">
-      {/* Main Search Input */}
-      <div
-        className="relative animate-scaleUpFadeIn w-full max-w-2xl"
-        style={{ animationDelay: "0.2s" }}
-      >
+    <div className="w-full max-w-3xl mx-auto animate-scaleUpFadeIn" style={{ animationDelay: "0.2s" }}>
+      {/* Main Search Bar - Single Line */}
+      <div className="relative flex items-stretch gap-0 bg-[#1a1a1a] border border-[#666666] rounded-full hover:border-[#0088CC]/50 transition-all duration-300 overflow-hidden shadow-lg">
+        {/* Search Input */}
         <input
           type="text"
-          placeholder="Search by name, username, or details..."
+          placeholder="What are you looking for?"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-4 md:py-4 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg md:rounded-xl text-white placeholder-[#979797] focus:outline-none focus:border-[#0088CC] text-sm sm:text-base transition-all min-h-[44px] touch-target pr-12 sm:pr-14"
+          className="flex-1 px-5 sm:px-6 md:px-7 py-3 sm:py-4 bg-transparent text-white placeholder-[#979797] focus:outline-none text-sm sm:text-base transition-all"
         />
-        <Search className="absolute right-4 sm:right-5 md:right-6 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#979797] pointer-events-none" />
-      </div>
 
-      {/* Refine Search Dropdown Button */}
-      <button
-        onClick={() => setIsRefineOpen(!isRefineOpen)}
-        className={cn(
-          "w-full max-w-2xl flex items-center justify-between gap-2 px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 rounded-lg md:rounded-xl transition-all duration-200 border font-medium text-sm sm:text-base min-h-[44px] touch-target animate-slideInUp",
-          isRefineOpen
-            ? "bg-[#0088CC]/20 border-[#0088CC] text-[#0088CC]"
-            : "bg-[#1a1a1a] border-[#666666] text-[#979797] hover:border-[#0088CC] hover:bg-[#0088CC]/10",
-        )}
-        style={{
-          animationDelay: "0.25s",
-        }}
-        aria-expanded={isRefineOpen}
-        aria-controls="refine-section"
-      >
-        <span className="flex items-center gap-2">
-          <span className="text-base sm:text-lg">🔍</span>
-          <span>Refine Your Search</span>
-          {hasFilters && (
-            <span className="inline-flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 bg-[#0088CC] text-white rounded-full text-xs sm:text-sm font-bold ml-auto mr-1">
-              {(selectedCountry ? 1 : 0) + (selectedServer ? 1 : 0)}
+        {/* Divider */}
+        <div className="w-px bg-[#666666]" />
+
+        {/* Category Dropdown */}
+        <div className="relative group">
+          <button
+            onClick={() => setIsCountryOpen(!isCountryOpen)}
+            className="flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-4 text-[#979797] hover:text-[#0088CC] transition-colors text-sm sm:text-base font-medium min-w-max"
+            aria-expanded={isCountryOpen}
+          >
+            <GlobeIcon className="w-4 h-4 sm:w-5 sm:h-5" />
+            <span className="hidden sm:inline">{displayCategory}</span>
+            <span className="sm:hidden">
+              {displayCategory.length > 10 ? displayCategory.slice(0, 10) + "..." : displayCategory}
             </span>
-          )}
-        </span>
-        <ChevronDown
-          className={cn(
-            "w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0 transition-transform duration-300",
-            isRefineOpen && "rotate-180",
-          )}
-        />
-      </button>
-
-      {/* Refine Section - Collapsible */}
-      <div
-        id="refine-section"
-        className={cn(
-          "overflow-hidden transition-all duration-300 ease-in-out",
-          isRefineOpen
-            ? "max-h-96 sm:max-h-[500px] opacity-100 animate-slideInDown"
-            : "max-h-0 opacity-0",
-        )}
-      >
-        <div className="space-y-3 sm:space-y-4 md:space-y-5 pt-2">
-          {/* Country Dropdown */}
-          <div className="relative group">
-            <label className="text-xs sm:text-sm font-bold text-white block mb-2 flex items-center gap-2">
-              <GlobeIcon className="w-4 h-4 text-[#979797]" />
-              By Country
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder={
-                  selectedCountry ? selectedCountry : "Select country..."
-                }
-                value={countrySearch}
-                onChange={(e) => setCountrySearch(e.target.value)}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 md:py-3.5 pr-10 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:border-[#0088CC] text-xs sm:text-sm transition-all min-h-[44px] touch-target"
-              />
-              {selectedCountry && (
-                <button
-                  onClick={() => {
-                    onCountryChange("");
-                    setCountrySearch("");
-                  }}
-                  className="absolute top-1/2 right-3 transform -translate-y-1/2 text-[#979797] hover:text-white transition-colors p-1 hover:bg-[#666666]/20 rounded"
-                  title="Clear selection"
-                  aria-label="Clear country filter"
-                >
-                  <CloseIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
+            <ChevronDown
+              className={cn(
+                "w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300",
+                isCountryOpen && "rotate-180",
               )}
-            </div>
-            {countrySearch && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-[#666666] rounded-lg z-[999] max-h-48 overflow-y-auto shadow-xl">
+            />
+          </button>
+
+          {/* Category Dropdown Menu */}
+          {isCountryOpen && (
+            <div className="absolute top-full right-0 mt-2 w-64 bg-[#1a1a1a] border border-[#666666] rounded-xl z-[999] shadow-2xl overflow-hidden">
+              <div className="p-3 border-b border-[#666666]">
+                <input
+                  type="text"
+                  placeholder="Search category..."
+                  value={countrySearch}
+                  onChange={(e) => setCountrySearch(e.target.value)}
+                  className="w-full px-3 py-2 bg-[#0a0a0a] border border-[#666666] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:border-[#0088CC] text-sm transition-all"
+                  autoFocus
+                />
+              </div>
+              <div className="max-h-64 overflow-y-auto">
                 {filteredCountries.length > 0 ? (
                   filteredCountries.map((country) => (
                     <button
                       key={country}
                       onClick={() => {
                         onCountryChange(country);
+                        setIsCountryOpen(false);
                         setCountrySearch("");
                       }}
-                      className="w-full text-left px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-[#0088CC]/30 text-white text-xs sm:text-sm transition-all duration-200 border-b border-[#666666]/50 last:border-b-0 min-h-[44px] flex items-center hover:text-[#0088CC] font-medium"
+                      className={cn(
+                        "w-full text-left px-4 py-3 text-sm transition-all duration-200 border-b border-[#666666]/50 last:border-b-0 hover:bg-[#0088CC]/20 flex items-center justify-between group",
+                        selectedCountry === country && "bg-[#0088CC]/30 text-[#0088CC]",
+                        selectedCountry !== country && "text-white hover:text-[#0088CC]",
+                      )}
                     >
-                      {country}
+                      <span>{country}</span>
+                      {selectedCountry === country && (
+                        <svg className="w-4 h-4 text-[#0088CC]" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
                     </button>
                   ))
                 ) : (
-                  <div className="px-4 sm:px-5 py-3 sm:py-4 text-[#979797] text-xs sm:text-sm text-center">
-                    No countries found
+                  <div className="px-4 py-6 text-[#979797] text-sm text-center">
+                    No categories found
                   </div>
                 )}
               </div>
-            )}
-          </div>
-
-          {/* Server Dropdown */}
-          <div className="relative group">
-            <label className="text-xs sm:text-sm font-bold text-white block mb-2 flex items-center gap-2">
-              <ServerIcon className="w-4 h-4 text-[#979797]" />
-              By Server
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder={
-                  selectedServer ? selectedServer : "Select server..."
-                }
-                value={serverSearch}
-                onChange={(e) => setServerSearch(e.target.value)}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 md:py-3.5 pr-10 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:border-[#0088CC] text-xs sm:text-sm transition-all min-h-[44px] touch-target"
-              />
-              {selectedServer && (
-                <button
-                  onClick={() => {
-                    onServerChange("");
-                    setServerSearch("");
-                  }}
-                  className="absolute top-1/2 right-3 transform -translate-y-1/2 text-[#979797] hover:text-white transition-colors p-1 hover:bg-[#666666]/20 rounded"
-                  title="Clear selection"
-                  aria-label="Clear server filter"
-                >
-                  <CloseIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
+              {selectedCountry && (
+                <div className="p-3 border-t border-[#666666]">
+                  <button
+                    onClick={() => {
+                      onCountryChange("");
+                      setCountrySearch("");
+                    }}
+                    className="w-full px-3 py-2 text-sm text-[#979797] hover:text-white hover:bg-[#666666]/20 rounded-lg transition-all flex items-center justify-center gap-2"
+                  >
+                    <X className="w-4 h-4" />
+                    Clear Selection
+                  </button>
+                </div>
               )}
             </div>
-            {serverSearch && (
-              <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-[#666666] rounded-lg z-[999] max-h-48 overflow-y-auto shadow-xl">
-                {filteredServers.length > 0 ? (
-                  filteredServers.map((server) => (
-                    <button
-                      key={server}
-                      onClick={() => {
-                        onServerChange(server);
-                        setServerSearch("");
-                      }}
-                      className="w-full text-left px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-[#0088CC]/30 text-white text-xs sm:text-sm transition-all duration-200 border-b border-[#666666]/50 last:border-b-0 min-h-[44px] flex items-center hover:text-[#0088CC] font-medium"
-                    >
-                      {server}
-                    </button>
-                  ))
-                ) : (
-                  <div className="px-4 sm:px-5 py-3 sm:py-4 text-[#979797] text-xs sm:text-sm text-center">
-                    No servers found
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+          )}
         </div>
+
+        {/* Divider */}
+        <div className="w-px bg-[#666666]" />
+
+        {/* Search Button */}
+        <button className="px-5 sm:px-6 md:px-7 py-3 sm:py-4 bg-[#0088CC] hover:bg-[#0077AA] text-white font-semibold text-sm sm:text-base transition-all duration-200 flex items-center justify-center gap-2 min-w-max">
+          <Search className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="hidden sm:inline">Search</span>
+        </button>
       </div>
     </div>
   );
