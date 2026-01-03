@@ -87,7 +87,7 @@ export default function Header() {
         >
           <Link
             to="/"
-            className="flex items-center gap-2 text-sm font-semibold text-[#979797] hover:text-white transition-all duration-200 hover:scale-110 group"
+            className="flex items-center gap-2 text-sm font-semibold text-[#979797] hover:text-white transition-all duration-200 group"
           >
             <HomeIcon className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-[#0088CC]" />
             <span className="hidden xl:inline group-hover:text-[#0088CC]">
@@ -102,7 +102,7 @@ export default function Header() {
           </Link>
           <Link
             to="/dox-anyone"
-            className="flex items-center gap-2 px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 group"
+            className="flex items-center gap-2 px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
           >
             <SearchAltIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
             <span>Dox Now</span>
@@ -112,7 +112,7 @@ export default function Header() {
               {location.pathname !== "/uppostpanel" && (
                 <Link
                   to="/uppostpanel"
-                  className="flex items-center gap-2 px-5 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-purple-600/40 active:scale-95 group"
+                  className="flex items-center gap-2 px-5 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
                 >
                   <UploadIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span className="hidden xl:inline">Upload</span>
@@ -121,7 +121,7 @@ export default function Header() {
               {location.pathname !== "/admin-panel" && (
                 <Link
                   to="/admin-panel"
-                  className="flex items-center gap-2 px-5 py-2 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-amber-600/40 active:scale-95 group"
+                  className="flex items-center gap-2 px-5 py-2 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
                 >
                   <SettingsIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span className="hidden xl:inline">Admin</span>
@@ -129,7 +129,7 @@ export default function Header() {
               )}
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-5 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-red-600/40 active:scale-95 group"
+                className="flex items-center gap-2 px-5 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
               >
                 <LogOut className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span className="hidden xl:inline">Logout</span>
@@ -215,7 +215,7 @@ export default function Header() {
                 <button
                   onClick={closeSidebar}
                   aria-label="Close navigation menu"
-                  className="p-2 rounded-lg hover:bg-[#0088CC]/20 transition-all duration-200 group hover:shadow-lg hover:shadow-[#0088CC]/30"
+                  className="p-2 rounded-lg hover:bg-[#0088CC]/20 transition-all duration-200 group"
                 >
                   <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#979797] group-hover:text-[#0088CC] group-hover:translate-x-1 transition-all" />
                 </button>
@@ -244,7 +244,7 @@ export default function Header() {
                 <Link
                   to="/dox-anyone"
                   onClick={closeSidebar}
-                  className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 text-white font-semibold bg-gradient-to-r from-[#0088CC] to-[#0066AA] hover:from-[#0099DD] hover:to-[#0077BB] rounded-lg transition-all duration-200 active:shadow-inner shadow-lg shadow-[#0088CC]/40 text-sm sm:text-base touch-target group"
+                  className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 text-white font-semibold bg-gradient-to-r from-[#0088CC] to-[#0066AA] hover:from-[#0099DD] hover:to-[#0077BB] rounded-lg transition-all duration-200 text-sm sm:text-base touch-target group"
                 >
                   <SearchAltIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="flex-1">Dox Now</span>
@@ -257,7 +257,7 @@ export default function Header() {
                       <Link
                         to="/uppostpanel"
                         onClick={closeSidebar}
-                        className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-500 hover:to-purple-600 rounded-lg transition-all duration-200 active:shadow-inner shadow-lg shadow-purple-600/40 text-sm sm:text-base touch-target group"
+                        className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-500 hover:to-purple-600 rounded-lg transition-all duration-200 text-sm sm:text-base touch-target group"
                       >
                         <UploadIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
                         <span className="flex-1">Upload Post</span>
@@ -268,7 +268,7 @@ export default function Header() {
                       <Link
                         to="/admin-panel"
                         onClick={closeSidebar}
-                        className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white font-semibold hover:from-amber-500 hover:to-amber-600 rounded-lg transition-all duration-200 active:shadow-inner shadow-lg shadow-amber-600/40 text-sm sm:text-base touch-target group"
+                        className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white font-semibold hover:from-amber-500 hover:to-amber-600 rounded-lg transition-all duration-200 text-sm sm:text-base touch-target group"
                       >
                         <SettingsIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
                         <span className="flex-1">Admin Panel</span>
@@ -284,7 +284,7 @@ export default function Header() {
                 <div className="p-4 sm:p-5 border-t border-[#333333]/50 bg-gradient-to-t from-[#0a0a0a] to-transparent flex-shrink-0">
                   <button
                     onClick={handleLogout}
-                    className="w-full flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-200 shadow-lg hover:shadow-lg hover:shadow-red-600/40 active:shadow-inner text-sm sm:text-base touch-target group"
+                    className="w-full flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-200 text-sm sm:text-base touch-target group"
                   >
                     <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     <span>Logout</span>

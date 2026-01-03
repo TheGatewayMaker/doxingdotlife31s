@@ -244,7 +244,7 @@ export default function SearchBar({
           placeholder="Search by name, username, or details..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-4 md:py-4 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg md:rounded-xl text-white placeholder-[#979797] focus:outline-none focus:ring-2 focus:ring-[#0088CC] focus:border-[#0088CC] text-sm sm:text-base transition-all shadow-lg hover:shadow-[#0088CC]/30 hover:shadow-xl min-h-[44px] touch-target pr-12 sm:pr-14"
+          className="w-full px-4 sm:px-5 md:px-6 py-3 sm:py-4 md:py-4 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg md:rounded-xl text-white placeholder-[#979797] focus:outline-none focus:border-[#0088CC] text-sm sm:text-base transition-all min-h-[44px] touch-target pr-12 sm:pr-14"
         />
         <Search className="absolute right-4 sm:right-5 md:right-6 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#979797] pointer-events-none" />
       </div>
@@ -306,7 +306,7 @@ export default function SearchBar({
                 }
                 value={countrySearch}
                 onChange={(e) => setCountrySearch(e.target.value)}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 md:py-3.5 pr-10 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:ring-2 focus:ring-[#0088CC] focus:border-[#0088CC] text-xs sm:text-sm transition-all min-h-[44px] touch-target"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 md:py-3.5 pr-10 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:border-[#0088CC] text-xs sm:text-sm transition-all min-h-[44px] touch-target"
               />
               {selectedCountry && (
                 <button
@@ -360,7 +360,7 @@ export default function SearchBar({
                 }
                 value={serverSearch}
                 onChange={(e) => setServerSearch(e.target.value)}
-                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 md:py-3.5 pr-10 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:ring-2 focus:ring-[#0088CC] focus:border-[#0088CC] text-xs sm:text-sm transition-all min-h-[44px] touch-target"
+                className="w-full px-4 sm:px-5 py-2.5 sm:py-3 md:py-3.5 pr-10 bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] rounded-lg text-white placeholder-[#979797] focus:outline-none focus:border-[#0088CC] text-xs sm:text-sm transition-all min-h-[44px] touch-target"
               />
               {selectedServer && (
                 <button
