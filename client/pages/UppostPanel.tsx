@@ -628,7 +628,7 @@ export default function UppostPanel() {
                       setShowSuggestions(true);
                     }
                   }}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                   placeholder="Enter post title"
                   autoComplete="off"
                 />
@@ -668,7 +668,7 @@ export default function UppostPanel() {
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent resize-none transition-all duration-200 text-sm"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent resize-none transition-all duration-200 text-sm"
                   rows={4}
                   placeholder="Enter post description"
                 />
@@ -795,7 +795,7 @@ export default function UppostPanel() {
                     type="text"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="(optional)"
                   />
                 </div>
@@ -821,7 +821,7 @@ export default function UppostPanel() {
                     type="text"
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="(optional)"
                   />
                 </div>
@@ -849,7 +849,7 @@ export default function UppostPanel() {
                     type="text"
                     value={server}
                     onChange={(e) => setServer(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="(optional)"
                   />
                 </div>
@@ -877,7 +877,7 @@ export default function UppostPanel() {
                     type="text"
                     value={discordUsername}
                     onChange={(e) => setDiscordUsername(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., user#1234"
                   />
                 </div>
@@ -894,7 +894,7 @@ export default function UppostPanel() {
                     type="text"
                     value={discordName}
                     onChange={(e) => setDiscordName(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., Display Name"
                   />
                 </div>
@@ -911,7 +911,7 @@ export default function UppostPanel() {
                     type="text"
                     value={realName}
                     onChange={(e) => setRealName(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., John Doe"
                   />
                 </div>
@@ -928,7 +928,7 @@ export default function UppostPanel() {
                     type="text"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., 25"
                   />
                 </div>
@@ -945,7 +945,7 @@ export default function UppostPanel() {
                     type="email"
                     value={personalEmail}
                     onChange={(e) => setPersonalEmail(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., user@example.com"
                   />
                 </div>
@@ -962,7 +962,7 @@ export default function UppostPanel() {
                     type="text"
                     value={ipAddress}
                     onChange={(e) => setIpAddress(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., 192.168.1.1"
                   />
                 </div>
@@ -979,7 +979,7 @@ export default function UppostPanel() {
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., 123 Main St, City, State"
                   />
                 </div>
@@ -996,7 +996,7 @@ export default function UppostPanel() {
                     type="text"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="e.g., +1-555-0123"
                   />
                 </div>
