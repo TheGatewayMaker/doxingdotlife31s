@@ -132,10 +132,9 @@ export default function UppostPanel() {
 
     try {
       await loginWithGoogle();
-      // Get the authenticated user's email from the context
-      const authContext = useAuthContext();
-      const adminEmail = authContext.email || email;
-      toast.success(`Login Successful For ${adminEmail}`);
+      // After successful login, display success message with admin email
+      // The email is now available from the context after Firebase auth state updates
+      toast.success(`Login Successful For ${email}`);
     } catch (error) {
       const errorMessage =
         error instanceof Error
