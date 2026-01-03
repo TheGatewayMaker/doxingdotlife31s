@@ -244,7 +244,7 @@ export default function Header() {
                 <Link
                   to="/dox-anyone"
                   onClick={closeSidebar}
-                  className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 text-white font-semibold bg-gradient-to-r from-[#0088CC] to-[#0066AA] hover:from-[#0099DD] hover:to-[#0077BB] rounded-lg transition-all duration-200 active:shadow-inner shadow-lg shadow-[#0088CC]/40 text-sm sm:text-base touch-target group"
+                  className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 text-white font-semibold bg-gradient-to-r from-[#0088CC] to-[#0066AA] hover:from-[#0099DD] hover:to-[#0077BB] rounded-lg transition-all duration-200 text-sm sm:text-base touch-target group"
                 >
                   <SearchAltIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="flex-1">Dox Now</span>
