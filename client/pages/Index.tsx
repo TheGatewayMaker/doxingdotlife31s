@@ -172,6 +172,9 @@ export default function Index() {
               </p>
             </div>
 
+            {/* Animated Search Heading */}
+            <AnimatedSearchHeading />
+
             {/* Search Bar Component */}
             <SearchBar
               searchQuery={searchQuery}
