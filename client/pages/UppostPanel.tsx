@@ -1121,7 +1121,7 @@ export default function UppostPanel() {
                     type="number"
                     value={trendRank}
                     onChange={(e) => setTrendRank(e.target.value)}
-                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-all duration-200 text-sm"
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-background/50 border-2 border-border/60 hover:border-accent/60 rounded-lg sm:rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-accent transition-all duration-200 text-sm"
                     placeholder="Enter rank number (1 appears first, 2 second, etc.)"
                     min="1"
                   />
