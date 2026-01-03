@@ -102,7 +102,7 @@ export default function Header() {
           </Link>
           <Link
             to="/dox-anyone"
-            className="flex items-center gap-2 px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 group"
+            className="flex items-center gap-2 px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
           >
             <SearchAltIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
             <span>Dox Now</span>
@@ -112,7 +112,7 @@ export default function Header() {
               {location.pathname !== "/uppostpanel" && (
                 <Link
                   to="/uppostpanel"
-                  className="flex items-center gap-2 px-5 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-purple-600/40 active:scale-95 group"
+                  className="flex items-center gap-2 px-5 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
                 >
                   <UploadIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span className="hidden xl:inline">Upload</span>
@@ -121,7 +121,7 @@ export default function Header() {
               {location.pathname !== "/admin-panel" && (
                 <Link
                   to="/admin-panel"
-                  className="flex items-center gap-2 px-5 py-2 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-amber-600/40 active:scale-95 group"
+                  className="flex items-center gap-2 px-5 py-2 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
                 >
                   <SettingsIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                   <span className="hidden xl:inline">Admin</span>
@@ -129,7 +129,7 @@ export default function Header() {
               )}
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-5 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-red-600/40 active:scale-95 group"
+                className="flex items-center gap-2 px-5 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
               >
                 <LogOut className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span className="hidden xl:inline">Logout</span>
