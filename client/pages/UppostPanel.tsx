@@ -132,7 +132,9 @@ export default function UppostPanel() {
 
     try {
       await loginWithGoogle();
-      toast.success("Successfully signed in with Google!");
+      // After successful login, display success message with admin email
+      // The email is now available from the context after Firebase auth state updates
+      toast.success(`Login Successful For ${email}`);
     } catch (error) {
       const errorMessage =
         error instanceof Error
@@ -140,6 +142,7 @@ export default function UppostPanel() {
           : "Login failed. Please try again.";
       setLoginError(errorMessage);
       toast.error(errorMessage);
+    } finally {
       setIsLoggingIn(false);
     }
   };
@@ -1014,7 +1017,7 @@ export default function UppostPanel() {
                   id="blur-checkbox"
                   checked={blurThumbnail}
                   onChange={(e) => setBlurThumbnail(e.target.checked)}
-                  className="w-4 h-4 sm:w-5 sm:h-5 accent-blue-600 rounded cursor-pointer flex-shrink-0 mt-0.5 sm:mt-0"
+                  className="w-4 h-4 sm:w-5 sm:h-5 accent-emerald-600 rounded cursor-pointer flex-shrink-0 mt-0.5 sm:mt-0"
                 />
                 <label
                   htmlFor="blur-checkbox"
