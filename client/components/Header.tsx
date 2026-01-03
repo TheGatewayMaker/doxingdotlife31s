@@ -257,7 +257,7 @@ export default function Header() {
                       <Link
                         to="/uppostpanel"
                         onClick={closeSidebar}
-                        className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-500 hover:to-purple-600 rounded-lg transition-all duration-200 active:shadow-inner shadow-lg shadow-purple-600/40 text-sm sm:text-base touch-target group"
+                        className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-500 hover:to-purple-600 rounded-lg transition-all duration-200 text-sm sm:text-base touch-target group"
                       >
                         <UploadIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
                         <span className="flex-1">Upload Post</span>
