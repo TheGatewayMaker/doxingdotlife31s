@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
+import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import { Post, PostsResponse } from "@shared/api";
 import { GlobeIcon, MapPinIcon, DiscordIcon } from "@/components/Icons";
@@ -170,6 +171,9 @@ export default function Index() {
                 expose information on anyone in our comprehensive directory.
               </p>
             </div>
+
+            {/* Animated Search Heading */}
+            <AnimatedSearchHeading />
 
             {/* Search Bar Component */}
             <SearchBar

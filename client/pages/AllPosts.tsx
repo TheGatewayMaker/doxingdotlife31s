@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
+import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import { Post, PostsResponse } from "@shared/api";
 import { GlobeIcon, MapPinIcon, ServerIcon } from "@/components/Icons";
@@ -150,6 +151,9 @@ export default function AllPosts() {
                 Browse all the doxxed individuals in our database
               </p>
             </div>
+
+            {/* Animated Search Heading */}
+            <AnimatedSearchHeading />
 
             {/* Search Bar Component */}
             <SearchBar
