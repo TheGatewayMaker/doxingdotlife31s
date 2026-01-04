@@ -204,7 +204,9 @@ export default function SimpleMediaGallery({
                         <source src={file.url} type={file.type} />
                       </video>
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center pointer-events-none">
-                        <div className="text-3xl drop-shadow-lg">▶️</div>
+                        <div className="drop-shadow-lg">
+                          <FilmIcon className="w-8 h-8 text-white" />
+                        </div>
                       </div>
                     </div>
                     <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
