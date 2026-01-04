@@ -350,6 +350,7 @@ export function createServer() {
     asyncHandler(handleUpload),
   );
 
+  app.get("/api/posts/:postId", handleGetPostDetail);
   app.get("/api/posts", handleGetPosts);
   app.get("/api/servers", handleGetServers);
 
