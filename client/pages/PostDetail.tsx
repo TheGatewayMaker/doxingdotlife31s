@@ -257,7 +257,9 @@ export default function PostDetail() {
                     <div className="w-full aspect-video bg-[#1a1a1a] flex items-center justify-center rounded-lg border border-[#666666]">
                       <div className="text-center">
                         <PictureIcon className="w-16 h-16 mx-auto mb-2 text-[#666666]" />
-                        <p className="text-[#979797] text-sm">Thumbnail unavailable</p>
+                        <p className="text-[#979797] text-sm">
+                          Thumbnail unavailable
+                        </p>
                       </div>
                     </div>
                   )}

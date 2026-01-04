@@ -124,7 +124,10 @@ export default function PostMediaSection({
           )}
 
           {isSelectedVideo && (
-            <div className="relative bg-black flex items-center justify-center w-full" style={{ aspectRatio: "16/9" }}>
+            <div
+              className="relative bg-black flex items-center justify-center w-full"
+              style={{ aspectRatio: "16/9" }}
+            >
               <video
                 key={`video-${selectedMediaIndex}`}
                 controls
