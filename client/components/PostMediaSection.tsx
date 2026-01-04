@@ -231,8 +231,9 @@ export default function PostMediaSection({
                       <video
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         crossOrigin="anonymous"
-                        preload="metadata"
+                        preload="none"
                         playsInline
+                        loading="lazy"
                       >
                         <source src={media.url} type={media.type} />
                       </video>
