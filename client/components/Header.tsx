@@ -215,6 +215,7 @@ export default function Header() {
 
             {/* Sidebar from Right */}
             <div
+              ref={sidebarRef}
               id="mobile-menu"
               className={`fixed top-0 right-0 h-screen w-72 max-w-[85vw] bg-gradient-to-b from-[#0a0a0a] via-[#000000] to-[#000000] lg:hidden shadow-2xl flex flex-col overflow-hidden border-l border-[#333333]/50 ${
                 isClosing
