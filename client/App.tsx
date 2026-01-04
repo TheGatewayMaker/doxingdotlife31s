@@ -32,7 +32,7 @@ const AppContent = () => {
         <Route path="/" element={<Index />} />
         <Route path="/all-posts" element={<AllPosts />} />
         <Route path="/post/:postId" element={<PostDetail />} />
-        <Route path="/dox-anyone" element={<DoxAnyone />} />
+        <Route path="/doxx-anyone" element={<DoxxAnyone />} />
         <Route path="/uppostpanel" element={<UppostPanel />} />
         <Route path="/admin-panel" element={<AdminPanel />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
