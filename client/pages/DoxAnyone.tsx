@@ -308,7 +308,7 @@ export default function DoxAnyone() {
         </div>
 
         {/* CTA Section */}
-        <div className="w-full bg-gradient-to-b from-[#000000] to-[#0a0a0a] py-16 sm:py-20 md:py-24 lg:py-28 border-t border-[#333333]">
+        <div className="w-full bg-gradient-to-b from-[#000000] to-[#0a0a0a] py-12 sm:py-16 md:py-20 lg:py-24 border-t border-[#333333]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-popIn" style={{ animationDelay: "0.5s" }}>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-6">
