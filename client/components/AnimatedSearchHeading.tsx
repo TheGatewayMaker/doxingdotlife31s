@@ -1,6 +1,6 @@
 export default function AnimatedSearchHeading() {
   return (
-    <div className="mb-4 sm:mb-4 md:mb-5 lg:mb-6 animate-slideInUp">
+    <div className="mb-3 sm:mb-3 md:mb-4 lg:mb-5 animate-slideInUp">
       <h2 className="search-gradient-heading">Who are you looking for?</h2>
       <style>{`
         @keyframes gradientFlow {

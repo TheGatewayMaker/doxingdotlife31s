@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
+import AdvertisementBanners from "@/components/AdvertisementBanners";
 import { Post, PostsResponse } from "@shared/api";
 import { GlobeIcon, MapPinIcon, DiscordIcon } from "@/components/Icons";
 import { Flame } from "lucide-react";
@@ -158,7 +159,7 @@ export default function Index() {
 
       <main className="flex-1 w-full">
         {/* Hero Section */}
-        <div className="bg-[#000000] py-6 sm:py-10 md:py-16 lg:py-20">
+        <div className="bg-[#000000] py-4 sm:py-6 md:py-10 lg:py-14">
           <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
             <div
               className="animate-slideInLeftFade"
@@ -167,11 +168,14 @@ export default function Index() {
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-3 sm:mb-4 md:mb-5 text-white tracking-tighter leading-tight">
                 Doxing Dot Life
               </h1>
-              <p className="hidden sm:block text-sm sm:text-base md:text-lg lg:text-xl font-medium text-[#979797] mb-5 sm:mb-6 md:mb-8 max-w-3xl leading-relaxed">
+              <p className="hidden sm:block text-sm sm:text-base md:text-lg lg:text-xl font-medium text-[#979797] mb-4 sm:mb-5 md:mb-6 max-w-3xl leading-relaxed">
                 The largest database of exposed individuals. Search, doxx, and
                 expose information on anyone in our comprehensive directory.
               </p>
             </div>
+
+            {/* Advertisement Banners */}
+            <AdvertisementBanners />
 
             {/* Animated Search Heading */}
             <AnimatedSearchHeading />
@@ -191,7 +195,7 @@ export default function Index() {
 
         {/* Animated Counter Section */}
         {!hasSearchFilters && (
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 -mt-2 sm:-mt-3 md:-mt-4">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 -mt-1 sm:-mt-2 md:-mt-3">
             <AnimatedNumberCounter
               endValue={cachedPostCount}
               isLoading={isLoadingPosts}
@@ -200,7 +204,7 @@ export default function Index() {
         )}
 
         {/* Posts Section */}
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4 md:py-5 lg:py-6">
           <div className="mb-4 sm:mb-6 md:mb-8 animate-slideInUp">
             {isLoadingPosts ? (
               <>
