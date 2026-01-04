@@ -292,8 +292,8 @@ export default function DoxAnyone() {
                 className="text-center animate-scaleUpFadeIn"
                 style={{ animationDelay: "0.49s" }}
               >
-                <div className="text-5xl sm:text-6xl font-black text-[#0088CC] mb-3 sm:mb-4">
-                  🔒
+                <div className="flex justify-center mb-3 sm:mb-4">
+                  <Lock className="w-14 h-14 sm:w-16 sm:h-16 text-[#0088CC]" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-black text-white mb-2 sm:mb-3">
                   Secure & Private
