@@ -14,7 +14,7 @@ import Index from "./pages/Index";
 import AllPosts from "./pages/AllPosts";
 import UppostPanel from "./pages/UppostPanel";
 import PostDetail from "./pages/PostDetail";
-import DoxAnyone from "./pages/DoxAnyone";
+import DoxxAnyone from "./pages/DoxAnyone";
 import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 
