@@ -150,7 +150,7 @@ export default function DoxxAnyone() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 sm:mb-3">
-                      Click Dox Button
+                      Click Doxx Button
                     </h3>
                     <p className="text-base sm:text-lg text-[#979797] font-semibold leading-relaxed">
                       Start your doxing submission process by clicking the
