@@ -286,7 +286,18 @@ export default function PostDetail() {
               </div>
 
               {/* Right Column - Description (Takes 2/5 on desktop) */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className="lg:col-span-2 space-y-6 flex flex-col">
+                {/* Share Button - Always Visible */}
+                <section>
+                  <button
+                    onClick={handleShare}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
+                  >
+                    <Share2 className="w-5 h-5" />
+                    <span>Share</span>
+                  </button>
+                </section>
+
                 {/* Description Section */}
                 <section className="bg-[#1a1a1a] border border-[#666666] rounded-lg p-5 sm:p-6 sticky top-24">
                   <h2 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-2">
@@ -301,17 +312,6 @@ export default function PostDetail() {
                       server: post.server,
                     }}
                   />
-                </section>
-
-                {/* Share Button */}
-                <section>
-                  <button
-                    onClick={handleShare}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
-                  >
-                    <Share2 className="w-5 h-5" />
-                    <span>Share</span>
-                  </button>
                 </section>
               </div>
             </div>
