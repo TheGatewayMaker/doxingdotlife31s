@@ -195,7 +195,7 @@ export default function Index() {
 
         {/* Animated Counter Section */}
         {!hasSearchFilters && (
-          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 -mt-2 sm:-mt-3 md:-mt-4">
+          <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 -mt-1 sm:-mt-2 md:-mt-3">
             <AnimatedNumberCounter
               endValue={cachedPostCount}
               isLoading={isLoadingPosts}
@@ -204,7 +204,7 @@ export default function Index() {
         )}
 
         {/* Posts Section */}
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4 md:py-5 lg:py-6">
           <div className="mb-4 sm:mb-6 md:mb-8 animate-slideInUp">
             {isLoadingPosts ? (
               <>
