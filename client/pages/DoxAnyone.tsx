@@ -104,7 +104,7 @@ export default function DoxxAnyone() {
                 </div>
                 <p className="text-sm text-[#2AE8B8] font-bold mb-6">PKR</p>
                 <button
-                  onClick={handleDoxNow}
+                  onClick={handleDoxxNow}
                   className="w-full py-3 px-4 bg-[#2AE8B8] text-[#000000] font-black rounded-lg hover:bg-[#4CF0D0] transition-colors duration-300 text-sm"
                 >
                   Get Started
