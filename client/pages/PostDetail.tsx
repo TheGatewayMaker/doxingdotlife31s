@@ -288,7 +288,7 @@ export default function PostDetail() {
                 style={{ animationDelay: "0.4s" }}
               >
                 <h2 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span>📁</span>
+                  <FolderIcon className="w-5 h-5" />
                   Media Gallery
                 </h2>
                 <PostMediaSection
