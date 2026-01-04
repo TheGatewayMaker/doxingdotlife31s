@@ -9,6 +9,7 @@ import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import { Post, PostsResponse } from "@shared/api";
 import { GlobeIcon, MapPinIcon, DiscordIcon } from "@/components/Icons";
 import { Flame } from "lucide-react";
+import { SearchIcon } from "@/components/Icons";
 
 export default function Index() {
   const navigate = useNavigate();
