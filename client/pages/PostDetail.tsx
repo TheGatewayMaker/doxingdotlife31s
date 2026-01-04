@@ -267,7 +267,7 @@ export default function PostDetail() {
             >
               <div className="bg-[#1a1a1a] border border-[#666666] rounded-xl p-6 sm:p-8">
                 <h2 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span>📋</span>
+                  <ClipboardIcon className="w-5 h-5" />
                   Overview
                 </h2>
                 <PostDescriptionSection
