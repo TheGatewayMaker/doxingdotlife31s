@@ -82,7 +82,7 @@ export default function DoxxAnyone() {
                 </div>
                 <p className="text-sm text-[#FFB84D] font-bold mb-6">INR</p>
                 <button
-                  onClick={handleDoxNow}
+                  onClick={handleDoxxNow}
                   className="w-full py-3 px-4 bg-[#FFB84D] text-[#000000] font-black rounded-lg hover:bg-[#FFD699] transition-colors duration-300 text-sm"
                 >
                   Get Started
