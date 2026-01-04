@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { Post } from "@shared/api";
-import { CloseIcon, TrashIcon, VideoIcon, ImageIcon, DocumentIcon } from "./Icons";
+import {
+  CloseIcon,
+  TrashIcon,
+  VideoIcon,
+  ImageIcon,
+  DocumentIcon,
+} from "./Icons";
 import { toast } from "sonner";
 
 interface MediaManagerModalProps {

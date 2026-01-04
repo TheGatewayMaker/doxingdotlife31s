@@ -7,7 +7,12 @@ import SearchBar from "@/components/SearchBar";
 import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import { Post, PostsResponse } from "@shared/api";
-import { GlobeIcon, MapPinIcon, ServerIcon, ClipboardIcon } from "@/components/Icons";
+import {
+  GlobeIcon,
+  MapPinIcon,
+  ServerIcon,
+  ClipboardIcon,
+} from "@/components/Icons";
 import { Flame } from "lucide-react";
 
 export default function AllPosts() {

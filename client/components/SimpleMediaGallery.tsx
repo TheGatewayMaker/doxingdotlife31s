@@ -225,7 +225,9 @@ export default function SimpleMediaGallery({
                     <div className="w-full aspect-square bg-muted flex flex-col items-center justify-center gap-2 group-hover:bg-muted/80 transition-colors">
                       {(() => {
                         const IconComponent = getMediaIcon(file.type);
-                        return <IconComponent className="w-8 h-8 text-muted-foreground" />;
+                        return (
+                          <IconComponent className="w-8 h-8 text-muted-foreground" />
+                        );
                       })()}
                       <p className="text-xs text-muted-foreground px-2 text-center truncate font-medium">
                         {file.name}

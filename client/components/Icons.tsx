@@ -482,7 +482,9 @@ export const FilmIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => (
   </svg>
 );
 
-export const MusicNoteIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => (
+export const MusicNoteIcon: React.FC<IconProps> = ({
+  className = "w-5 h-5",
+}) => (
   <svg
     className={className}
     viewBox="0 0 24 24"
@@ -498,7 +500,9 @@ export const MusicNoteIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) =>
   </svg>
 );
 
-export const DocumentIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => (
+export const DocumentIcon: React.FC<IconProps> = ({
+  className = "w-5 h-5",
+}) => (
   <svg
     className={className}
     viewBox="0 0 24 24"
@@ -513,7 +517,9 @@ export const DocumentIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => 
   </svg>
 );
 
-export const ClipboardIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => (
+export const ClipboardIcon: React.FC<IconProps> = ({
+  className = "w-5 h-5",
+}) => (
   <svg
     className={className}
     viewBox="0 0 24 24"
@@ -528,7 +534,9 @@ export const ClipboardIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) =>
   </svg>
 );
 
-export const WarningTriangleIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => (
+export const WarningTriangleIcon: React.FC<IconProps> = ({
+  className = "w-5 h-5",
+}) => (
   <svg
     className={className}
     viewBox="0 0 24 24"
@@ -544,7 +552,9 @@ export const WarningTriangleIcon: React.FC<IconProps> = ({ className = "w-5 h-5"
   </svg>
 );
 
-export const CalendarIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => (
+export const CalendarIcon: React.FC<IconProps> = ({
+  className = "w-5 h-5",
+}) => (
   <svg
     className={className}
     viewBox="0 0 24 24"
@@ -604,7 +614,9 @@ export const PlayIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => (
   </svg>
 );
 
-export const SnowflakeIcon: React.FC<IconProps> = ({ className = "w-5 h-5" }) => (
+export const SnowflakeIcon: React.FC<IconProps> = ({
+  className = "w-5 h-5",
+}) => (
   <svg
     className={className}
     viewBox="0 0 24 24"
