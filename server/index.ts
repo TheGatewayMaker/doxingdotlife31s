@@ -6,7 +6,7 @@ import { handleDemo } from "./routes/demo";
 import { handleUpload } from "./routes/upload";
 import { handleGenerateUploadUrls } from "./routes/generate-upload-urls";
 import { handleUploadMetadata } from "./routes/upload-metadata";
-import { handleGetPosts } from "./routes/posts";
+import { handleGetPosts, handleGetPostDetail } from "./routes/posts";
 import { handleGetServers } from "./routes/servers";
 import {
   handleDeletePost,
@@ -21,7 +21,6 @@ import {
   authMiddleware,
   optionalAuthMiddleware,
 } from "./routes/auth";
-import { handleGetPostDetail } from "./routes/posts";
 import { handleWatermarkVideo } from "./routes/watermark-video";
 import { checkFFmpegAvailability } from "./utils/ffmpeg-check";
 import { validateR2Configuration } from "./utils/r2-storage";
