@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, LogOut, ChevronRight } from "lucide-react";
 import {
   HomeIcon,
@@ -15,6 +15,7 @@ export default function Header() {
   const { isAuthenticated, logout } = useAuthContext();
   const navigate = useNavigate();
   const location = useLocation();
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isSidebarOpen) {
@@ -37,6 +38,29 @@ export default function Header() {
 
     document.addEventListener("keydown", handleEscapeKey);
     return () => document.removeEventListener("keydown", handleEscapeKey);
+  }, [isSidebarOpen]);
+
+  useEffect(() => {
+    if (!isSidebarOpen) return;
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      // Check if click is outside the sidebar and not on the hamburger button
+      if (
+        sidebarRef.current &&
+        !sidebarRef.current.contains(target) &&
+        !target.closest('[aria-controls="mobile-menu"]')
+      ) {
+        closeSidebar();
+      }
+    };
+
+    // Use capture phase to catch clicks early
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
   }, [isSidebarOpen]);
 
   const closeSidebar = () => {
