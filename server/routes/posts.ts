@@ -60,6 +60,62 @@ const getMimeType = (fileName: string): string => {
   return mimeTypes[extension] || "application/octet-stream";
 };
 
+export const handleGetPostDetail: RequestHandler = async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    if (!postId) {
+      return res.status(400).json({ error: "Missing postId parameter" });
+    }
+
+    console.log(
+      `[${new Date().toISOString()}] Fetching post detail for: ${postId}`,
+    );
+
+    // Get the post metadata with thumbnail
+    const postData = await getPostWithThumbnail(postId);
+
+    if (!postData) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+
+    // Get all media files for this post
+    const mediaFileNames = await listPostFiles(postId);
+
+    // Build the mediaFiles array with proper URLs and MIME types
+    const mediaFiles = mediaFileNames.map((fileName) => ({
+      name: fileName,
+      url: `/api/media/${postId}/${fileName}`,
+      type: getMimeType(fileName),
+    }));
+
+    // Return the complete post with mediaFiles
+    const post: Post = {
+      id: postData.id,
+      title: postData.title,
+      description: postData.description,
+      country: postData.country,
+      city: postData.city,
+      server: postData.server,
+      thumbnail: postData.thumbnail,
+      blurThumbnail: postData.blurThumbnail || false,
+      nsfw: postData.nsfw || false,
+      isTrend: postData.isTrend || false,
+      trendRank: postData.trendRank,
+      mediaFiles: mediaFiles,
+      createdAt: postData.createdAt,
+    };
+
+    res.json(post);
+  } catch (error) {
+    console.error(
+      `[${new Date().toISOString()}] Error getting post detail:`,
+      error,
+    );
+    res.status(500).json({ error: "Failed to load post" });
+  }
+};
+
 export const handleGetPosts: RequestHandler = async (req, res) => {
   const startTime = Date.now();
   try {
