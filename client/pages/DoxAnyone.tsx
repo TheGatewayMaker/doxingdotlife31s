@@ -30,10 +30,10 @@ export default function DoxAnyone() {
         </div>
 
         {/* Pricing Section */}
-        <div className="w-full bg-[#000000] py-16 sm:py-20 md:py-24 lg:py-28">
+        <div className="w-full bg-[#000000] py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
-              className="mb-12 sm:mb-16 md:mb-20 animate-scaleUpFadeIn"
+              className="mb-8 sm:mb-12 md:mb-16 animate-scaleUpFadeIn"
               style={{ animationDelay: "0.2s" }}
             >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 text-white text-center">
