@@ -47,7 +47,7 @@ export default function PhotoCard({
           </>
         ) : (
           <div className="absolute inset-0 bg-[#0a0a0a] flex flex-col items-center justify-center gap-1 sm:gap-2">
-            <div className="text-xl sm:text-2xl">🖼️</div>
+            <PictureIcon className="w-6 h-6 sm:w-8 sm:h-8 text-[#666666]" />
             <p className="text-[#666666] text-xs text-center px-2">
               Image unavailable
             </p>
