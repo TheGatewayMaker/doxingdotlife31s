@@ -37,27 +37,29 @@ export default function PostDetail() {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 30000);
 
-        const response = await fetch("/api/posts", {
+        const response = await fetch(`/api/posts/${postId}`, {
           signal: controller.signal,
         });
 
         clearTimeout(timeout);
 
         if (!response.ok) {
-          throw new Error(`API responded with status ${response.status}`);
-        }
-
-        const data = await response.json();
-        const posts = Array.isArray(data.posts) ? data.posts : [];
-        const foundPost = posts.find((p: Post) => p.id === postId);
-
-        if (foundPost) {
-          setPosts(foundPost);
-          if (foundPost.nsfw) {
-            setShowNSFWWarning(true);
+          if (response.status === 404) {
+            setError("Post not found");
+          } else {
+            throw new Error(`API responded with status ${response.status}`);
           }
         } else {
-          setError("Post not found");
+          const foundPost = await response.json();
+
+          if (foundPost) {
+            setPosts(foundPost);
+            if (foundPost.nsfw) {
+              setShowNSFWWarning(true);
+            }
+          } else {
+            setError("Post not found");
+          }
         }
       } catch (err) {
         console.error("Error loading post:", err);
@@ -147,24 +149,26 @@ export default function PostDetail() {
         <div className="w-full py-6 sm:py-8 lg:py-10">
           {/* Back Button */}
           <div className="px-4 sm:px-6 lg:px-8">
-            <button
-              onClick={() => navigate("/")}
-              className="flex items-center gap-2 px-3 py-2 mb-6 text-[#979797] hover:text-[#0088CC] transition-all duration-200 font-semibold animate-fadeIn hover:translate-x-[-4px]"
-            >
-              <svg
-                className="w-5 h-5"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+            <div className="max-w-7xl mx-auto w-full">
+              <button
+                onClick={() => navigate("/")}
+                className="flex items-center justify-center gap-2 px-6 py-3 sm:py-4 mb-6 bg-[#0088CC] text-white hover:bg-[#0077BB] transition-all duration-200 font-bold rounded-lg animate-fadeIn text-sm sm:text-base shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95"
               >
-                <line x1="19" y1="12" x2="5" y2="12"></line>
-                <polyline points="12 19 5 12 12 5"></polyline>
-              </svg>
-              <span>Back</span>
-            </button>
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Back to Home</span>
+              </button>
+            </div>
           </div>
 
           {/* Main Content - Full Width with Proper Grid */}
@@ -282,7 +286,18 @@ export default function PostDetail() {
               </div>
 
               {/* Right Column - Description (Takes 2/5 on desktop) */}
-              <div className="lg:col-span-2 space-y-6">
+              <div className="lg:col-span-2 space-y-6 flex flex-col">
+                {/* Share Button - Always Visible */}
+                <section>
+                  <button
+                    onClick={handleShare}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
+                  >
+                    <Share2 className="w-5 h-5" />
+                    <span>Share</span>
+                  </button>
+                </section>
+
                 {/* Description Section */}
                 <section className="bg-[#1a1a1a] border border-[#666666] rounded-lg p-5 sm:p-6 sticky top-24">
                   <h2 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-2">
@@ -297,17 +312,6 @@ export default function PostDetail() {
                       server: post.server,
                     }}
                   />
-                </section>
-
-                {/* Share Button - Fixed Column */}
-                <section className="sticky top-96">
-                  <button
-                    onClick={handleShare}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
-                  >
-                    <Share2 className="w-5 h-5" />
-                    <span>Share</span>
-                  </button>
                 </section>
               </div>
             </div>

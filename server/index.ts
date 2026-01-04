@@ -6,7 +6,7 @@ import { handleDemo } from "./routes/demo";
 import { handleUpload } from "./routes/upload";
 import { handleGenerateUploadUrls } from "./routes/generate-upload-urls";
 import { handleUploadMetadata } from "./routes/upload-metadata";
-import { handleGetPosts } from "./routes/posts";
+import { handleGetPosts, handleGetPostDetail } from "./routes/posts";
 import { handleGetServers } from "./routes/servers";
 import {
   handleDeletePost,
@@ -350,6 +350,7 @@ export function createServer() {
     asyncHandler(handleUpload),
   );
 
+  app.get("/api/posts/:postId", handleGetPostDetail);
   app.get("/api/posts", handleGetPosts);
   app.get("/api/servers", handleGetServers);
 
