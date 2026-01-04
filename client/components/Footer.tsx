@@ -20,7 +20,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-full overflow-hidden flex-shrink-0 shadow-lg">
                 <img
-                  src="https://i.ibb.co/PzNWvp7N/doxinglifelogo.png"
+                  src="https://cdn.builder.io/api/v1/image/assets%2Fa9258861175949eaa27282de53009385%2F58644c317828471cb52c7ec23ee52853"
                   alt="Doxing Dot Life Logo"
                   className="w-full h-full object-cover"
                   loading="lazy"

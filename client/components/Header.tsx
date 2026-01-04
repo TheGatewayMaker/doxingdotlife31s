@@ -17,6 +17,7 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     if (isSidebarOpen) {
@@ -47,11 +48,12 @@ export default function Header() {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
 
-      // Check if click is outside the sidebar and not on the hamburger button
+      // Check if click is outside the sidebar and not on the hamburger button or logo link
       if (
         sidebarRef.current &&
         !sidebarRef.current.contains(target) &&
-        !target.closest('[aria-controls="mobile-menu"]')
+        !target.closest('[aria-controls="mobile-menu"]') &&
+        !target.closest("[data-logo-link]")
       ) {
         closeSidebar();
       }
@@ -88,11 +90,13 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
         <Link
           to="/"
+          ref={logoRef}
+          data-logo-link
           className="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-opacity flex-shrink-0 group"
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden shadow-md flex-shrink-0 group-hover:shadow-lg group-hover:shadow-[#0088CC]/30 transition-all">
             <img
-              src="https://i.ibb.co/PzNWvp7N/doxinglifelogo.png"
+              src="https://cdn.builder.io/api/v1/image/assets%2Fa9258861175949eaa27282de53009385%2F58644c317828471cb52c7ec23ee52853"
               alt="Doxing Dot Life Logo"
               className="w-full h-full object-cover"
             />
