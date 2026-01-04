@@ -52,21 +52,29 @@ const SnowfallEffect = () => {
       flakes.forEach((flake) => {
         const snowflake = document.createElement("div");
         snowflake.id = flake.id;
-        snowflake.className = "fixed pointer-events-none select-none font-bold";
-        snowflake.innerHTML = "❄";
+        snowflake.className = "fixed pointer-events-none select-none";
+
+        // Create professional SVG snowflake
+        const svgSize = flake.size;
+        snowflake.innerHTML = `
+          <svg width="${svgSize}" height="${svgSize}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 1v22M1 12h22M4.22 4.22l15.56 15.56M19.78 4.22L4.22 19.78"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+        `;
 
         snowflake.style.cssText = `
           left: ${flake.x}%;
-          top: -10px;
-          font-size: ${flake.size}px;
+          top: -${svgSize}px;
+          width: ${svgSize}px;
+          height: ${svgSize}px;
           opacity: ${flake.opacity};
           z-index: 20;
           color: rgba(255, 255, 255, 0.9);
-          text-shadow:
-            0 0 10px rgba(0, 136, 204, 0.6),
-            0 0 20px rgba(100, 200, 255, 0.4),
-            0 0 5px rgba(255, 255, 255, 0.8);
-          filter: drop-shadow(0 0 4px rgba(0, 136, 204, 0.5));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          filter: drop-shadow(0 0 3px rgba(0, 136, 204, 0.6));
         `;
 
         container.appendChild(snowflake);
