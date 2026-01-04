@@ -92,7 +92,7 @@ export default function Header() {
         >
           <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden shadow-md flex-shrink-0 group-hover:shadow-lg group-hover:shadow-[#0088CC]/30 transition-all">
             <img
-              src="https://i.ibb.co/PzNWvp7N/doxinglifelogo.png"
+              src="https://cdn.builder.io/api/v1/image/assets%2Fa9258861175949eaa27282de53009385%2F58644c317828471cb52c7ec23ee52853"
               alt="Doxing Dot Life Logo"
               className="w-full h-full object-cover"
             />
