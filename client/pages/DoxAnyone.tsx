@@ -60,7 +60,7 @@ export default function DoxxAnyone() {
                 </div>
                 <p className="text-sm text-[#00A8E8] font-bold mb-6">USD</p>
                 <button
-                  onClick={handleDoxNow}
+                  onClick={handleDoxxNow}
                   className="w-full py-3 px-4 bg-[#00A8E8] text-[#000000] font-black rounded-lg hover:bg-[#00C4FF] transition-colors duration-300 text-sm"
                 >
                   Get Started
