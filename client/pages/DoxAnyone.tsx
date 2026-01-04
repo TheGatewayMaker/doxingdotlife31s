@@ -318,10 +318,10 @@ export default function DoxxAnyone() {
                 Join our community and start your doxing submission today
               </p>
               <button
-                onClick={handleDoxNow}
+                onClick={handleDoxxNow}
                 className="inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#0088CC] to-[#00C4FF] text-white font-black text-base sm:text-lg rounded-xl hover:shadow-2xl hover:shadow-[#0088CC]/40 transition-all duration-300 transform hover:scale-105 active:scale-95 mb-6 sm:mb-8"
               >
-                Dox Now
+                Doxx Now
                 <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
               <div>
