@@ -303,8 +303,8 @@ export default function PostDetail() {
                   />
                 </section>
 
-                {/* Share Button - Fixed Column */}
-                <section className="sticky top-96">
+                {/* Share Button */}
+                <section>
                   <button
                     onClick={handleShare}
                     className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
