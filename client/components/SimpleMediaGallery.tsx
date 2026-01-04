@@ -2,6 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 import { addWatermarkToImage, addWatermarkToVideo } from "@/lib/watermark";
 import { toast } from "sonner";
+import {
+  PictureIcon,
+  FilmIcon,
+  MusicNoteIcon,
+  DocumentIcon,
+} from "@/components/Icons";
 
 interface MediaFile {
   name: string;
@@ -16,11 +22,11 @@ interface SimpleMediaGalleryProps {
   thumbnailUrl?: string;
 }
 
-const getMediaIcon = (type: string): string => {
-  if (type.startsWith("image/")) return "🖼️";
-  if (type.startsWith("video/")) return "🎬";
-  if (type.startsWith("audio/")) return "🎵";
-  return "📄";
+const getMediaIcon = (type: string) => {
+  if (type.startsWith("image/")) return PictureIcon;
+  if (type.startsWith("video/")) return FilmIcon;
+  if (type.startsWith("audio/")) return MusicNoteIcon;
+  return DocumentIcon;
 };
 
 export default function SimpleMediaGallery({
