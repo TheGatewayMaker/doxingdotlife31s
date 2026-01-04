@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Download } from "lucide-react";
+import { PictureIcon } from "@/components/Icons";
 
 interface PhotoCardProps {
   url: string;
