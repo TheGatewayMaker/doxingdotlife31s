@@ -37,27 +37,29 @@ export default function PostDetail() {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 30000);
 
-        const response = await fetch("/api/posts", {
+        const response = await fetch(`/api/posts/${postId}`, {
           signal: controller.signal,
         });
 
         clearTimeout(timeout);
 
         if (!response.ok) {
-          throw new Error(`API responded with status ${response.status}`);
-        }
-
-        const data = await response.json();
-        const posts = Array.isArray(data.posts) ? data.posts : [];
-        const foundPost = posts.find((p: Post) => p.id === postId);
-
-        if (foundPost) {
-          setPosts(foundPost);
-          if (foundPost.nsfw) {
-            setShowNSFWWarning(true);
+          if (response.status === 404) {
+            setError("Post not found");
+          } else {
+            throw new Error(`API responded with status ${response.status}`);
           }
         } else {
-          setError("Post not found");
+          const foundPost = await response.json();
+
+          if (foundPost) {
+            setPosts(foundPost);
+            if (foundPost.nsfw) {
+              setShowNSFWWarning(true);
+            }
+          } else {
+            setError("Post not found");
+          }
         }
       } catch (err) {
         console.error("Error loading post:", err);
