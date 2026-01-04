@@ -115,14 +115,41 @@ export default function PostMediaSection({
         <div className="rounded-lg overflow-hidden border border-[#666666]">
           {isSelectedPhoto && (
             <div
-              className="bg-black flex items-center justify-center w-full"
+              className="bg-black flex items-center justify-center w-full relative"
               style={{ aspectRatio: "16/9" }}
             >
+              {loadingMediaIndex.has(selectedMediaIndex) && (
+                <div className="absolute inset-0">
+                  <MediaSkeleton />
+                </div>
+              )}
               <img
                 src={selectedMedia.url}
                 alt={selectedMedia.name}
                 className="w-full h-full object-contain"
                 crossOrigin="anonymous"
+                onLoadingStateChange={(e) => {
+                  // Remove from loading set when image loads
+                  setLoadingMediaIndex((prev) => {
+                    const newSet = new Set(prev);
+                    newSet.delete(selectedMediaIndex);
+                    return newSet;
+                  });
+                }}
+                onLoad={() => {
+                  setLoadingMediaIndex((prev) => {
+                    const newSet = new Set(prev);
+                    newSet.delete(selectedMediaIndex);
+                    return newSet;
+                  });
+                }}
+                onError={() => {
+                  setLoadingMediaIndex((prev) => {
+                    const newSet = new Set(prev);
+                    newSet.delete(selectedMediaIndex);
+                    return newSet;
+                  });
+                }}
               />
             </div>
           )}
@@ -132,6 +159,11 @@ export default function PostMediaSection({
               className="relative bg-black flex items-center justify-center w-full"
               style={{ aspectRatio: "16/9" }}
             >
+              {loadingMediaIndex.has(selectedMediaIndex) && (
+                <div className="absolute inset-0 z-10">
+                  <MediaSkeleton />
+                </div>
+              )}
               <video
                 key={`video-${selectedMediaIndex}`}
                 controls
@@ -143,6 +175,18 @@ export default function PostMediaSection({
                 onLoadedMetadata={(e) => {
                   const video = e.currentTarget;
                   handleVideoDurationLoaded(selectedMedia.url, video.duration);
+                  setLoadingMediaIndex((prev) => {
+                    const newSet = new Set(prev);
+                    newSet.delete(selectedMediaIndex);
+                    return newSet;
+                  });
+                }}
+                onLoadStart={() => {
+                  setLoadingMediaIndex((prev) => {
+                    const newSet = new Set(prev);
+                    newSet.add(selectedMediaIndex);
+                    return newSet;
+                  });
                 }}
               >
                 <source src={selectedMedia.url} type={selectedMedia.type} />
