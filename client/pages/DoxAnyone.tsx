@@ -2,8 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ArrowRight, CheckCircle2, Zap, Lock } from "lucide-react";
 
-export default function DoxAnyone() {
-  const handleDoxNow = () => {
+export default function DoxxAnyone() {
+  const handleDoxxNow = () => {
     window.open("https://discord.gg/95eC83gtFN", "_blank");
   };
 
@@ -19,7 +19,7 @@ export default function DoxAnyone() {
               style={{ animationDelay: "0.1s" }}
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 bg-gradient-to-r from-[#0088CC] to-[#00C4FF] bg-clip-text text-transparent leading-tight">
-                Dox Anyone
+                Doxx Anyone
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-[#979797] max-w-2xl mx-auto font-semibold leading-relaxed">
                 Expose individuals on our platform with a simple, transparent,
