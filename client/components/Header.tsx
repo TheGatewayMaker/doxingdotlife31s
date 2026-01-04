@@ -263,7 +263,7 @@ export default function Header() {
                   onClick={closeSidebar}
                   className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 text-[#979797] font-semibold hover:bg-gradient-to-r hover:from-[#0088CC]/20 hover:to-transparent hover:text-white rounded-lg transition-all duration-200 active:bg-[#0088CC]/40 text-sm sm:text-base touch-target group"
                 >
-                  <span className="text-lg sm:text-xl flex-shrink-0">📋</span>
+                  <ClipboardIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="flex-1">All Posts</span>
                   <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
