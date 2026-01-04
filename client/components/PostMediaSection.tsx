@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Download, Play } from "lucide-react";
 import { addWatermarkToImage, addWatermarkToVideo } from "@/lib/watermark";
 import { toast } from "sonner";
 import PhotoCard from "./PhotoCard";
+import { MediaSkeleton, MediaThumbnailSkeleton } from "./MediaSkeleton";
 
 interface MediaFile {
   name: string;
