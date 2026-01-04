@@ -249,7 +249,7 @@ export default function PostDetail() {
                         alt={post.title}
                         className={cn(
                           "w-full h-auto object-cover aspect-video",
-                          post.blurThumbnail && "blur-2xl",
+                          post.blurThumbnail && !nsfwApproved && "blur-2xl",
                         )}
                         onError={() => setThumbnailError(true)}
                         crossOrigin="anonymous"
@@ -299,7 +299,7 @@ export default function PostDetail() {
                 </section>
 
                 {/* Description Section */}
-                <section className="bg-[#1a1a1a] border border-[#666666] rounded-lg p-5 sm:p-6 sticky top-24">
+                <section className="bg-[#1a1a1a] border border-[#666666] rounded-lg p-5 sm:p-6">
                   <h2 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-2">
                     <ClipboardIcon className="w-5 h-5" />
                     Details
