@@ -205,7 +205,7 @@ export default function PostDetail() {
               {thumbnailError && (
                 <div className="w-full h-96 bg-[#1a1a1a] flex items-center justify-center rounded-xl border border-[#666666]">
                   <div className="text-center">
-                    <div className="text-8xl mb-3">🖼️</div>
+                    <PictureIcon className="w-24 h-24 mx-auto mb-3 text-[#666666]" />
                     <p className="text-[#979797]">Thumbnail unavailable</p>
                   </div>
                 </div>
