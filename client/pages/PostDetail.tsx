@@ -87,7 +87,7 @@ export default function PostDetail() {
         <Header />
         <main className="flex-1 w-full flex items-center justify-center px-4">
           <div className="text-center">
-            <div className="text-6xl mb-4">⚠️</div>
+            <WarningTriangleIcon className="w-20 h-20 mx-auto mb-4 text-[#FF0000]" />
             <h2 className="text-3xl font-bold mb-4 text-white">
               {error || "Post not found"}
             </h2>
