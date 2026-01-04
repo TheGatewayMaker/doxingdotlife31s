@@ -16,6 +16,7 @@ import {
   FolderIcon,
   CalendarIcon,
   ClockIcon,
+  DocumentIcon,
 } from "@/components/Icons";
 import { Post } from "@shared/api";
 import { toast } from "sonner";
