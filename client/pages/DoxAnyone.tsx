@@ -256,7 +256,7 @@ export default function DoxAnyone() {
         </div>
 
         {/* Feature Highlights */}
-        <div className="w-full bg-[#000000] py-16 sm:py-20 md:py-24 lg:py-28">
+        <div className="w-full bg-[#000000] py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
               <div
