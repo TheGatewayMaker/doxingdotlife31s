@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { ArrowRight, CheckCircle2, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, Zap, Lock } from "lucide-react";
 
 export default function DoxAnyone() {
   const handleDoxNow = () => {
