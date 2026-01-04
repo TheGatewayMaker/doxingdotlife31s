@@ -255,6 +255,7 @@ export default function PostMediaSection({
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
             {allMedia.map((media, idx) => {
               const isSelected = selectedMediaIndex === idx;
+              const isLoading = loadingMediaIndex.has(idx);
 
               return (
                 <button
@@ -266,6 +267,7 @@ export default function PostMediaSection({
                       : "border-[#666666] hover:border-[#0088CC]/70"
                   }`}
                 >
+                  {isLoading && <MediaThumbnailSkeleton />}
                   {media.isPhoto ? (
                     <img
                       src={media.url}
@@ -273,6 +275,20 @@ export default function PostMediaSection({
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       loading="lazy"
                       crossOrigin="anonymous"
+                      onLoad={() => {
+                        setLoadingMediaIndex((prev) => {
+                          const newSet = new Set(prev);
+                          newSet.delete(idx);
+                          return newSet;
+                        });
+                      }}
+                      onError={() => {
+                        setLoadingMediaIndex((prev) => {
+                          const newSet = new Set(prev);
+                          newSet.delete(idx);
+                          return newSet;
+                        });
+                      }}
                     />
                   ) : (
                     <div className="w-full h-full bg-black flex items-center justify-center relative overflow-hidden">
@@ -282,6 +298,27 @@ export default function PostMediaSection({
                         preload="none"
                         playsInline
                         loading="lazy"
+                        onLoadStart={() => {
+                          setLoadingMediaIndex((prev) => {
+                            const newSet = new Set(prev);
+                            newSet.add(idx);
+                            return newSet;
+                          });
+                        }}
+                        onLoadedMetadata={() => {
+                          setLoadingMediaIndex((prev) => {
+                            const newSet = new Set(prev);
+                            newSet.delete(idx);
+                            return newSet;
+                          });
+                        }}
+                        onError={() => {
+                          setLoadingMediaIndex((prev) => {
+                            const newSet = new Set(prev);
+                            newSet.delete(idx);
+                            return newSet;
+                          });
+                        }}
                       >
                         <source src={media.url} type={media.type} />
                       </video>
