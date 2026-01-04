@@ -225,8 +225,9 @@ export default function PostDetail() {
                       NSFW
                     </span>
                   )}
-                  <span className="inline-flex items-center px-3 py-1 bg-[#666666] text-white text-xs font-semibold rounded-full border border-[#979797]">
-                    📰 Post
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#666666] text-white text-xs font-semibold rounded-full border border-[#979797]">
+                    <DocumentIcon className="w-3.5 h-3.5" />
+                    Post
                   </span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 text-white leading-tight">
