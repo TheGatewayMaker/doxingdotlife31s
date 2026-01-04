@@ -115,10 +115,10 @@ export default function DoxAnyone() {
         </div>
 
         {/* How It Works Section - Premium Design */}
-        <div className="w-full bg-gradient-to-b from-[#000000] via-[#0a0a0a] to-[#000000] py-20 sm:py-24 md:py-32 lg:py-40 border-t border-[#333333]">
+        <div className="w-full bg-gradient-to-b from-[#000000] via-[#0a0a0a] to-[#000000] py-16 sm:py-20 md:py-24 lg:py-28 border-t border-[#333333]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
-              className="mb-16 sm:mb-20 md:mb-28 animate-slideInUp"
+              className="mb-12 sm:mb-16 md:mb-20 animate-slideInUp"
               style={{ animationDelay: "0.3s" }}
             >
               <div className="max-w-3xl">
