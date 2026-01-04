@@ -2,6 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 import { addWatermarkToImage, addWatermarkToVideo } from "@/lib/watermark";
 import { toast } from "sonner";
+import {
+  PictureIcon,
+  FilmIcon,
+  MusicNoteIcon,
+  DocumentIcon,
+} from "@/components/Icons";
 
 interface MediaFile {
   name: string;
@@ -16,11 +22,11 @@ interface SimpleMediaGalleryProps {
   thumbnailUrl?: string;
 }
 
-const getMediaIcon = (type: string): string => {
-  if (type.startsWith("image/")) return "🖼️";
-  if (type.startsWith("video/")) return "🎬";
-  if (type.startsWith("audio/")) return "🎵";
-  return "📄";
+const getMediaIcon = (type: string) => {
+  if (type.startsWith("image/")) return PictureIcon;
+  if (type.startsWith("video/")) return FilmIcon;
+  if (type.startsWith("audio/")) return MusicNoteIcon;
+  return DocumentIcon;
 };
 
 export default function SimpleMediaGallery({
@@ -198,7 +204,9 @@ export default function SimpleMediaGallery({
                         <source src={file.url} type={file.type} />
                       </video>
                       <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-colors flex items-center justify-center pointer-events-none">
-                        <div className="text-3xl drop-shadow-lg">▶️</div>
+                        <div className="drop-shadow-lg">
+                          <FilmIcon className="w-8 h-8 text-white" />
+                        </div>
                       </div>
                     </div>
                     <div className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
@@ -215,7 +223,12 @@ export default function SimpleMediaGallery({
                     }`}
                   >
                     <div className="w-full aspect-square bg-muted flex flex-col items-center justify-center gap-2 group-hover:bg-muted/80 transition-colors">
-                      <div className="text-3xl">{getMediaIcon(file.type)}</div>
+                      {(() => {
+                        const IconComponent = getMediaIcon(file.type);
+                        return (
+                          <IconComponent className="w-8 h-8 text-muted-foreground" />
+                        );
+                      })()}
                       <p className="text-xs text-muted-foreground px-2 text-center truncate font-medium">
                         {file.name}
                       </p>
@@ -275,7 +288,7 @@ export default function SimpleMediaGallery({
 
             {isAudio && (
               <div className="w-full px-6 py-12 flex flex-col items-center justify-center gap-4">
-                <div className="text-6xl">🎵</div>
+                <MusicNoteIcon className="w-16 h-16 text-accent" />
                 <div className="w-full">
                   <audio
                     controls

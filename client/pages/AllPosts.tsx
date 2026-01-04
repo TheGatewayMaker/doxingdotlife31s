@@ -7,7 +7,12 @@ import SearchBar from "@/components/SearchBar";
 import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import { Post, PostsResponse } from "@shared/api";
-import { GlobeIcon, MapPinIcon, ServerIcon } from "@/components/Icons";
+import {
+  GlobeIcon,
+  MapPinIcon,
+  ServerIcon,
+  ClipboardIcon,
+} from "@/components/Icons";
 import { Flame } from "lucide-react";
 
 export default function AllPosts() {
@@ -364,10 +369,10 @@ export default function AllPosts() {
               style={{ animationDelay: "0.2s" }}
             >
               <div
-                className="text-5xl sm:text-6xl mb-4 animate-slideInDown"
+                className="mb-4 animate-slideInDown"
                 style={{ animationDelay: "0.3s" }}
               >
-                📋
+                <ClipboardIcon className="w-16 h-16 sm:w-20 sm:h-20 mx-auto text-[#666666]" />
               </div>
               <p className="text-gray-400 text-base sm:text-lg">
                 No posts match your search criteria. Try adjusting your filters.

@@ -8,7 +8,15 @@ import PostDescriptionSection from "@/components/PostDescriptionSection";
 import PostMediaSection from "@/components/PostMediaSection";
 import NSFWWarningModal from "@/components/NSFWWarningModal";
 import ModernLoader from "@/components/ModernLoader";
-import { NSFWIcon } from "@/components/Icons";
+import {
+  NSFWIcon,
+  PictureIcon,
+  WarningTriangleIcon,
+  ClipboardIcon,
+  FolderIcon,
+  CalendarIcon,
+  ClockIcon,
+} from "@/components/Icons";
 import { Post } from "@shared/api";
 import { toast } from "sonner";
 
@@ -79,7 +87,7 @@ export default function PostDetail() {
         <Header />
         <main className="flex-1 w-full flex items-center justify-center px-4">
           <div className="text-center">
-            <div className="text-6xl mb-4">⚠️</div>
+            <WarningTriangleIcon className="w-20 h-20 mx-auto mb-4 text-[#FF0000]" />
             <h2 className="text-3xl font-bold mb-4 text-white">
               {error || "Post not found"}
             </h2>
@@ -197,7 +205,7 @@ export default function PostDetail() {
               {thumbnailError && (
                 <div className="w-full h-96 bg-[#1a1a1a] flex items-center justify-center rounded-xl border border-[#666666]">
                   <div className="text-center">
-                    <div className="text-8xl mb-3">🖼️</div>
+                    <PictureIcon className="w-24 h-24 mx-auto mb-3 text-[#666666]" />
                     <p className="text-[#979797]">Thumbnail unavailable</p>
                   </div>
                 </div>
@@ -217,8 +225,9 @@ export default function PostDetail() {
                       NSFW
                     </span>
                   )}
-                  <span className="inline-flex items-center px-3 py-1 bg-[#666666] text-white text-xs font-semibold rounded-full border border-[#979797]">
-                    📰 Post
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#666666] text-white text-xs font-semibold rounded-full border border-[#979797]">
+                    <DocumentIcon className="w-3.5 h-3.5" />
+                    Post
                   </span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 text-white leading-tight">
@@ -229,7 +238,7 @@ export default function PostDetail() {
               {/* Post Metadata */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-xs sm:text-sm text-[#979797] space-y-2 sm:space-y-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">📅</span>
+                  <CalendarIcon className="w-4 h-4" />
                   <span>
                     {new Date(post.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
@@ -240,7 +249,7 @@ export default function PostDetail() {
                 </div>
                 <div className="hidden sm:block w-1 h-1 bg-[#666666] rounded-full"></div>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">🕒</span>
+                  <ClockIcon className="w-4 h-4" />
                   <span>
                     {new Date(post.createdAt).toLocaleTimeString("en-US", {
                       hour: "2-digit",
@@ -258,7 +267,7 @@ export default function PostDetail() {
             >
               <div className="bg-[#1a1a1a] border border-[#666666] rounded-xl p-6 sm:p-8">
                 <h2 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span>📋</span>
+                  <ClipboardIcon className="w-5 h-5" />
                   Overview
                 </h2>
                 <PostDescriptionSection
@@ -279,7 +288,7 @@ export default function PostDetail() {
                 style={{ animationDelay: "0.4s" }}
               >
                 <h2 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <span>📁</span>
+                  <FolderIcon className="w-5 h-5" />
                   Media Gallery
                 </h2>
                 <PostMediaSection
