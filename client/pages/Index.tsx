@@ -385,10 +385,10 @@ export default function Index() {
               style={{ animationDelay: "0.2s" }}
             >
               <div
-                className="text-5xl sm:text-6xl mb-4 animate-slideInDown"
+                className="mb-4 animate-slideInDown"
                 style={{ animationDelay: "0.3s" }}
               >
-                🔍
+                <SearchIcon className="w-16 h-16 sm:w-20 sm:h-20 mx-auto text-[#666666]" />
               </div>
               <p className="text-[#979797] text-sm sm:text-base max-w-lg mx-auto">
                 No posts match your current search filters. Try adjusting your
