@@ -168,7 +168,7 @@ export default function Index() {
                 Doxing Dot Life
               </h1>
               <p className="hidden sm:block text-sm sm:text-base md:text-lg lg:text-xl font-medium text-[#979797] mb-5 sm:mb-6 md:mb-8 max-w-3xl leading-relaxed">
-                The largest database of exposed individuals. Search, dox, and
+                The largest database of exposed individuals. Search, doxx, and
                 expose information on anyone in our comprehensive directory.
               </p>
             </div>
