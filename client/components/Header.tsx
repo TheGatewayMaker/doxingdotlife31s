@@ -53,7 +53,7 @@ export default function Header() {
         sidebarRef.current &&
         !sidebarRef.current.contains(target) &&
         !target.closest('[aria-controls="mobile-menu"]') &&
-        !target.closest('[data-logo-link]')
+        !target.closest("[data-logo-link]")
       ) {
         closeSidebar();
       }
