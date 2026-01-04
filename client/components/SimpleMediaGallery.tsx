@@ -286,7 +286,7 @@ export default function SimpleMediaGallery({
 
             {isAudio && (
               <div className="w-full px-6 py-12 flex flex-col items-center justify-center gap-4">
-                <div className="text-6xl">🎵</div>
+                <MusicNoteIcon className="w-16 h-16 text-accent" />
                 <div className="w-full">
                   <audio
                     controls
