@@ -126,11 +126,11 @@ export default function Header() {
             <span className="group-hover:text-[#0088CC]">Posts</span>
           </Link>
           <Link
-            to="/dox-anyone"
+            to="/doxx-anyone"
             className="flex items-center gap-2 px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
           >
             <SearchAltIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            <span>Dox Now</span>
+            <span>Doxx Now</span>
           </Link>
           {isAuthenticated && (
             <>
@@ -268,12 +268,12 @@ export default function Header() {
                   <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
                 <Link
-                  to="/dox-anyone"
+                  to="/doxx-anyone"
                   onClick={closeSidebar}
                   className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 text-white font-semibold bg-gradient-to-r from-[#0088CC] to-[#0066AA] hover:from-[#0099DD] hover:to-[#0077BB] rounded-lg transition-all duration-200 text-sm sm:text-base touch-target group"
                 >
                   <SearchAltIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span className="flex-1">Dox Now</span>
+                  <span className="flex-1">Doxx Now</span>
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 {isAuthenticated && (

@@ -144,38 +144,40 @@ export default function PostDetail() {
     <div className="min-h-screen bg-[#000000] text-white flex flex-col animate-fadeIn">
       <Header />
       <main className="flex-1 w-full">
-        <div className="w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-10 lg:py-12">
+        <div className="w-full py-6 sm:py-8 lg:py-10">
           {/* Back Button */}
-          <button
-            onClick={() => navigate("/")}
-            className="flex items-center gap-2 px-4 py-2 mb-8 text-[#979797] hover:text-[#0088CC] transition-all duration-200 font-semibold animate-fadeIn hover:translate-x-[-4px]"
-          >
-            <svg
-              className="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          <div className="px-4 sm:px-6 lg:px-8">
+            <button
+              onClick={() => navigate("/")}
+              className="flex items-center gap-2 px-3 py-2 mb-6 text-[#979797] hover:text-[#0088CC] transition-all duration-200 font-semibold animate-fadeIn hover:translate-x-[-4px]"
             >
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            <span>Back to Home</span>
-          </button>
+              <svg
+                className="w-5 h-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
+              <span>Back</span>
+            </button>
+          </div>
 
-          {/* Main Content Container - Max Width */}
-          <div className="max-w-5xl mx-auto">
+          {/* Main Content - Full Width with Proper Grid */}
+          <div className="px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
             {/* NSFW Warning Banner */}
             {post.nsfw && (
-              <div className="mb-8 bg-[#1a1a1a] border border-[#FF0000]/40 rounded-xl p-4 sm:p-5 flex items-start gap-3 sm:gap-4 animate-fadeIn">
-                <NSFWIcon className="w-7 h-7 text-[#FF0000] flex-shrink-0" />
+              <div className="bg-[#1a1a1a] border border-[#FF0000]/40 rounded-lg p-4 flex items-start gap-3 animate-fadeIn max-w-7xl mx-auto w-full">
+                <NSFWIcon className="w-6 h-6 text-[#FF0000] flex-shrink-0 mt-0.5" />
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-white mb-1">
+                  <p className="font-bold text-white mb-1 text-sm sm:text-base">
                     NSFW Content Warning
                   </p>
-                  <p className="text-sm text-[#979797]">
+                  <p className="text-xs sm:text-sm text-[#979797]">
                     This post contains explicit content. Ensure you're viewing
                     in an appropriate and private setting.
                   </p>
@@ -183,72 +185,38 @@ export default function PostDetail() {
               </div>
             )}
 
-            {/* Thumbnail Section */}
-            <section
-              className="mb-10 sm:mb-12 animate-fadeIn"
+            {/* Header Section with Badges and Metadata */}
+            <div
+              className="max-w-7xl mx-auto w-full animate-fadeIn"
               style={{ animationDelay: "0.1s" }}
             >
-              {post.thumbnail && !thumbnailError && (
-                <div className="rounded-xl overflow-hidden border border-[#666666] shadow-2xl max-w-3xl mx-auto">
-                  <img
-                    src={post.thumbnail}
-                    alt={post.title}
-                    className={cn(
-                      "w-full h-auto object-cover",
-                      post.blurThumbnail && "blur-2xl",
-                    )}
-                    onError={() => setThumbnailError(true)}
-                    crossOrigin="anonymous"
-                  />
-                </div>
-              )}
-
-              {thumbnailError && (
-                <div className="w-full h-96 bg-[#1a1a1a] flex items-center justify-center rounded-xl border border-[#666666]">
-                  <div className="text-center">
-                    <PictureIcon className="w-24 h-24 mx-auto mb-3 text-[#666666]" />
-                    <p className="text-[#979797]">Thumbnail unavailable</p>
-                  </div>
-                </div>
-              )}
-            </section>
-
-            {/* Title & Info Section */}
-            <section
-              className="mb-10 sm:mb-12 animate-fadeIn"
-              style={{ animationDelay: "0.2s" }}
-            >
-              <div className="mb-4">
-                <div className="flex flex-wrap items-center gap-2 mb-4">
-                  {post.nsfw && (
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FF0000]/20 text-[#FF0000] text-xs font-bold rounded-full border border-[#FF0000]/40">
-                      <NSFWIcon className="w-4 h-4" />
-                      NSFW
-                    </span>
-                  )}
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#666666] text-white text-xs font-semibold rounded-full border border-[#979797]">
-                    <DocumentIcon className="w-3.5 h-3.5" />
-                    Post
+              <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
+                {post.nsfw && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#FF0000]/20 text-[#FF0000] text-xs font-bold rounded border border-[#FF0000]/40">
+                    <NSFWIcon className="w-3.5 h-3.5" />
+                    NSFW
                   </span>
-                </div>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-4 text-white leading-tight">
-                  {post.title}
-                </h1>
+                )}
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#666666] text-white text-xs font-semibold rounded border border-[#979797]">
+                  <DocumentIcon className="w-3.5 h-3.5" />
+                  Post
+                </span>
               </div>
-
-              {/* Post Metadata */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-xs sm:text-sm text-[#979797] space-y-2 sm:space-y-0">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 text-white leading-tight">
+                {post.title}
+              </h1>
+              <div className="flex flex-col xs:flex-row xs:items-center xs:gap-3 text-xs sm:text-sm text-[#979797] space-y-2 xs:space-y-0">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="w-4 h-4" />
                   <span>
                     {new Date(post.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
-                      month: "long",
+                      month: "short",
                       day: "numeric",
                     })}
                   </span>
                 </div>
-                <div className="hidden sm:block w-1 h-1 bg-[#666666] rounded-full"></div>
+                <div className="hidden xs:block w-1 h-1 bg-[#666666] rounded-full"></div>
                 <div className="flex items-center gap-2">
                   <ClockIcon className="w-4 h-4" />
                   <span>
@@ -259,60 +227,90 @@ export default function PostDetail() {
                   </span>
                 </div>
               </div>
-            </section>
+            </div>
 
-            {/* Description Section */}
-            <section
-              className="mb-10 sm:mb-12 animate-fadeIn"
-              style={{ animationDelay: "0.3s" }}
+            {/* Two Column Layout - Media and Description */}
+            <div
+              className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-5 gap-6 sm:gap-8 animate-fadeIn"
+              style={{ animationDelay: "0.2s" }}
             >
-              <div className="bg-[#1a1a1a] border border-[#666666] rounded-xl p-6 sm:p-8">
-                <h2 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <ClipboardIcon className="w-5 h-5" />
-                  Overview
-                </h2>
-                <PostDescriptionSection
-                  description={post.description}
-                  tags={{
-                    country: post.country,
-                    city: post.city,
-                    server: post.server,
-                  }}
-                />
+              {/* Left Column - Media (Takes 3/5 on desktop) */}
+              <div className="lg:col-span-3 space-y-6">
+                {/* Thumbnail Section */}
+                <section>
+                  {post.thumbnail && !thumbnailError && (
+                    <div className="rounded-lg overflow-hidden border border-[#666666] shadow-lg">
+                      <img
+                        src={post.thumbnail}
+                        alt={post.title}
+                        className={cn(
+                          "w-full h-auto object-cover aspect-video",
+                          post.blurThumbnail && "blur-2xl",
+                        )}
+                        onError={() => setThumbnailError(true)}
+                        crossOrigin="anonymous"
+                      />
+                    </div>
+                  )}
+
+                  {thumbnailError && (
+                    <div className="w-full aspect-video bg-[#1a1a1a] flex items-center justify-center rounded-lg border border-[#666666]">
+                      <div className="text-center">
+                        <PictureIcon className="w-16 h-16 mx-auto mb-2 text-[#666666]" />
+                        <p className="text-[#979797] text-sm">
+                          Thumbnail unavailable
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </section>
+
+                {/* Media Gallery Section */}
+                {post.mediaFiles && post.mediaFiles.length > 0 && (
+                  <section>
+                    <h2 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-2">
+                      <FolderIcon className="w-5 h-5" />
+                      Media Gallery ({post.mediaFiles.length})
+                    </h2>
+                    <PostMediaSection
+                      mediaFiles={post.mediaFiles}
+                      postTitle={post.title}
+                      thumbnailUrl={post.thumbnail}
+                    />
+                  </section>
+                )}
               </div>
-            </section>
 
-            {/* Media Section */}
-            {post.mediaFiles && post.mediaFiles.length > 0 && (
-              <section
-                className="mb-10 sm:mb-12 animate-fadeIn"
-                style={{ animationDelay: "0.4s" }}
-              >
-                <h2 className="text-lg sm:text-xl font-bold text-white mb-4 flex items-center gap-2">
-                  <FolderIcon className="w-5 h-5" />
-                  Media Gallery
-                </h2>
-                <PostMediaSection
-                  mediaFiles={post.mediaFiles}
-                  postTitle={post.title}
-                  thumbnailUrl={post.thumbnail}
-                />
-              </section>
-            )}
+              {/* Right Column - Description (Takes 2/5 on desktop) */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Description Section */}
+                <section className="bg-[#1a1a1a] border border-[#666666] rounded-lg p-5 sm:p-6 sticky top-24">
+                  <h2 className="text-base sm:text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <ClipboardIcon className="w-5 h-5" />
+                    Details
+                  </h2>
+                  <PostDescriptionSection
+                    description={post.description}
+                    tags={{
+                      country: post.country,
+                      city: post.city,
+                      server: post.server,
+                    }}
+                  />
+                </section>
 
-            {/* Share Section */}
-            <section
-              className="border-t border-[#666666] pt-8 sm:pt-10 animate-fadeIn"
-              style={{ animationDelay: "0.5s" }}
-            >
-              <button
-                onClick={handleShare}
-                className="flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
-              >
-                <Share2 className="w-5 h-5" />
-                <span>Share This Post</span>
-              </button>
-            </section>
+                {/* Share Button - Fixed Column */}
+                <section className="sticky top-96">
+                  <button
+                    onClick={handleShare}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
+                  >
+                    <Share2 className="w-5 h-5" />
+                    <span>Share</span>
+                  </button>
+                </section>
+              </div>
+            </div>
           </div>
         </div>
       </main>

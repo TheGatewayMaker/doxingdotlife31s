@@ -2,8 +2,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ArrowRight, CheckCircle2, Zap, Lock } from "lucide-react";
 
-export default function DoxAnyone() {
-  const handleDoxNow = () => {
+export default function DoxxAnyone() {
+  const handleDoxxNow = () => {
     window.open("https://discord.gg/95eC83gtFN", "_blank");
   };
 
@@ -19,7 +19,7 @@ export default function DoxAnyone() {
               style={{ animationDelay: "0.1s" }}
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-4 sm:mb-6 bg-gradient-to-r from-[#0088CC] to-[#00C4FF] bg-clip-text text-transparent leading-tight">
-                Dox Anyone
+                Doxx Anyone
               </h1>
               <p className="text-base sm:text-lg md:text-xl text-[#979797] max-w-2xl mx-auto font-semibold leading-relaxed">
                 Expose individuals on our platform with a simple, transparent,
@@ -30,10 +30,10 @@ export default function DoxAnyone() {
         </div>
 
         {/* Pricing Section */}
-        <div className="w-full bg-[#000000] py-16 sm:py-20 md:py-24 lg:py-28">
+        <div className="w-full bg-[#000000] py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
-              className="mb-12 sm:mb-16 md:mb-20 animate-scaleUpFadeIn"
+              className="mb-8 sm:mb-12 md:mb-16 animate-scaleUpFadeIn"
               style={{ animationDelay: "0.2s" }}
             >
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mb-3 sm:mb-4 text-white text-center">
@@ -60,7 +60,7 @@ export default function DoxAnyone() {
                 </div>
                 <p className="text-sm text-[#00A8E8] font-bold mb-6">USD</p>
                 <button
-                  onClick={handleDoxNow}
+                  onClick={handleDoxxNow}
                   className="w-full py-3 px-4 bg-[#00A8E8] text-[#000000] font-black rounded-lg hover:bg-[#00C4FF] transition-colors duration-300 text-sm"
                 >
                   Get Started
@@ -82,7 +82,7 @@ export default function DoxAnyone() {
                 </div>
                 <p className="text-sm text-[#FFB84D] font-bold mb-6">INR</p>
                 <button
-                  onClick={handleDoxNow}
+                  onClick={handleDoxxNow}
                   className="w-full py-3 px-4 bg-[#FFB84D] text-[#000000] font-black rounded-lg hover:bg-[#FFD699] transition-colors duration-300 text-sm"
                 >
                   Get Started
@@ -104,7 +104,7 @@ export default function DoxAnyone() {
                 </div>
                 <p className="text-sm text-[#2AE8B8] font-bold mb-6">PKR</p>
                 <button
-                  onClick={handleDoxNow}
+                  onClick={handleDoxxNow}
                   className="w-full py-3 px-4 bg-[#2AE8B8] text-[#000000] font-black rounded-lg hover:bg-[#4CF0D0] transition-colors duration-300 text-sm"
                 >
                   Get Started
@@ -115,10 +115,10 @@ export default function DoxAnyone() {
         </div>
 
         {/* How It Works Section - Premium Design */}
-        <div className="w-full bg-gradient-to-b from-[#000000] via-[#0a0a0a] to-[#000000] py-20 sm:py-24 md:py-32 lg:py-40 border-t border-[#333333]">
+        <div className="w-full bg-gradient-to-b from-[#000000] via-[#0a0a0a] to-[#000000] py-16 sm:py-20 md:py-24 lg:py-28 border-t border-[#333333]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div
-              className="mb-16 sm:mb-20 md:mb-28 animate-slideInUp"
+              className="mb-12 sm:mb-16 md:mb-20 animate-slideInUp"
               style={{ animationDelay: "0.3s" }}
             >
               <div className="max-w-3xl">
@@ -150,7 +150,7 @@ export default function DoxAnyone() {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl sm:text-3xl font-black text-white mb-2 sm:mb-3">
-                      Click Dox Button
+                      Click Doxx Button
                     </h3>
                     <p className="text-base sm:text-lg text-[#979797] font-semibold leading-relaxed">
                       Start your doxing submission process by clicking the
@@ -256,7 +256,7 @@ export default function DoxAnyone() {
         </div>
 
         {/* Feature Highlights */}
-        <div className="w-full bg-[#000000] py-16 sm:py-20 md:py-24 lg:py-28">
+        <div className="w-full bg-[#000000] py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
               <div
@@ -308,7 +308,7 @@ export default function DoxAnyone() {
         </div>
 
         {/* CTA Section */}
-        <div className="w-full bg-gradient-to-b from-[#000000] to-[#0a0a0a] py-16 sm:py-20 md:py-24 lg:py-28 border-t border-[#333333]">
+        <div className="w-full bg-gradient-to-b from-[#000000] to-[#0a0a0a] py-12 sm:py-16 md:py-20 lg:py-24 border-t border-[#333333]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="animate-popIn" style={{ animationDelay: "0.5s" }}>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-6">
@@ -318,10 +318,10 @@ export default function DoxAnyone() {
                 Join our community and start your doxing submission today
               </p>
               <button
-                onClick={handleDoxNow}
+                onClick={handleDoxxNow}
                 className="inline-flex items-center gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#0088CC] to-[#00C4FF] text-white font-black text-base sm:text-lg rounded-xl hover:shadow-2xl hover:shadow-[#0088CC]/40 transition-all duration-300 transform hover:scale-105 active:scale-95 mb-6 sm:mb-8"
               >
-                Dox Now
+                Doxx Now
                 <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
               <div>

@@ -64,7 +64,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="/dox-anyone"
+                  href="/doxx-anyone"
                   className="hover:text-[#0088CC] transition-colors duration-200 flex items-center gap-2 hover:translate-x-1 py-1"
                 >
                   <MessageIcon className="w-4 h-4 flex-shrink-0" />
@@ -113,7 +113,7 @@ export default function Footer() {
           <div className="text-center text-xs sm:text-sm text-[#666666]">
             <p>&copy; 2024 - 2027 Doxing Dot Life. All rights reserved.</p>
             <p className="mt-2 text-[#666666]">
-              Find, Dox, Expose - The Database
+              Find, Doxx, Expose - The Database
             </p>
           </div>
         </div>
