@@ -152,7 +152,7 @@ export default function PostDetail() {
             <div className="max-w-7xl mx-auto w-full">
               <button
                 onClick={() => navigate("/")}
-                className="flex items-center gap-2 px-3 py-2 mb-6 text-[#979797] hover:text-[#0088CC] transition-all duration-200 font-semibold animate-fadeIn hover:translate-x-[-4px]"
+                className="flex items-center justify-center gap-2 px-6 py-3 sm:py-4 mb-6 bg-[#0088CC] text-white hover:bg-[#0077BB] transition-all duration-200 font-bold rounded-lg animate-fadeIn text-sm sm:text-base shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95"
               >
                 <svg
                   className="w-5 h-5"
@@ -166,7 +166,7 @@ export default function PostDetail() {
                   <line x1="19" y1="12" x2="5" y2="12"></line>
                   <polyline points="12 19 5 12 12 5"></polyline>
                 </svg>
-                <span>Back</span>
+                <span>Back to Home</span>
               </button>
             </div>
           </div>
