@@ -238,7 +238,7 @@ export default function PostDetail() {
               {/* Post Metadata */}
               <div className="flex flex-col sm:flex-row sm:items-center sm:gap-4 text-xs sm:text-sm text-[#979797] space-y-2 sm:space-y-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">📅</span>
+                  <CalendarIcon className="w-4 h-4" />
                   <span>
                     {new Date(post.createdAt).toLocaleDateString("en-US", {
                       year: "numeric",
@@ -249,7 +249,7 @@ export default function PostDetail() {
                 </div>
                 <div className="hidden sm:block w-1 h-1 bg-[#666666] rounded-full"></div>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">🕒</span>
+                  <ClockIcon className="w-4 h-4" />
                   <span>
                     {new Date(post.createdAt).toLocaleTimeString("en-US", {
                       hour: "2-digit",
