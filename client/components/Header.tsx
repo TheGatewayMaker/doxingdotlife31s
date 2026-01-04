@@ -6,6 +6,7 @@ import {
   UploadIcon,
   SettingsIcon,
   SearchAltIcon,
+  ClipboardIcon,
 } from "@/components/Icons";
 import { useAuthContext } from "@/contexts/AuthContext";
 
