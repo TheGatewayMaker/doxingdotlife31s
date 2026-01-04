@@ -418,9 +418,15 @@ export function createServer() {
 
       const response = await fetch(mediaUrl);
       const contentType = response.headers.get("content-type");
+      const contentLength = response.headers.get("content-length");
 
       if (contentType) {
         res.set("Content-Type", contentType);
+      }
+
+      // Set content length if available for better streaming experience
+      if (contentLength) {
+        res.set("Content-Length", contentLength);
       }
 
       res.set({
@@ -429,8 +435,16 @@ export function createServer() {
       });
 
       if (response.ok && response.body) {
-        const buffer = await response.arrayBuffer();
-        res.send(Buffer.from(new Uint8Array(buffer)));
+        // Use streaming instead of loading entire file into memory
+        response.body.pipe(res);
+
+        // Handle errors during streaming
+        response.body.on("error", (err) => {
+          console.error("Stream error:", err);
+          if (!res.headersSent) {
+            res.status(500).json({ error: "Failed to stream media" });
+          }
+        });
       } else {
         res
           .status(response.status || 500)
@@ -438,7 +452,9 @@ export function createServer() {
       }
     } catch (err) {
       console.error("Media proxy error:", err);
-      res.status(500).json({ error: "Failed to fetch media" });
+      if (!res.headersSent) {
+        res.status(500).json({ error: "Failed to fetch media" });
+      }
     }
   });
 
