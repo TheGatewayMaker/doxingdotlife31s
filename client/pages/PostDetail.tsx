@@ -308,6 +308,15 @@ export default function PostDetail() {
         </div>
       </main>
       <Footer />
+
+      {/* Share Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        title={post.title}
+        description={post.description}
+        url={window.location.href}
+      />
     </div>
   );
 }
