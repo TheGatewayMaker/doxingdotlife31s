@@ -42,6 +42,9 @@ export default function SimpleMediaGallery({
 
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [failedMediaIndices, setFailedMediaIndices] = useState<Set<number>>(
+    new Set(),
+  );
   const mediaContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -93,6 +96,10 @@ export default function SimpleMediaGallery({
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [filteredMediaFiles.length, isFullscreen]);
+
+  const handleMediaError = (index: number) => {
+    setFailedMediaIndices((prev) => new Set(prev).add(index));
+  };
 
   const handleDownload = async () => {
     try {
@@ -173,6 +180,7 @@ export default function SimpleMediaGallery({
                       className="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-300"
                       loading="lazy"
                       crossOrigin="anonymous"
+                      onError={() => handleMediaError(idx)}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity">
@@ -200,6 +208,7 @@ export default function SimpleMediaGallery({
                         crossOrigin="anonymous"
                         preload="metadata"
                         playsInline
+                        onError={() => handleMediaError(idx)}
                       >
                         <source src={file.url} type={file.type} />
                       </video>
@@ -253,36 +262,68 @@ export default function SimpleMediaGallery({
           >
             {isImage && (
               <div className="relative w-full">
-                <img
-                  src={currentMedia.url}
-                  alt={currentMedia.name}
-                  className="w-full max-h-[500px] object-contain cursor-pointer hover:opacity-95 transition-opacity"
-                  onClick={handleOpenNewTab}
-                  crossOrigin="anonymous"
-                />
-                <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center bg-black/40 cursor-pointer">
-                  <div className="bg-black/70 px-4 py-2 rounded text-white text-sm font-medium flex items-center gap-2">
-                    <Maximize2 className="w-4 h-4" />
-                    Click to open
+                {failedMediaIndices.has(selectedMediaIndex) ? (
+                  <div className="w-full max-h-[500px] bg-black flex flex-col items-center justify-center gap-4">
+                    <PictureIcon className="w-16 h-16 text-accent/50" />
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-muted-foreground">
+                        Image failed to load
+                      </p>
+                      <p className="text-xs text-muted-foreground/70 mt-1">
+                        {currentMedia.name}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <>
+                    <img
+                      src={currentMedia.url}
+                      alt={currentMedia.name}
+                      className="w-full max-h-[500px] object-contain cursor-pointer hover:opacity-95 transition-opacity"
+                      onClick={handleOpenNewTab}
+                      crossOrigin="anonymous"
+                      onError={() => handleMediaError(selectedMediaIndex)}
+                    />
+                    <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center bg-black/40 cursor-pointer">
+                      <div className="bg-black/70 px-4 py-2 rounded text-white text-sm font-medium flex items-center gap-2">
+                        <Maximize2 className="w-4 h-4" />
+                        Click to open
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
             {isVideo && (
               <div className="relative w-full">
-                <video
-                  ref={videoRef}
-                  controls
-                  controlsList="nodownload"
-                  preload="metadata"
-                  className="w-full max-h-[600px] object-contain bg-black"
-                  crossOrigin="anonymous"
-                  playsInline
-                >
-                  <source src={currentMedia.url} type={currentMedia.type} />
-                  Your browser does not support the video tag.
-                </video>
+                {failedMediaIndices.has(selectedMediaIndex) ? (
+                  <div className="w-full max-h-[600px] bg-black flex flex-col items-center justify-center gap-4">
+                    <FilmIcon className="w-16 h-16 text-accent/50" />
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-muted-foreground">
+                        Video failed to load
+                      </p>
+                      <p className="text-xs text-muted-foreground/70 mt-1">
+                        {currentMedia.name}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <video
+                    ref={videoRef}
+                    controls
+                    controlsList="nodownload"
+                    preload="metadata"
+                    className="w-full max-h-[600px] object-contain bg-black"
+                    crossOrigin="anonymous"
+                    playsInline
+                    onError={() => handleMediaError(selectedMediaIndex)}
+                  >
+                    <source src={currentMedia.url} type={currentMedia.type} />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
               </div>
             )}
 
@@ -290,15 +331,27 @@ export default function SimpleMediaGallery({
               <div className="w-full px-6 py-12 flex flex-col items-center justify-center gap-4">
                 <MusicNoteIcon className="w-16 h-16 text-accent" />
                 <div className="w-full">
-                  <audio
-                    controls
-                    preload="metadata"
-                    className="w-full"
-                    crossOrigin="anonymous"
-                  >
-                    <source src={currentMedia.url} type={currentMedia.type} />
-                    Your browser does not support the audio element.
-                  </audio>
+                  {failedMediaIndices.has(selectedMediaIndex) ? (
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-muted-foreground">
+                        Audio failed to load
+                      </p>
+                      <p className="text-xs text-muted-foreground/70 mt-1">
+                        {currentMedia.name}
+                      </p>
+                    </div>
+                  ) : (
+                    <audio
+                      controls
+                      preload="metadata"
+                      className="w-full"
+                      crossOrigin="anonymous"
+                      onError={() => handleMediaError(selectedMediaIndex)}
+                    >
+                      <source src={currentMedia.url} type={currentMedia.type} />
+                      Your browser does not support the audio element.
+                    </audio>
+                  )}
                 </div>
               </div>
             )}

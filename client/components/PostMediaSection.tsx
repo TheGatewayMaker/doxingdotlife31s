@@ -4,6 +4,7 @@ import { addWatermarkToImage, addWatermarkToVideo } from "@/lib/watermark";
 import { toast } from "sonner";
 import PhotoCard from "./PhotoCard";
 import { MediaSkeleton, MediaThumbnailSkeleton } from "./MediaSkeleton";
+import { PictureIcon, FilmIcon } from "@/components/Icons";
 
 interface MediaFile {
   name: string;
@@ -43,6 +44,9 @@ export default function PostMediaSection({
   const [loadingMediaIndex, setLoadingMediaIndex] = useState<Set<number>>(
     new Set(),
   );
+  const [failedMediaIndices, setFailedMediaIndices] = useState<Set<number>>(
+    new Set(),
+  );
   const videoRefsForDuration = useRef<{
     [key: string]: HTMLVideoElement | null;
   }>({});
@@ -63,6 +67,10 @@ export default function PostMediaSection({
       ...prev,
       [url]: duration,
     }));
+  };
+
+  const handleMediaError = (index: number) => {
+    setFailedMediaIndices((prev) => new Set(prev).add(index));
   };
 
   const handleDownload = async (mediaFile: MediaFile) => {
@@ -118,31 +126,43 @@ export default function PostMediaSection({
               className="bg-black flex items-center justify-center w-full relative"
               style={{ aspectRatio: "16/9" }}
             >
-              {loadingMediaIndex.has(selectedMediaIndex) && (
-                <div className="absolute inset-0">
-                  <MediaSkeleton />
+              {failedMediaIndices.has(selectedMediaIndex) ? (
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <PictureIcon className="w-12 h-12 text-[#666666]" />
+                  <p className="text-[#979797] text-sm text-center">
+                    Failed to load image
+                  </p>
                 </div>
+              ) : (
+                <>
+                  {loadingMediaIndex.has(selectedMediaIndex) && (
+                    <div className="absolute inset-0">
+                      <MediaSkeleton />
+                    </div>
+                  )}
+                  <img
+                    src={selectedMedia.url}
+                    alt={selectedMedia.name}
+                    className="w-full h-full object-contain"
+                    crossOrigin="anonymous"
+                    onLoad={() => {
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(selectedMediaIndex);
+                        return newSet;
+                      });
+                    }}
+                    onError={() => {
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(selectedMediaIndex);
+                        return newSet;
+                      });
+                      handleMediaError(selectedMediaIndex);
+                    }}
+                  />
+                </>
               )}
-              <img
-                src={selectedMedia.url}
-                alt={selectedMedia.name}
-                className="w-full h-full object-contain"
-                crossOrigin="anonymous"
-                onLoad={() => {
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.delete(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
-                onError={() => {
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.delete(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
-              />
             </div>
           )}
 
@@ -151,39 +171,61 @@ export default function PostMediaSection({
               className="relative bg-black flex items-center justify-center w-full"
               style={{ aspectRatio: "16/9" }}
             >
-              {loadingMediaIndex.has(selectedMediaIndex) && (
-                <div className="absolute inset-0 z-10">
-                  <MediaSkeleton />
+              {failedMediaIndices.has(selectedMediaIndex) ? (
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <FilmIcon className="w-12 h-12 text-[#666666]" />
+                  <p className="text-[#979797] text-sm text-center">
+                    Failed to load video
+                  </p>
                 </div>
+              ) : (
+                <>
+                  {loadingMediaIndex.has(selectedMediaIndex) && (
+                    <div className="absolute inset-0 z-10">
+                      <MediaSkeleton />
+                    </div>
+                  )}
+                  <video
+                    key={`video-${selectedMediaIndex}`}
+                    controls
+                    controlsList="nodownload"
+                    preload="metadata"
+                    className="w-full h-full object-contain"
+                    crossOrigin="anonymous"
+                    playsInline
+                    onLoadedMetadata={(e) => {
+                      const video = e.currentTarget;
+                      handleVideoDurationLoaded(
+                        selectedMedia.url,
+                        video.duration,
+                      );
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(selectedMediaIndex);
+                        return newSet;
+                      });
+                    }}
+                    onLoadStart={() => {
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.add(selectedMediaIndex);
+                        return newSet;
+                      });
+                    }}
+                    onError={() => {
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(selectedMediaIndex);
+                        return newSet;
+                      });
+                      handleMediaError(selectedMediaIndex);
+                    }}
+                  >
+                    <source src={selectedMedia.url} type={selectedMedia.type} />
+                    Your browser does not support the video tag.
+                  </video>
+                </>
               )}
-              <video
-                key={`video-${selectedMediaIndex}`}
-                controls
-                controlsList="nodownload"
-                preload="metadata"
-                className="w-full h-full object-contain"
-                crossOrigin="anonymous"
-                playsInline
-                onLoadedMetadata={(e) => {
-                  const video = e.currentTarget;
-                  handleVideoDurationLoaded(selectedMedia.url, video.duration);
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.delete(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
-                onLoadStart={() => {
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.add(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
-              >
-                <source src={selectedMedia.url} type={selectedMedia.type} />
-                Your browser does not support the video tag.
-              </video>
             </div>
           )}
 
@@ -280,6 +322,7 @@ export default function PostMediaSection({
                           newSet.delete(idx);
                           return newSet;
                         });
+                        handleMediaError(idx);
                       }}
                     />
                   ) : (
@@ -310,6 +353,7 @@ export default function PostMediaSection({
                             newSet.delete(idx);
                             return newSet;
                           });
+                          handleMediaError(idx);
                         }}
                       >
                         <source src={media.url} type={media.type} />

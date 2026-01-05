@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
+import AdvertisementBanners from "@/components/AdvertisementBanners";
 import { Post, PostsResponse } from "@shared/api";
 import {
   GlobeIcon,
@@ -182,6 +183,11 @@ export default function AllPosts() {
             />
           </div>
         )}
+
+        {/* Advertisement Banners */}
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8">
+          <AdvertisementBanners />
+        </div>
 
         {/* All Posts */}
         <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-5 md:py-6 lg:py-8">
