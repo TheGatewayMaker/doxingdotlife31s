@@ -322,7 +322,11 @@ export default function Header() {
                         onClick={closeSidebar}
                         className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white font-semibold hover:from-purple-500 hover:to-purple-600 rounded-lg transition-all duration-200 text-sm sm:text-base touch-target group"
                       >
-                        <UploadIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                        <img
+                          src="https://cdn.builder.io/api/v1/image/assets%2F8827f72ce42e47719bdc54378c04ffe2%2F2232fec32fd946fe90d0261ee1f1268f?format=webp&width=800"
+                          alt="Upload"
+                          className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform brightness-0 invert"
+                        />
                         <span className="flex-1">Upload Post</span>
                         <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </Link>
@@ -333,7 +337,11 @@ export default function Header() {
                         onClick={closeSidebar}
                         className="flex items-center gap-3 w-full px-4 py-2.5 sm:py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white font-semibold hover:from-amber-500 hover:to-amber-600 rounded-lg transition-all duration-200 text-sm sm:text-base touch-target group"
                       >
-                        <SettingsIcon className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                        <img
+                          src="https://cdn.builder.io/api/v1/image/assets%2F8827f72ce42e47719bdc54378c04ffe2%2F18652552236645cf8f8c520da651389a?format=webp&width=800"
+                          alt="Admin"
+                          className="w-5 h-5 sm:w-5 sm:h-5 flex-shrink-0 group-hover:scale-110 transition-transform brightness-0 invert"
+                        />
                         <span className="flex-1">Admin Panel</span>
                         <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </Link>
@@ -349,7 +357,11 @@ export default function Header() {
                     onClick={handleLogout}
                     className="w-full flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 sm:py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-500 hover:to-red-600 transition-all duration-200 text-sm sm:text-base touch-target group"
                   >
-                    <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets%2F8827f72ce42e47719bdc54378c04ffe2%2F6a1c3a726c1243dc8c429c21fff3907d?format=webp&width=800"
+                      alt="Logout"
+                      className="w-5 h-5 group-hover:scale-110 transition-transform brightness-0 invert"
+                    />
                     <span>Logout</span>
                   </button>
                 </div>
