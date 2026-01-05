@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import PostDescriptionSection from "@/components/PostDescriptionSection";
 import PostMediaSection from "@/components/PostMediaSection";
 import NSFWWarningModal from "@/components/NSFWWarningModal";
+import { ShareModal } from "@/components/ShareModal";
 import ModernLoader from "@/components/ModernLoader";
 import {
   NSFWIcon,
@@ -30,6 +31,7 @@ export default function PostDetail() {
   const [thumbnailError, setThumbnailError] = useState(false);
   const [showNSFWWarning, setShowNSFWWarning] = useState(false);
   const [nsfwApproved, setNsfwApproved] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   useEffect(() => {
     const loadPost = async () => {
@@ -125,21 +127,8 @@ export default function PostDetail() {
     );
   }
 
-  const handleShare = async () => {
-    const url = window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      toast.success("Link copied to clipboard!");
-    } catch (err) {
-      console.error("Failed to copy URL:", err);
-      if (navigator.share) {
-        navigator.share({
-          title: post.title,
-          text: post.description.substring(0, 100),
-          url: url,
-        });
-      }
-    }
+  const handleShare = () => {
+    setIsShareModalOpen(true);
   };
 
   return (
@@ -319,6 +308,15 @@ export default function PostDetail() {
         </div>
       </main>
       <Footer />
+
+      {/* Share Modal */}
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        title={post.title}
+        description={post.description}
+        url={window.location.href}
+      />
     </div>
   );
 }
