@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import PostDescriptionSection from "@/components/PostDescriptionSection";
 import PostMediaSection from "@/components/PostMediaSection";
 import NSFWWarningModal from "@/components/NSFWWarningModal";
+import { ShareModal } from "@/components/ShareModal";
 import ModernLoader from "@/components/ModernLoader";
 import {
   NSFWIcon,
