@@ -31,6 +31,7 @@ export default function PostDetail() {
   const [thumbnailError, setThumbnailError] = useState(false);
   const [showNSFWWarning, setShowNSFWWarning] = useState(false);
   const [nsfwApproved, setNsfwApproved] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   useEffect(() => {
     const loadPost = async () => {
