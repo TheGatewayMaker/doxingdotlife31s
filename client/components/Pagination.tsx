@@ -87,12 +87,13 @@ export default function Pagination({
             );
           }
 
-          const isActive = page === currentPage;
+          const pageNumber = page as number;
+          const isActive = pageNumber === currentPage;
           return (
             <button
-              key={page}
-              onClick={() => onPageChange(page as number)}
-              aria-label={`Go to page ${page}`}
+              key={pageNumber}
+              onClick={() => onPageChange(pageNumber)}
+              aria-label={`Go to page ${pageNumber}`}
               aria-current={isActive ? "page" : undefined}
               className={cn(
                 "w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg font-semibold text-xs sm:text-sm transition-all duration-200 min-h-[44px] touch-target",
@@ -101,7 +102,7 @@ export default function Pagination({
                   : "bg-[#1a1a1a] text-[#979797] border border-[#333333] hover:border-[#0088CC] hover:bg-[#0088CC]/15 hover:text-[#0088CC]",
               )}
             >
-              {page}
+              {String(pageNumber)}
             </button>
           );
         })}
