@@ -436,11 +436,14 @@ export function createServer() {
       });
 
       if (response.ok && response.body) {
+        // Convert Web ReadableStream to Node.js Readable stream
+        const nodeStream = Readable.fromWeb(response.body);
+
         // Use streaming instead of loading entire file into memory
-        response.body.pipe(res);
+        nodeStream.pipe(res);
 
         // Handle errors during streaming
-        response.body.on("error", (err) => {
+        nodeStream.on("error", (err) => {
           console.error("Stream error:", err);
           if (!res.headersSent) {
             res.status(500).json({ error: "Failed to stream media" });
