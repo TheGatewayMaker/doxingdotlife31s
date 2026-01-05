@@ -491,13 +491,13 @@ export default function AdminPanel() {
                   className="flex flex-col gap-4 animate-slideInUp pt-6 sm:pt-8 border-t border-border/40"
                   style={{ animationDelay: "0.4s" }}
                 >
-                  <div className="flex items-center justify-center gap-2 px-2">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-1 md:gap-2 px-2 flex-wrap">
                     <button
                       onClick={() =>
                         setCurrentPage(Math.max(1, currentPage - 1))
                       }
                       disabled={currentPage === 1}
-                      className="px-4 py-2 sm:px-5 sm:py-2.5 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] hover:shadow-lg hover:shadow-[#0088CC]/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-95 text-sm sm:text-base flex items-center gap-2 whitespace-nowrap"
+                      className="px-3 sm:px-4 py-2 sm:py-2.5 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] hover:shadow-lg hover:shadow-[#0088CC]/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-95 text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 whitespace-nowrap min-h-[44px]"
                     >
                       <svg
                         className="w-4 h-4 sm:w-5 sm:h-5"
@@ -515,19 +515,26 @@ export default function AdminPanel() {
                       <span className="hidden xs:inline">Previous</span>
                     </button>
 
-                    <div className="flex items-center gap-1 sm:gap-2 justify-center flex-wrap max-w-xs sm:max-w-md">
-                      {Array.from(
-                        { length: Math.min(totalPages, 5) },
-                        (_, i) => {
-                          const pageNum =
-                            currentPage > 3 ? currentPage + i - 2 : i + 1;
-                          if (pageNum > totalPages) return null;
+                    <div className="flex items-center gap-0.5 sm:gap-1 justify-center flex-wrap">
+                      {getVisiblePages(currentPage, totalPages, 5).map(
+                        (pageItem, idx) => {
+                          if (pageItem === "ellipsis") {
+                            return (
+                              <span
+                                key={`ellipsis-${idx}`}
+                                className="w-8 h-10 sm:h-11 flex items-center justify-center text-foreground text-xs sm:text-sm"
+                              >
+                                …
+                              </span>
+                            );
+                          }
+                          const pageNum = pageItem as number;
                           return (
                             <button
                               key={pageNum}
                               onClick={() => setCurrentPage(pageNum)}
                               className={cn(
-                                "w-10 h-10 sm:w-11 sm:h-11 rounded-lg font-bold transition-all text-xs sm:text-sm shadow-sm hover:shadow-md flex items-center justify-center",
+                                "w-9 h-10 sm:w-10 sm:h-11 rounded-lg font-bold transition-all text-xs sm:text-sm shadow-sm hover:shadow-md flex items-center justify-center",
                                 currentPage === pageNum
                                   ? "bg-[#0088CC] text-white shadow-lg shadow-[#0088CC]/30"
                                   : "bg-card border-2 border-border hover:border-[#0088CC]/40 text-foreground hover:shadow-lg hover:shadow-[#0088CC]/10",
@@ -537,7 +544,7 @@ export default function AdminPanel() {
                             </button>
                           );
                         },
-                      ).filter(Boolean)}
+                      )}
                     </div>
 
                     <button
@@ -545,7 +552,7 @@ export default function AdminPanel() {
                         setCurrentPage(Math.min(totalPages, currentPage + 1))
                       }
                       disabled={currentPage === totalPages}
-                      className="px-4 py-2 sm:px-5 sm:py-2.5 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] hover:shadow-lg hover:shadow-[#0088CC]/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-95 text-sm sm:text-base flex items-center gap-2 whitespace-nowrap"
+                      className="px-3 sm:px-4 py-2 sm:py-2.5 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] hover:shadow-lg hover:shadow-[#0088CC]/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-95 text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 whitespace-nowrap min-h-[44px]"
                     >
                       <span className="hidden xs:inline">Next</span>
                       <svg
