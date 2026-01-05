@@ -415,12 +415,15 @@ export default function UppostPanel() {
         // Provide specific guidance based on status code
         if (uploadResponse.status === 413) {
           errorMsg +=
-            " (This might be due to large file sizes. Try reducing the number of files or their sizes.)";
+            " (File size exceeds 500MB limit. Try reducing the file sizes or the number of files.)";
         } else if (uploadResponse.status === 403) {
           errorMsg =
             "Your email is not authorized to upload. Contact the administrator.";
         } else if (uploadResponse.status === 500) {
-          errorMsg += " (Server error - the administrator has been notified.)";
+          errorMsg += " (Server error during upload. The system will automatically retry files that fail. Please try again.)";
+        } else if (uploadResponse.status === 408) {
+          errorMsg =
+            "Upload timed out. Please try again with fewer or smaller files.";
         }
 
         throw new Error(errorMsg);
