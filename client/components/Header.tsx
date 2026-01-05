@@ -1,10 +1,8 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, LogOut, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import {
   HomeIcon,
-  UploadIcon,
-  SettingsIcon,
   SearchAltIcon,
   ClipboardIcon,
 } from "@/components/Icons";
