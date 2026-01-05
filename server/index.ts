@@ -410,54 +410,109 @@ export function createServer() {
 
       const mediaUrl = `${baseUrl}/posts/${postId}/${fileName}`;
 
+      // Set CORS and cache headers
       res.set({
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, OPTIONS",
         "Access-Control-Allow-Headers": "Content-Type",
-        "Cache-Control": "public, max-age=31536000",
+        "Cache-Control": "public, max-age=31536000, immutable",
       });
 
-      const response = await fetch(mediaUrl);
-      const contentType = response.headers.get("content-type");
-      const contentLength = response.headers.get("content-length");
-
-      if (contentType) {
-        res.set("Content-Type", contentType);
-      }
-
-      // Set content length if available for better streaming experience
-      if (contentLength) {
-        res.set("Content-Length", contentLength);
-      }
-
-      res.set({
-        "Access-Control-Allow-Origin": "*",
-        "Cache-Control": "public, max-age=31536000",
-      });
-
-      if (response.ok && response.body) {
-        // Convert Web ReadableStream to Node.js Readable stream
-        const nodeStream = Readable.fromWeb(response.body);
-
-        // Use streaming instead of loading entire file into memory
-        nodeStream.pipe(res);
-
-        // Handle errors during streaming
-        nodeStream.on("error", (err) => {
-          console.error("Stream error:", err);
-          if (!res.headersSent) {
-            res.status(500).json({ error: "Failed to stream media" });
-          }
+      try {
+        const response = await fetch(mediaUrl, {
+          timeout: 30000,
         });
-      } else {
-        res
-          .status(response.status || 500)
-          .json({ error: "Failed to fetch media" });
+
+        if (!response.ok) {
+          console.warn(
+            `[${new Date().toISOString()}] Failed to fetch media from R2: ${mediaUrl} (Status: ${response.status})`,
+          );
+          return res.status(response.status || 404).json({
+            error: `Failed to fetch media: ${response.statusText || "Not found"}`,
+          });
+        }
+
+        const contentType = response.headers.get("content-type");
+        const contentLength = response.headers.get("content-length");
+
+        // Set appropriate headers for the response
+        if (contentType) {
+          res.set("Content-Type", contentType);
+        } else {
+          // Fallback: try to infer MIME type from extension
+          const extension = fileName.toLowerCase().split(".").pop() || "";
+          const mimeTypes: { [key: string]: string } = {
+            jpg: "image/jpeg",
+            jpeg: "image/jpeg",
+            png: "image/png",
+            gif: "image/gif",
+            webp: "image/webp",
+            mp4: "video/mp4",
+            webm: "video/webm",
+            mov: "video/quicktime",
+            avi: "video/x-msvideo",
+            mkv: "video/x-matroska",
+            mp3: "audio/mpeg",
+            wav: "audio/wav",
+            m4a: "audio/mp4",
+            pdf: "application/pdf",
+          };
+          const inferredType = mimeTypes[extension];
+          if (inferredType) {
+            res.set("Content-Type", inferredType);
+          }
+        }
+
+        // Set content length if available
+        if (contentLength) {
+          res.set("Content-Length", contentLength);
+        }
+
+        // Set status code explicitly
+        res.status(200);
+
+        if (response.body) {
+          // Convert Web ReadableStream to Node.js Readable stream
+          const nodeStream = Readable.fromWeb(response.body);
+
+          // Handle stream errors
+          nodeStream.on("error", (err) => {
+            console.error(
+              `[${new Date().toISOString()}] Stream error for ${fileName}:`,
+              err,
+            );
+            if (!res.headersSent) {
+              res.status(500).json({ error: "Failed to stream media" });
+            } else {
+              res.end();
+            }
+          });
+
+          // Pipe the stream to the response
+          nodeStream.pipe(res);
+        } else {
+          // No body in response
+          res.status(204).end();
+        }
+      } catch (fetchErr) {
+        console.error(
+          `[${new Date().toISOString()}] Error fetching media from R2:`,
+          fetchErr,
+        );
+        if (!res.headersSent) {
+          res.status(503).json({
+            error: "Service temporarily unavailable",
+          });
+        } else {
+          res.end();
+        }
       }
     } catch (err) {
-      console.error("Media proxy error:", err);
+      console.error(`[${new Date().toISOString()}] Media proxy error:`, err);
       if (!res.headersSent) {
-        res.status(500).json({ error: "Failed to fetch media" });
+        res.status(500).json({ error: "Internal server error" });
+      } else {
+        res.end();
       }
     }
   });
