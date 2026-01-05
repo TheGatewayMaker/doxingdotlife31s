@@ -339,32 +339,45 @@ export default function Index() {
               {/* Pagination */}
               {totalPages > 1 && (
                 <div
-                  className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 md:gap-3 animate-slideInUp px-2 py-4"
+                  className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 sm:gap-1.5 md:gap-2 animate-slideInUp px-2 py-4"
                   style={{ animationDelay: "0.4s" }}
                 >
                   <button
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}
-                    className="px-2.5 sm:px-3 md:px-4 py-2 bg-[#0088CC] text-white font-semibold rounded text-xs sm:text-sm hover:bg-[#0077BB] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 touch-target min-h-[44px]"
+                    className="px-2.5 sm:px-3 md:px-4 py-2 bg-[#0088CC] text-white font-semibold rounded text-xs sm:text-sm hover:bg-[#0077BB] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 touch-target min-h-[44px] whitespace-nowrap"
                   >
                     ← Prev
                   </button>
                   <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap justify-center">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                      (page) => (
-                        <button
-                          key={page}
-                          onClick={() => setCurrentPage(page)}
-                          className={cn(
-                            "w-8 h-8 sm:w-9 md:w-10 rounded font-semibold transition-all text-xs shadow-sm hover:shadow-md touch-target flex items-center justify-center",
-                            currentPage === page
-                              ? "bg-[#0088CC] text-white"
-                              : "bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] hover:bg-[#0088CC]/10 text-[#979797]",
-                          )}
-                        >
-                          {page}
-                        </button>
-                      ),
+                    {getVisiblePages(currentPage, totalPages, 5).map(
+                      (pageItem, idx) => {
+                        if (pageItem === "ellipsis") {
+                          return (
+                            <span
+                              key={`ellipsis-${idx}`}
+                              className="w-6 h-8 sm:w-8 sm:h-9 flex items-center justify-center text-[#979797] text-xs"
+                            >
+                              …
+                            </span>
+                          );
+                        }
+                        const page = pageItem as number;
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={cn(
+                              "w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 rounded font-semibold transition-all text-xs shadow-sm hover:shadow-md touch-target flex items-center justify-center",
+                              currentPage === page
+                                ? "bg-[#0088CC] text-white"
+                                : "bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] hover:bg-[#0088CC]/10 text-[#979797]",
+                            )}
+                          >
+                            {page}
+                          </button>
+                        );
+                      },
                     )}
                   </div>
                   <button
@@ -372,7 +385,7 @@ export default function Index() {
                       setCurrentPage(Math.min(totalPages, currentPage + 1))
                     }
                     disabled={currentPage === totalPages}
-                    className="px-2.5 sm:px-3 md:px-4 py-2 bg-[#0088CC] text-white font-semibold rounded text-xs sm:text-sm hover:bg-[#0077BB] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 touch-target min-h-[44px]"
+                    className="px-2.5 sm:px-3 md:px-4 py-2 bg-[#0088CC] text-white font-semibold rounded text-xs sm:text-sm hover:bg-[#0077BB] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 touch-target min-h-[44px] whitespace-nowrap"
                   >
                     Next →
                   </button>
