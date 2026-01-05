@@ -125,31 +125,43 @@ export default function PostMediaSection({
               className="bg-black flex items-center justify-center w-full relative"
               style={{ aspectRatio: "16/9" }}
             >
-              {loadingMediaIndex.has(selectedMediaIndex) && (
-                <div className="absolute inset-0">
-                  <MediaSkeleton />
+              {failedMediaIndices.has(selectedMediaIndex) ? (
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <PictureIcon className="w-12 h-12 text-[#666666]" />
+                  <p className="text-[#979797] text-sm text-center">
+                    Failed to load image
+                  </p>
                 </div>
+              ) : (
+                <>
+                  {loadingMediaIndex.has(selectedMediaIndex) && (
+                    <div className="absolute inset-0">
+                      <MediaSkeleton />
+                    </div>
+                  )}
+                  <img
+                    src={selectedMedia.url}
+                    alt={selectedMedia.name}
+                    className="w-full h-full object-contain"
+                    crossOrigin="anonymous"
+                    onLoad={() => {
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(selectedMediaIndex);
+                        return newSet;
+                      });
+                    }}
+                    onError={() => {
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(selectedMediaIndex);
+                        return newSet;
+                      });
+                      handleMediaError(selectedMediaIndex);
+                    }}
+                  />
+                </>
               )}
-              <img
-                src={selectedMedia.url}
-                alt={selectedMedia.name}
-                className="w-full h-full object-contain"
-                crossOrigin="anonymous"
-                onLoad={() => {
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.delete(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
-                onError={() => {
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.delete(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
-              />
             </div>
           )}
 
