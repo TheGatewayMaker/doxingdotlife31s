@@ -112,23 +112,22 @@ export const ShareModal: React.FC<ShareModalProps> = ({
         </DialogHeader>
 
         <div className="space-y-6 py-4">
-          {/* Social Media Options Grid */}
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+          {/* Social Media Options Grid - Apple Style */}
+          <div className="grid grid-cols-3 gap-6 sm:grid-cols-5 px-2">
             {socialOptions.map((option) => (
-              <button
-                key={option.id}
-                onClick={() => option.action(url, title, description)}
-                className={`flex flex-col items-center justify-center gap-3 p-3 rounded-lg ${option.bgColor} text-white active:scale-95 transition-transform`}
-              >
-                <img
-                  src={option.icon}
-                  alt={option.name}
-                  className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
-                />
-                <div className="text-center">
-                  <p className="text-xs sm:text-sm font-bold">Share</p>
-                </div>
-              </button>
+              <div key={option.id} className="flex flex-col items-center gap-2">
+                <button
+                  onClick={() => option.action(url, title, description)}
+                  className={`flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full ${option.bgColor} text-white active:scale-90 transition-transform`}
+                >
+                  <img
+                    src={option.icon}
+                    alt={option.name}
+                    className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                  />
+                </button>
+                <p className="text-xs text-center text-[#979797] font-medium">Share</p>
+              </div>
             ))}
           </div>
 
