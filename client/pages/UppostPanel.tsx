@@ -1108,7 +1108,7 @@ export default function UppostPanel() {
                       Mark as Trending Post
                     </p>
                   </div>
-                  <p className="text-xs text-amber-300/80 ml-5.5 sm:ml-6">
+                  <p className="text-xs font-semibold text-amber-300/80 ml-5.5 sm:ml-6">
                     Posts marked as trending will appear first with a special
                     golden gradient
                   </p>
