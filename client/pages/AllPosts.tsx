@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import SearchBar from "@/components/SearchBar";
 import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
+import AdvertisementBanners from "@/components/AdvertisementBanners";
 import { Post, PostsResponse } from "@shared/api";
 import {
   GlobeIcon,
