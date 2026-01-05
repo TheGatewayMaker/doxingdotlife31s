@@ -335,7 +335,7 @@ export default function UppostPanel() {
         throw new Error("User is not authenticated");
       }
 
-      setUploadMessage("Uploading files to server...");
+      setUploadMessage("Uploading files to server (parallel uploads enabled)...");
 
       // Create FormData for multipart upload to /api/upload
       const formData = new FormData();
