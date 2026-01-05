@@ -4,6 +4,7 @@ import { addWatermarkToImage, addWatermarkToVideo } from "@/lib/watermark";
 import { toast } from "sonner";
 import PhotoCard from "./PhotoCard";
 import { MediaSkeleton, MediaThumbnailSkeleton } from "./MediaSkeleton";
+import { PictureIcon, FilmIcon } from "@/components/Icons";
 
 interface MediaFile {
   name: string;
