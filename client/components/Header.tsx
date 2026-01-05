@@ -149,7 +149,11 @@ export default function Header() {
                   to="/uppostpanel"
                   className="flex items-center gap-2 px-5 py-2 bg-purple-600 text-white font-semibold rounded-lg hover:bg-purple-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
                 >
-                  <UploadIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F8827f72ce42e47719bdc54378c04ffe2%2F2232fec32fd946fe90d0261ee1f1268f?format=webp&width=800"
+                    alt="Upload"
+                    className="w-4 h-4 group-hover:scale-110 transition-transform brightness-0 invert"
+                  />
                   <span className="hidden xl:inline">Upload</span>
                 </Link>
               )}
@@ -158,7 +162,11 @@ export default function Header() {
                   to="/admin-panel"
                   className="flex items-center gap-2 px-5 py-2 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
                 >
-                  <SettingsIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                  <img
+                    src="https://cdn.builder.io/api/v1/image/assets%2F8827f72ce42e47719bdc54378c04ffe2%2F18652552236645cf8f8c520da651389a?format=webp&width=800"
+                    alt="Admin"
+                    className="w-4 h-4 group-hover:scale-110 transition-transform brightness-0 invert"
+                  />
                   <span className="hidden xl:inline">Admin</span>
                 </Link>
               )}
@@ -166,7 +174,11 @@ export default function Header() {
                 onClick={handleLogout}
                 className="flex items-center gap-2 px-5 py-2 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
               >
-                <LogOut className="w-4 h-4 group-hover:scale-110 transition-transform" />
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F8827f72ce42e47719bdc54378c04ffe2%2F6a1c3a726c1243dc8c429c21fff3907d?format=webp&width=800"
+                  alt="Logout"
+                  className="w-4 h-4 group-hover:scale-110 transition-transform brightness-0 invert"
+                />
                 <span className="hidden xl:inline">Logout</span>
               </button>
             </>
