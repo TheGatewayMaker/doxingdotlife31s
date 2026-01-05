@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Post } from "@shared/api";
 import {
   CloseIcon,
@@ -23,6 +23,28 @@ export default function MediaManagerModal({
   const [deletingFileName, setDeletingFileName] = useState<string | null>(null);
   const [isDeletingFile, setIsDeletingFile] = useState(false);
   const [mediaFiles, setMediaFiles] = useState(post.mediaFiles);
+  const [isLoadingMedia, setIsLoadingMedia] = useState(false);
+
+  // Fetch full post details with mediaFiles on mount
+  useEffect(() => {
+    const fetchPostDetails = async () => {
+      try {
+        setIsLoadingMedia(true);
+        const response = await fetch(`/api/posts/${post.id}`);
+        if (!response.ok) throw new Error("Failed to fetch post details");
+
+        const fullPost: Post = await response.json();
+        setMediaFiles(fullPost.mediaFiles);
+      } catch (error) {
+        console.error("Error fetching post details:", error);
+        toast.error("Failed to load media files");
+      } finally {
+        setIsLoadingMedia(false);
+      }
+    };
+
+    fetchPostDetails();
+  }, [post.id]);
 
   const isImageFile = (fileName: string): boolean => {
     const imageExtensions = [
