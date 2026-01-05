@@ -331,15 +331,27 @@ export default function SimpleMediaGallery({
               <div className="w-full px-6 py-12 flex flex-col items-center justify-center gap-4">
                 <MusicNoteIcon className="w-16 h-16 text-accent" />
                 <div className="w-full">
-                  <audio
-                    controls
-                    preload="metadata"
-                    className="w-full"
-                    crossOrigin="anonymous"
-                  >
-                    <source src={currentMedia.url} type={currentMedia.type} />
-                    Your browser does not support the audio element.
-                  </audio>
+                  {failedMediaIndices.has(selectedMediaIndex) ? (
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-muted-foreground">
+                        Audio failed to load
+                      </p>
+                      <p className="text-xs text-muted-foreground/70 mt-1">
+                        {currentMedia.name}
+                      </p>
+                    </div>
+                  ) : (
+                    <audio
+                      controls
+                      preload="metadata"
+                      className="w-full"
+                      crossOrigin="anonymous"
+                      onError={() => handleMediaError(selectedMediaIndex)}
+                    >
+                      <source src={currentMedia.url} type={currentMedia.type} />
+                      Your browser does not support the audio element.
+                    </audio>
+                  )}
                 </div>
               </div>
             )}
