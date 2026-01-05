@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useDebounce } from "@/hooks/use-debounce";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Pagination from "@/components/Pagination";
 import { Post, PostsResponse } from "@shared/api";
 import { useAuthContext } from "@/contexts/AuthContext";
 import {
