@@ -16,6 +16,7 @@ import UppostPanel from "./pages/UppostPanel";
 import PostDetail from "./pages/PostDetail";
 import DoxxAnyone from "./pages/DoxAnyone";
 import AdminPanel from "./pages/AdminPanel";
+import Clowns from "./pages/Clowns";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const AppContent = () => {
         <Route path="/all-posts" element={<AllPosts />} />
         <Route path="/post/:postId" element={<PostDetail />} />
         <Route path="/doxx-anyone" element={<DoxxAnyone />} />
+        <Route path="/clowns" element={<Clowns />} />
         <Route path="/uppostpanel" element={<UppostPanel />} />
         <Route path="/admin-panel" element={<AdminPanel />} />
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

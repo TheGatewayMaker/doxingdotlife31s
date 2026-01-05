@@ -108,32 +108,32 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-[#333333] text-white overflow-hidden">
+      <DialogContent className="w-[90vw] max-w-sm sm:max-w-md bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] border border-[#333333] text-white overflow-hidden p-4 sm:p-6">
         <DialogHeader className="text-center">
-          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-[#0088CC] to-[#00BBFF] bg-clip-text text-transparent">
+          <DialogTitle className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#0088CC] to-[#00BBFF] bg-clip-text text-transparent">
             Share This Post
           </DialogTitle>
-          <p className="text-sm text-[#979797] mt-2">
+          <p className="text-xs sm:text-sm text-[#979797] mt-2">
             Choose how you want to share
           </p>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <div className="space-y-4 sm:space-y-6 py-3 sm:py-4">
           {/* Social Media Options Grid - Apple Style */}
-          <div className="grid grid-cols-3 gap-6 sm:grid-cols-5 px-2">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 sm:grid-cols-5">
             {socialOptions.map((option) => (
               <button
                 key={option.id}
                 onClick={() => option.action(url, title, description)}
-                className="flex flex-col items-center gap-2 cursor-pointer group"
+                className="flex flex-col items-center gap-1.5 sm:gap-2 cursor-pointer group"
               >
                 <div
-                  className={`flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full ${option.bgColor} text-white active:scale-90 transition-transform`}
+                  className={`flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full ${option.bgColor} text-white active:scale-90 transition-transform`}
                 >
                   <img
                     src={option.icon}
                     alt={option.name}
-                    className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
+                    className="w-8 h-8 sm:w-9 sm:h-9 object-contain"
                   />
                 </div>
                 <p className="text-xs text-center text-[#979797] font-medium group-hover:text-white transition-colors cursor-pointer">
@@ -151,9 +151,11 @@ export const ShareModal: React.FC<ShareModalProps> = ({
           </div>
 
           {/* Copy Link Section */}
-          <div className="bg-[#0a0a0a] border border-[#444444] rounded-xl p-4 space-y-3">
-            <p className="text-sm font-semibold text-white">Copy Link</p>
-            <div className="flex items-center gap-2 bg-[#1a1a1a] border border-[#555555] rounded-lg p-3 group hover:border-[#0088CC]/50 transition-colors">
+          <div className="bg-[#0a0a0a] border border-[#444444] rounded-xl p-3 sm:p-4 space-y-2 sm:space-y-3">
+            <p className="text-xs sm:text-sm font-semibold text-white">
+              Copy Link
+            </p>
+            <div className="flex items-center gap-2 bg-[#1a1a1a] border border-[#555555] rounded-lg p-2 sm:p-3 group hover:border-[#0088CC]/50 transition-colors">
               <input
                 type="text"
                 value={url}
@@ -166,9 +168,9 @@ export const ShareModal: React.FC<ShareModalProps> = ({
                 title="Copy link"
               >
                 {copied ? (
-                  <Check className="w-5 h-5" />
+                  <Check className="w-4 h-4 sm:w-5 sm:h-5" />
                 ) : (
-                  <Copy className="w-5 h-5" />
+                  <Copy className="w-4 h-4 sm:w-5 sm:h-5" />
                 )}
               </button>
             </div>
