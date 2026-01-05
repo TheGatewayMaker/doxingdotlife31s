@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useDebounce } from "@/hooks/use-debounce";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Pagination from "@/components/Pagination";
 import { Post, PostsResponse } from "@shared/api";
 import { useAuthContext } from "@/contexts/AuthContext";
 import {
@@ -486,105 +487,37 @@ export default function AdminPanel() {
               </div>
 
               {/* Pagination */}
-              {totalPages > 1 && (
-                <div
-                  className="flex flex-col gap-4 animate-slideInUp pt-6 sm:pt-8 border-t border-border/40"
-                  style={{ animationDelay: "0.4s" }}
-                >
-                  <div className="flex items-center justify-center gap-2 px-2">
-                    <button
-                      onClick={() =>
-                        setCurrentPage(Math.max(1, currentPage - 1))
-                      }
-                      disabled={currentPage === 1}
-                      className="px-4 py-2 sm:px-5 sm:py-2.5 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] hover:shadow-lg hover:shadow-[#0088CC]/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-95 text-sm sm:text-base flex items-center gap-2 whitespace-nowrap"
-                    >
-                      <svg
-                        className="w-4 h-4 sm:w-5 sm:h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M15 19l-7-7 7-7"
-                        />
-                      </svg>
-                      <span className="hidden xs:inline">Previous</span>
-                    </button>
+              <div
+                className="animate-slideInUp border-t border-border/40 pt-6 sm:pt-8"
+                style={{ animationDelay: "0.4s" }}
+              >
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                  maxVisiblePages={5}
+                />
 
-                    <div className="flex items-center gap-1 sm:gap-2 justify-center flex-wrap max-w-xs sm:max-w-md">
-                      {Array.from(
-                        { length: Math.min(totalPages, 5) },
-                        (_, i) => {
-                          const pageNum =
-                            currentPage > 3 ? currentPage + i - 2 : i + 1;
-                          if (pageNum > totalPages) return null;
-                          return (
-                            <button
-                              key={pageNum}
-                              onClick={() => setCurrentPage(pageNum)}
-                              className={cn(
-                                "w-10 h-10 sm:w-11 sm:h-11 rounded-lg font-bold transition-all text-xs sm:text-sm shadow-sm hover:shadow-md flex items-center justify-center",
-                                currentPage === pageNum
-                                  ? "bg-[#0088CC] text-white shadow-lg shadow-[#0088CC]/30"
-                                  : "bg-card border-2 border-border hover:border-[#0088CC]/40 text-foreground hover:shadow-lg hover:shadow-[#0088CC]/10",
-                              )}
-                            >
-                              {pageNum}
-                            </button>
-                          );
-                        },
-                      ).filter(Boolean)}
-                    </div>
-
-                    <button
-                      onClick={() =>
-                        setCurrentPage(Math.min(totalPages, currentPage + 1))
-                      }
-                      disabled={currentPage === totalPages}
-                      className="px-4 py-2 sm:px-5 sm:py-2.5 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] hover:shadow-lg hover:shadow-[#0088CC]/40 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md active:scale-95 text-sm sm:text-base flex items-center gap-2 whitespace-nowrap"
-                    >
-                      <span className="hidden xs:inline">Next</span>
-                      <svg
-                        className="w-4 h-4 sm:w-5 sm:h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-
-                  <div className="text-center text-xs sm:text-sm text-muted-foreground">
-                    Page{" "}
-                    <span className="font-semibold text-foreground">
-                      {currentPage}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-semibold text-foreground">
-                      {totalPages}
-                    </span>{" "}
-                    • Showing{" "}
-                    <span className="font-semibold text-foreground">
-                      {displayedPosts.length}
-                    </span>{" "}
-                    of{" "}
-                    <span className="font-semibold text-foreground">
-                      {filteredPosts.length}
-                    </span>{" "}
-                    posts
-                  </div>
+                <div className="text-center text-xs sm:text-sm text-muted-foreground mt-4">
+                  Page{" "}
+                  <span className="font-semibold text-foreground">
+                    {currentPage}
+                  </span>{" "}
+                  of{" "}
+                  <span className="font-semibold text-foreground">
+                    {totalPages}
+                  </span>{" "}
+                  • Showing{" "}
+                  <span className="font-semibold text-foreground">
+                    {displayedPosts.length}
+                  </span>{" "}
+                  of{" "}
+                  <span className="font-semibold text-foreground">
+                    {filteredPosts.length}
+                  </span>{" "}
+                  posts
                 </div>
-              )}
+              </div>
             </>
           ) : (
             <div className="text-center py-12 animate-fadeIn">

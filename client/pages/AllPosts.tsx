@@ -7,6 +7,7 @@ import SearchBar from "@/components/SearchBar";
 import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import AdvertisementBanners from "@/components/AdvertisementBanners";
+import Pagination from "@/components/Pagination";
 import { Post, PostsResponse } from "@shared/api";
 import {
   GlobeIcon,
@@ -327,47 +328,16 @@ export default function AllPosts() {
               </div>
 
               {/* Pagination */}
-              {totalPages > 1 && (
-                <div
-                  className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2 md:gap-3 animate-slideInUp px-2 py-4"
-                  style={{ animationDelay: "0.4s" }}
-                >
-                  <button
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
-                    className="px-2.5 sm:px-3 md:px-4 py-2 bg-[#0088CC] text-white font-semibold rounded text-xs sm:text-sm hover:bg-[#0077BB] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 touch-target min-h-[44px]"
-                  >
-                    ← Prev
-                  </button>
-                  <div className="flex items-center gap-0.5 sm:gap-1 flex-wrap justify-center">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                      (page) => (
-                        <button
-                          key={page}
-                          onClick={() => setCurrentPage(page)}
-                          className={cn(
-                            "w-8 h-8 sm:w-9 md:w-10 rounded font-semibold transition-all text-xs shadow-sm hover:shadow-md touch-target flex items-center justify-center",
-                            currentPage === page
-                              ? "bg-[#0088CC] text-white"
-                              : "bg-[#1a1a1a] border border-[#666666] hover:border-[#0088CC] hover:bg-[#0088CC]/10 text-[#979797]",
-                          )}
-                        >
-                          {page}
-                        </button>
-                      ),
-                    )}
-                  </div>
-                  <button
-                    onClick={() =>
-                      setCurrentPage(Math.min(totalPages, currentPage + 1))
-                    }
-                    disabled={currentPage === totalPages}
-                    className="px-2.5 sm:px-3 md:px-4 py-2 bg-[#0088CC] text-white font-semibold rounded text-xs sm:text-sm hover:bg-[#0077BB] disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 touch-target min-h-[44px]"
-                  >
-                    Next →
-                  </button>
-                </div>
-              )}
+              <div
+                className="animate-slideInUp"
+                style={{ animationDelay: "0.4s" }}
+              >
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                />
+              </div>
             </>
           ) : (
             <div

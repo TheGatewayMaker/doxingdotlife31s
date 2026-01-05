@@ -175,15 +175,17 @@ export function createServer() {
     res: express.Response,
     next: express.NextFunction,
   ) => {
-    // 30 minutes for large file uploads (supports files up to 500MB)
-    // Large uploads may take significant time on slower connections
-    const timeout = 30 * 60 * 1000;
+    // 40 minutes for large file uploads (supports files up to 500MB each)
+    // With parallel uploads, large uploads should complete faster
+    // This timeout is longer than client's 35 min to prevent abrupt server-side cuts
+    const timeout = 40 * 60 * 1000;
 
     try {
       // Set socket timeouts on both request and response
       if (req.socket) {
         req.socket.setTimeout(timeout);
         // Enable TCP keep-alive to prevent connection from being idle-killed
+        // Keep-alive every 5 seconds prevents firewall/proxy from closing idle connections
         req.socket.setKeepAlive(true, 5000);
       }
       if (res.socket) {
@@ -192,30 +194,22 @@ export function createServer() {
       }
 
       // Add timeout error handling
-      req.on("timeout", () => {
+      const handleTimeout = (isRequest: boolean) => () => {
+        const type = isRequest ? "Request" : "Response";
+        const timeoutMinutes = Math.round(timeout / 60 / 1000);
         console.error(
-          `[${new Date().toISOString()}] Request timeout after ${timeout}ms`,
+          `[${new Date().toISOString()}] ${type} timeout after ${timeoutMinutes} minutes`,
         );
         if (!res.headersSent) {
           res.status(408).json({
-            error: "Request timeout",
-            details:
-              "Upload took too long. Please try again with smaller files.",
+            error: `${type} timeout`,
+            details: `Upload took longer than ${timeoutMinutes} minutes. Please try again with smaller files or check your internet connection.`,
           });
         }
-      });
+      };
 
-      res.on("timeout", () => {
-        console.error(
-          `[${new Date().toISOString()}] Response timeout after ${timeout}ms`,
-        );
-        if (!res.headersSent) {
-          res.status(408).json({
-            error: "Response timeout",
-            details: "Server response took too long. Please try again.",
-          });
-        }
-      });
+      req.on("timeout", handleTimeout(true));
+      res.on("timeout", handleTimeout(false));
     } catch (error) {
       console.error("Error setting socket timeout:", error);
     }

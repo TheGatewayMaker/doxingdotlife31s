@@ -74,6 +74,61 @@ const detectImageMimeType = (
   return mimeTypes[extension] || "image/jpeg";
 };
 
+// Retry configuration for file uploads
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY_MS = 1000;
+
+// Upload with exponential backoff retry logic
+const uploadMediaFileWithRetry = async (
+  postId: string,
+  fileName: string,
+  buffer: Buffer,
+  contentType: string,
+  fileIndex: number,
+  attempt: number = 1,
+): Promise<{ success: boolean; fileName: string; error?: string }> => {
+  try {
+    const uploadStartTime = Date.now();
+    await uploadMediaFile(postId, fileName, buffer, contentType);
+    const uploadDuration = Date.now() - uploadStartTime;
+
+    console.log(
+      `[${new Date().toISOString()}] ✅ File ${fileIndex} uploaded successfully in ${uploadDuration}ms (attempt ${attempt}/${MAX_RETRIES + 1})`,
+    );
+
+    return { success: true, fileName };
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error(
+      `[${new Date().toISOString()}] ⚠️ File ${fileIndex} upload failed (attempt ${attempt}/${MAX_RETRIES + 1}): ${errorMsg}`,
+    );
+
+    // If we haven't exhausted retries, retry with exponential backoff
+    if (attempt <= MAX_RETRIES) {
+      const delayMs = INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt - 1);
+      console.log(
+        `[${new Date().toISOString()}] ⏳ Retrying file ${fileIndex} after ${delayMs}ms...`,
+      );
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+      return uploadMediaFileWithRetry(
+        postId,
+        fileName,
+        buffer,
+        contentType,
+        fileIndex,
+        attempt + 1,
+      );
+    }
+
+    // All retries exhausted
+    return {
+      success: false,
+      fileName,
+      error: errorMsg,
+    };
+  }
+};
+
 export const handleUpload: RequestHandler = async (req, res, next) => {
   let responseSent = false;
 
@@ -236,18 +291,17 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
         );
       }
 
-      // Upload all media files with improved error handling
+      // Upload all media files in parallel with retry logic
       const mediaFileNames: string[] = [];
       const uploadErrors: Array<{ index: number; error: string }> = [];
 
       console.log(
-        `[${new Date().toISOString()}] Starting upload of ${mediaCount} media files for post ${postId}`,
+        `[${new Date().toISOString()}] Starting parallel upload of ${mediaCount} media files for post ${postId}`,
       );
 
-      for (let i = 0; i < files.media.length; i++) {
+      // Create upload tasks for all files
+      const uploadTasks = files.media.map(async (mediaFile, i) => {
         try {
-          const mediaFile = files.media[i];
-
           // Validate file exists and has buffer
           if (!mediaFile || !mediaFile.buffer) {
             throw new Error(`File ${i + 1} is missing or has no buffer data`);
@@ -259,7 +313,7 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
           const mediaFileName = `${Date.now()}-${i}-${sanitizedName}`;
 
           console.log(
-            `[${new Date().toISOString()}] Uploading media file ${i + 1}/${mediaCount}: ${mediaFileName} (${fileSizeMB}MB)`,
+            `[${new Date().toISOString()}] Starting upload of file ${i + 1}/${mediaCount}: ${mediaFileName} (${fileSizeMB}MB)`,
           );
 
           const mediaFileMimeType = mediaFile.mimetype
@@ -269,34 +323,47 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
               )
             : "application/octet-stream";
 
-          const uploadStartTime = Date.now();
-          await uploadMediaFile(
+          // Upload with retry logic
+          const result = await uploadMediaFileWithRetry(
             postId,
             mediaFileName,
             mediaFile.buffer,
             mediaFileMimeType,
+            i + 1,
           );
-          const uploadDuration = Date.now() - uploadStartTime;
 
-          mediaFileNames.push(mediaFileName);
-          console.log(
-            `[${new Date().toISOString()}] ✅ File ${i + 1}/${mediaCount} uploaded successfully in ${uploadDuration}ms`,
-          );
+          return result;
         } catch (fileError) {
           const errorMsg =
             fileError instanceof Error ? fileError.message : String(fileError);
           console.error(
-            `[${new Date().toISOString()}] Error uploading file ${i + 1}:`,
+            `[${new Date().toISOString()}] Critical error uploading file ${i + 1}:`,
             errorMsg,
           );
-          uploadErrors.push({
-            index: i + 1,
+          return {
+            success: false,
+            fileName: `media-${i + 1}`,
             error: errorMsg,
+          };
+        }
+      });
+
+      // Execute all uploads in parallel
+      const uploadResults = await Promise.all(uploadTasks);
+
+      // Collect successful uploads and errors
+      for (const result of uploadResults) {
+        if (result.success) {
+          mediaFileNames.push(result.fileName);
+        } else {
+          uploadErrors.push({
+            index: uploadResults.indexOf(result) + 1,
+            error: result.error || "Unknown error",
           });
         }
       }
 
-      // Check for upload errors after processing all files
+      // Check for upload errors after all parallel uploads complete
       if (uploadErrors.length > 0) {
         throw new Error(
           `Failed to upload ${uploadErrors.length} file(s): ${uploadErrors.map((e) => `File ${e.index}: ${e.error}`).join("; ")}`,
