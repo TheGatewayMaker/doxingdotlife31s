@@ -1071,7 +1071,7 @@ export default function UppostPanel() {
                       Mark as NSFW Content
                     </p>
                   </div>
-                  <p className="text-xs text-[#FF0000]/80 ml-5.5 sm:ml-6">
+                  <p className="text-xs font-semibold text-[#FF0000]/80 ml-5.5 sm:ml-6">
                     This content is Not Safe For Work and requires age
                     verification
                   </p>
