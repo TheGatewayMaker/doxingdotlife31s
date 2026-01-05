@@ -47,10 +47,7 @@ export default function Pagination({
     // Use maxVisiblePages prop if provided, otherwise use responsive value
     const maxPages = maxVisiblePages || responsiveMaxPages;
 
-    const startPage = Math.max(
-      1,
-      currentPage - Math.floor(maxPages / 2),
-    );
+    const startPage = Math.max(1, currentPage - Math.floor(maxPages / 2));
     const endPage = Math.min(totalPages, startPage + maxPages - 1);
     const adjustedStart = Math.max(1, endPage - maxPages + 1);
 
@@ -86,7 +83,8 @@ export default function Pagination({
     >
       {/* Page Info - Mobile friendly */}
       <div className="text-xs sm:text-sm text-[#979797]">
-        Page <span className="font-semibold text-[#e0e0e0]">{currentPage}</span> of <span className="font-semibold text-[#e0e0e0]">{totalPages}</span>
+        Page <span className="font-semibold text-[#e0e0e0]">{currentPage}</span>{" "}
+        of <span className="font-semibold text-[#e0e0e0]">{totalPages}</span>
       </div>
 
       {/* Main Pagination Controls */}
