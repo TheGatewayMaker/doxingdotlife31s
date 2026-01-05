@@ -208,6 +208,7 @@ export default function SimpleMediaGallery({
                         crossOrigin="anonymous"
                         preload="metadata"
                         playsInline
+                        onError={() => handleMediaError(idx)}
                       >
                         <source src={file.url} type={file.type} />
                       </video>
