@@ -76,7 +76,7 @@ export default function Pagination({
     }
 
     return pages;
-  }, [currentPage, totalPages, maxVisiblePages]);
+  }, [currentPage, totalPages, maxVisiblePages, responsiveMaxPages]);
 
   return (
     <nav
