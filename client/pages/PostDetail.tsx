@@ -195,9 +195,19 @@ export default function PostDetail() {
                   Post
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 text-white leading-tight">
-                {post.title}
-              </h1>
+              <div className="flex items-center gap-3 mb-4">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight flex-1">
+                  {post.title}
+                </h1>
+                <button
+                  onClick={handleShare}
+                  className="flex-shrink-0 p-3 sm:p-4 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center bg-[#0088CC] text-white rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95"
+                  title="Share this post"
+                  aria-label="Share this post"
+                >
+                  <Share2 className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </div>
               <div className="flex flex-col xs:flex-row xs:items-center xs:gap-3 text-xs sm:text-sm text-[#979797] space-y-2 xs:space-y-0">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="w-4 h-4" />
