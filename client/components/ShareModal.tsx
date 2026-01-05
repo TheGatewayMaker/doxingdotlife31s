@@ -152,7 +152,9 @@ export const ShareModal: React.FC<ShareModalProps> = ({
 
           {/* Copy Link Section */}
           <div className="bg-[#0a0a0a] border border-[#444444] rounded-xl p-3 sm:p-4 space-y-2 sm:space-y-3">
-            <p className="text-xs sm:text-sm font-semibold text-white">Copy Link</p>
+            <p className="text-xs sm:text-sm font-semibold text-white">
+              Copy Link
+            </p>
             <div className="flex items-center gap-2 bg-[#1a1a1a] border border-[#555555] rounded-lg p-2 sm:p-3 group hover:border-[#0088CC]/50 transition-colors">
               <input
                 type="text"

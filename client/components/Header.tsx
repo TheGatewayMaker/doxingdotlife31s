@@ -1,11 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { ChevronRight } from "lucide-react";
-import {
-  HomeIcon,
-  SearchAltIcon,
-  ClipboardIcon,
-} from "@/components/Icons";
+import { HomeIcon, SearchAltIcon, ClipboardIcon } from "@/components/Icons";
 import { useAuthContext } from "@/contexts/AuthContext";
 
 export default function Header() {
