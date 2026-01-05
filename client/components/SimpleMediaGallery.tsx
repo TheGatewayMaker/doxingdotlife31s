@@ -42,6 +42,9 @@ export default function SimpleMediaGallery({
 
   const [selectedMediaIndex, setSelectedMediaIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [failedMediaIndices, setFailedMediaIndices] = useState<Set<number>>(
+    new Set(),
+  );
   const mediaContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
