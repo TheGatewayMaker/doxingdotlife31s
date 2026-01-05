@@ -43,6 +43,9 @@ export default function PostMediaSection({
   const [loadingMediaIndex, setLoadingMediaIndex] = useState<Set<number>>(
     new Set(),
   );
+  const [failedMediaIndices, setFailedMediaIndices] = useState<Set<number>>(
+    new Set(),
+  );
   const videoRefsForDuration = useRef<{
     [key: string]: HTMLVideoElement | null;
   }>({});
