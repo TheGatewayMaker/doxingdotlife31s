@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Copy, Check } from "lucide-react";
 import { toast } from "sonner";
 
@@ -108,7 +113,9 @@ export const ShareModal: React.FC<ShareModalProps> = ({
           <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-[#0088CC] to-[#00BBFF] bg-clip-text text-transparent">
             Share This Post
           </DialogTitle>
-          <p className="text-sm text-[#979797] mt-2">Choose how you want to share</p>
+          <p className="text-sm text-[#979797] mt-2">
+            Choose how you want to share
+          </p>
         </DialogHeader>
 
         <div className="space-y-6 py-4">
@@ -129,7 +136,9 @@ export const ShareModal: React.FC<ShareModalProps> = ({
                     className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
                   />
                 </div>
-                <p className="text-xs text-center text-[#979797] font-medium group-hover:text-white transition-colors cursor-pointer">Share</p>
+                <p className="text-xs text-center text-[#979797] font-medium group-hover:text-white transition-colors cursor-pointer">
+                  Share
+                </p>
               </button>
             ))}
           </div>
@@ -164,7 +173,9 @@ export const ShareModal: React.FC<ShareModalProps> = ({
               </button>
             </div>
             {copied && (
-              <p className="text-xs text-green-400 animate-pulse">Copied to clipboard!</p>
+              <p className="text-xs text-green-400 animate-pulse">
+                Copied to clipboard!
+              </p>
             )}
           </div>
         </div>
