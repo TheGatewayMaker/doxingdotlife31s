@@ -115,9 +115,12 @@ export const ShareModal: React.FC<ShareModalProps> = ({
           {/* Social Media Options Grid - Apple Style */}
           <div className="grid grid-cols-3 gap-6 sm:grid-cols-5 px-2">
             {socialOptions.map((option) => (
-              <div key={option.id} className="flex flex-col items-center gap-2">
-                <button
-                  onClick={() => option.action(url, title, description)}
+              <button
+                key={option.id}
+                onClick={() => option.action(url, title, description)}
+                className="flex flex-col items-center gap-2 cursor-pointer group"
+              >
+                <div
                   className={`flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full ${option.bgColor} text-white active:scale-90 transition-transform`}
                 >
                   <img
@@ -125,9 +128,9 @@ export const ShareModal: React.FC<ShareModalProps> = ({
                     alt={option.name}
                     className="w-6 h-6 sm:w-7 sm:h-7 object-contain"
                   />
-                </button>
-                <p className="text-xs text-center text-[#979797] font-medium">Share</p>
-              </div>
+                </div>
+                <p className="text-xs text-center text-[#979797] font-medium group-hover:text-white transition-colors cursor-pointer">Share</p>
+              </button>
             ))}
           </div>
 
