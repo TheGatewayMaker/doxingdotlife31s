@@ -68,6 +68,10 @@ export default function PostMediaSection({
     }));
   };
 
+  const handleMediaError = (index: number) => {
+    setFailedMediaIndices((prev) => new Set(prev).add(index));
+  };
+
   const handleDownload = async (mediaFile: MediaFile) => {
     try {
       if (mediaFile.type.startsWith("image/")) {
