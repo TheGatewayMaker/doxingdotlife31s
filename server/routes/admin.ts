@@ -298,18 +298,35 @@ export const handleAddAttachments: RequestHandler = async (req, res) => {
     const uploadedFiles: string[] = [];
     const errors: Array<{ fileName: string; error: string }> = [];
 
-    for (const file of attachments) {
+    // Upload all attachments in parallel for better performance
+    const uploadTasks = attachments.map(async (file, index) => {
       try {
-        const fileName = `${Date.now()}-${uploadedFiles.length}-${file.originalname}`;
+        const fileName = `${Date.now()}-${index}-${file.originalname}`;
         const mimeType = file.mimetype || "application/octet-stream";
 
         await uploadMediaFile(postId, fileName, file.buffer, mimeType);
-        uploadedFiles.push(fileName);
+        return { success: true, fileName };
       } catch (fileError) {
-        errors.push({
+        return {
+          success: false,
           fileName: file.originalname || "unknown",
           error:
             fileError instanceof Error ? fileError.message : "Unknown error",
+        };
+      }
+    });
+
+    // Execute all uploads in parallel
+    const uploadResults = await Promise.all(uploadTasks);
+
+    // Collect results
+    for (const result of uploadResults) {
+      if (result.success) {
+        uploadedFiles.push(result.fileName);
+      } else {
+        errors.push({
+          fileName: result.fileName,
+          error: result.error,
         });
       }
     }
