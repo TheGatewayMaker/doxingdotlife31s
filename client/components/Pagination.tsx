@@ -79,10 +79,10 @@ export default function Pagination({
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-[#666666] text-sm"
+                className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-[#666666] text-lg leading-none"
                 aria-hidden="true"
               >
-                ···
+                …
               </span>
             );
           }
