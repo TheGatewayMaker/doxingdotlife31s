@@ -97,6 +97,10 @@ export default function SimpleMediaGallery({
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [filteredMediaFiles.length, isFullscreen]);
 
+  const handleMediaError = (index: number) => {
+    setFailedMediaIndices((prev) => new Set(prev).add(index));
+  };
+
   const handleDownload = async () => {
     try {
       if (currentMedia.type.startsWith("image/")) {
