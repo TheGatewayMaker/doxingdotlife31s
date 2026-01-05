@@ -56,7 +56,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
       id: "whatsapp-business",
       name: "WhatsApp Business",
       icon: "https://cdn.builder.io/api/v1/image/assets%2F11aff1be323447348ae0668822e6debc%2F6b90820f0fe142b099c987300758fee0?format=webp&width=800",
-      bgColor: "bg-cyan-500",
+      bgColor: "bg-green-500",
       action: (url, title, description) => {
         const text = `${title}${description ? " - " + description : ""} ${url}`;
         const waLink = `https://wa.me/?text=${encodeURIComponent(text)}`;
