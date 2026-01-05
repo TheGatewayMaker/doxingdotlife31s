@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 interface PaginationProps {
   currentPage: number;
@@ -17,12 +17,35 @@ export default function Pagination({
 }: PaginationProps) {
   if (totalPages <= 1) return null;
 
+  // Auto-detect screen size for responsive page count
+  const [responsiveMaxPages, setResponsiveMaxPages] = useState(5);
+
+  useEffect(() => {
+    const updateMaxPages = () => {
+      if (typeof window !== "undefined") {
+        // Mobile: 3 pages, Tablet: 5 pages, Desktop: 7 pages
+        const width = window.innerWidth;
+        if (width < 640) {
+          setResponsiveMaxPages(3);
+        } else if (width < 1024) {
+          setResponsiveMaxPages(5);
+        } else {
+          setResponsiveMaxPages(7);
+        }
+      }
+    };
+
+    updateMaxPages();
+    window.addEventListener("resize", updateMaxPages);
+    return () => window.removeEventListener("resize", updateMaxPages);
+  }, []);
+
   // Determine visible pages based on a responsive strategy
   const getPageNumbers = useMemo(() => {
     const pages: (number | string)[] = [];
 
-    // Use default maxVisiblePages if not provided
-    const maxPages = maxVisiblePages || 7;
+    // Use maxVisiblePages prop if provided, otherwise use responsive value
+    const maxPages = maxVisiblePages || responsiveMaxPages;
 
     const startPage = Math.max(
       1,
