@@ -101,9 +101,9 @@ export default function PostDetail() {
             </p>
             <button
               onClick={() => navigate("/")}
-              className="px-6 py-3 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all shadow-md hover:shadow-lg active:scale-95"
+              className="px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all shadow-md hover:shadow-lg active:scale-95 text-sm"
             >
-              ← Back to Home
+              ← Back
             </button>
           </div>
         </main>
@@ -141,7 +141,7 @@ export default function PostDetail() {
             <div className="max-w-7xl mx-auto w-full">
               <button
                 onClick={() => navigate("/")}
-                className="flex items-center justify-center gap-2 px-6 py-3 sm:py-4 mb-6 bg-[#0088CC] text-white hover:bg-[#0077BB] transition-all duration-200 font-bold rounded-lg animate-fadeIn text-sm sm:text-base shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95"
+                className="flex items-center justify-center gap-2 px-5 py-2 sm:py-3 mb-6 bg-[#0088CC] text-white hover:bg-[#0077BB] transition-all duration-200 font-bold rounded-lg animate-fadeIn text-sm shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95"
               >
                 <svg
                   className="w-5 h-5"
@@ -155,7 +155,7 @@ export default function PostDetail() {
                   <line x1="19" y1="12" x2="5" y2="12"></line>
                   <polyline points="12 19 5 12 12 5"></polyline>
                 </svg>
-                <span>Back to Home</span>
+                <span>Back</span>
               </button>
             </div>
           </div>
@@ -195,9 +195,19 @@ export default function PostDetail() {
                   Post
                 </span>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-4 text-white leading-tight">
-                {post.title}
-              </h1>
+              <div className="flex items-center gap-3 mb-4">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight flex-1">
+                  {post.title}
+                </h1>
+                <button
+                  onClick={handleShare}
+                  className="flex-shrink-0 p-3 sm:p-4 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center bg-[#0088CC] text-white rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95"
+                  title="Share this post"
+                  aria-label="Share this post"
+                >
+                  <Share2 className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </div>
               <div className="flex flex-col xs:flex-row xs:items-center xs:gap-3 text-xs sm:text-sm text-[#979797] space-y-2 xs:space-y-0">
                 <div className="flex items-center gap-2">
                   <CalendarIcon className="w-4 h-4" />
@@ -276,8 +286,8 @@ export default function PostDetail() {
 
               {/* Right Column - Description (Takes 2/5 on desktop) */}
               <div className="lg:col-span-2 space-y-6 flex flex-col">
-                {/* Share Button - Always Visible */}
-                <section>
+                {/* Share Button - Desktop Only */}
+                <section className="hidden lg:block">
                   <button
                     onClick={handleShare}
                     className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
@@ -301,6 +311,17 @@ export default function PostDetail() {
                       server: post.server,
                     }}
                   />
+                </section>
+
+                {/* Share Button - Mobile Only (After Description) */}
+                <section className="lg:hidden">
+                  <button
+                    onClick={handleShare}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
+                  >
+                    <Share2 className="w-5 h-5" />
+                    <span>Share</span>
+                  </button>
                 </section>
               </div>
             </div>

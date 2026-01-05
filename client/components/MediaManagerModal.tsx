@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Post } from "@shared/api";
 import {
   CloseIcon,
@@ -23,6 +23,28 @@ export default function MediaManagerModal({
   const [deletingFileName, setDeletingFileName] = useState<string | null>(null);
   const [isDeletingFile, setIsDeletingFile] = useState(false);
   const [mediaFiles, setMediaFiles] = useState(post.mediaFiles);
+  const [isLoadingMedia, setIsLoadingMedia] = useState(false);
+
+  // Fetch full post details with mediaFiles on mount
+  useEffect(() => {
+    const fetchPostDetails = async () => {
+      try {
+        setIsLoadingMedia(true);
+        const response = await fetch(`/api/posts/${post.id}`);
+        if (!response.ok) throw new Error("Failed to fetch post details");
+
+        const fullPost: Post = await response.json();
+        setMediaFiles(fullPost.mediaFiles);
+      } catch (error) {
+        console.error("Error fetching post details:", error);
+        toast.error("Failed to load media files");
+      } finally {
+        setIsLoadingMedia(false);
+      }
+    };
+
+    fetchPostDetails();
+  }, [post.id]);
 
   const isImageFile = (fileName: string): boolean => {
     const imageExtensions = [
@@ -127,55 +149,93 @@ export default function MediaManagerModal({
           <p className="text-xs text-muted-foreground">ID: {post.id}</p>
         </div>
 
-        {/* Media Files List */}
-        {mediaFiles.length > 0 ? (
-          <div className="space-y-3 max-h-96 overflow-y-auto">
-            {mediaFiles.map((file) => (
-              <div
-                key={file.name}
-                className="bg-muted/50 border border-border rounded-lg p-4 flex items-center justify-between hover:border-accent/50 transition-all"
+        {/* Media Files Grid */}
+        {isLoadingMedia ? (
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin">
+              <svg
+                className="w-6 h-6 text-accent"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  {isImageFile(file.name) ? (
-                    <ImageIcon className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                  ) : isVideoFile(file.name) ? (
-                    <VideoIcon className="w-5 h-5 text-purple-500 flex-shrink-0" />
-                  ) : (
-                    <DocumentIcon className="w-5 h-5 text-gray-500 flex-shrink-0" />
-                  )}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                />
+              </svg>
+            </div>
+            <p className="text-muted-foreground text-sm mt-3">
+              Loading media files...
+            </p>
+          </div>
+        ) : mediaFiles.length > 0 ? (
+          <div className="max-h-96 overflow-y-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+              {mediaFiles.map((file) => (
+                <div
+                  key={file.name}
+                  className="group relative bg-muted border border-border rounded-lg overflow-hidden hover:border-accent/50 transition-all flex flex-col"
+                >
+                  {/* File Preview */}
+                  <div className="aspect-square bg-muted/70 flex items-center justify-center overflow-hidden relative">
+                    {isImageFile(file.name) ? (
+                      <img
+                        src={file.url}
+                        alt={file.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        crossOrigin="anonymous"
+                      />
+                    ) : isVideoFile(file.name) ? (
+                      <div className="flex flex-col items-center justify-center gap-2 w-full h-full bg-gradient-to-br from-purple-500/20 to-purple-600/20">
+                        <VideoIcon className="w-8 h-8 text-purple-400" />
+                        <span className="text-xs text-purple-300 font-medium">
+                          Video
+                        </span>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center gap-2 w-full h-full bg-gradient-to-br from-gray-500/20 to-gray-600/20">
+                        <DocumentIcon className="w-8 h-8 text-gray-400" />
+                        <span className="text-xs text-gray-300 font-medium">
+                          File
+                        </span>
+                      </div>
+                    )}
+                  </div>
 
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-semibold text-foreground truncate">
+                  {/* File Info and Actions */}
+                  <div className="p-2 flex-1 flex flex-col justify-between bg-card border-t border-border">
+                    <p className="text-xs font-medium text-foreground truncate mb-2">
                       {file.name}
                     </p>
-                    <p className="text-xs text-muted-foreground">
-                      Type: {file.type}
-                    </p>
+                    <div className="flex gap-1.5 w-full">
+                      <a
+                        href={file.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 px-2 py-1 bg-blue-600/90 hover:bg-blue-700 text-white text-xs font-semibold rounded transition-all"
+                      >
+                        View
+                      </a>
+                      <button
+                        onClick={() => setDeletingFileName(file.name)}
+                        disabled={isDeletingFile}
+                        className="px-2 py-1 bg-red-600/90 hover:bg-red-700 text-white rounded transition-all disabled:opacity-50 flex items-center justify-center"
+                        title="Delete file"
+                      >
+                        <TrashIcon className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-
-                <div className="flex gap-2 flex-shrink-0 ml-4">
-                  <a
-                    href={file.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition-all"
-                  >
-                    View
-                  </a>
-                  <button
-                    onClick={() => setDeletingFileName(file.name)}
-                    className="px-3 py-1.5 bg-red-600 text-white text-xs font-medium rounded hover:bg-red-700 transition-all flex items-center gap-1.5"
-                  >
-                    <TrashIcon className="w-3 h-3" />
-                    Delete
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         ) : (
-          <div className="text-center py-8">
+          <div className="text-center py-12">
+            <DocumentIcon className="w-12 h-12 text-muted-foreground/50 mx-auto mb-3" />
             <p className="text-muted-foreground text-sm">
               No media files in this post
             </p>
