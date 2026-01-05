@@ -321,6 +321,7 @@ export default function PostMediaSection({
                           newSet.delete(idx);
                           return newSet;
                         });
+                        handleMediaError(idx);
                       }}
                     />
                   ) : (
