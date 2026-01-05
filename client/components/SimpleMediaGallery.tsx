@@ -297,18 +297,33 @@ export default function SimpleMediaGallery({
 
             {isVideo && (
               <div className="relative w-full">
-                <video
-                  ref={videoRef}
-                  controls
-                  controlsList="nodownload"
-                  preload="metadata"
-                  className="w-full max-h-[600px] object-contain bg-black"
-                  crossOrigin="anonymous"
-                  playsInline
-                >
-                  <source src={currentMedia.url} type={currentMedia.type} />
-                  Your browser does not support the video tag.
-                </video>
+                {failedMediaIndices.has(selectedMediaIndex) ? (
+                  <div className="w-full max-h-[600px] bg-black flex flex-col items-center justify-center gap-4">
+                    <FilmIcon className="w-16 h-16 text-accent/50" />
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-muted-foreground">
+                        Video failed to load
+                      </p>
+                      <p className="text-xs text-muted-foreground/70 mt-1">
+                        {currentMedia.name}
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <video
+                    ref={videoRef}
+                    controls
+                    controlsList="nodownload"
+                    preload="metadata"
+                    className="w-full max-h-[600px] object-contain bg-black"
+                    crossOrigin="anonymous"
+                    playsInline
+                    onError={() => handleMediaError(selectedMediaIndex)}
+                  >
+                    <source src={currentMedia.url} type={currentMedia.type} />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
               </div>
             )}
 
