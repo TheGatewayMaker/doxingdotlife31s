@@ -286,8 +286,8 @@ export default function PostDetail() {
 
               {/* Right Column - Description (Takes 2/5 on desktop) */}
               <div className="lg:col-span-2 space-y-6 flex flex-col">
-                {/* Share Button - Always Visible */}
-                <section>
+                {/* Share Button - Desktop Only */}
+                <section className="hidden lg:block">
                   <button
                     onClick={handleShare}
                     className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
@@ -311,6 +311,17 @@ export default function PostDetail() {
                       server: post.server,
                     }}
                   />
+                </section>
+
+                {/* Share Button - Mobile Only (After Description) */}
+                <section className="lg:hidden">
+                  <button
+                    onClick={handleShare}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 sm:py-4 bg-[#0088CC] text-white font-bold rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95 text-sm sm:text-base"
+                  >
+                    <Share2 className="w-5 h-5" />
+                    <span>Share</span>
+                  </button>
                 </section>
               </div>
             </div>
