@@ -74,6 +74,61 @@ const detectImageMimeType = (
   return mimeTypes[extension] || "image/jpeg";
 };
 
+// Retry configuration for file uploads
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY_MS = 1000;
+
+// Upload with exponential backoff retry logic
+const uploadMediaFileWithRetry = async (
+  postId: string,
+  fileName: string,
+  buffer: Buffer,
+  contentType: string,
+  fileIndex: number,
+  attempt: number = 1,
+): Promise<{ success: boolean; fileName: string; error?: string }> => {
+  try {
+    const uploadStartTime = Date.now();
+    await uploadMediaFile(postId, fileName, buffer, contentType);
+    const uploadDuration = Date.now() - uploadStartTime;
+
+    console.log(
+      `[${new Date().toISOString()}] ✅ File ${fileIndex} uploaded successfully in ${uploadDuration}ms (attempt ${attempt}/${MAX_RETRIES + 1})`,
+    );
+
+    return { success: true, fileName };
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error(
+      `[${new Date().toISOString()}] ⚠️ File ${fileIndex} upload failed (attempt ${attempt}/${MAX_RETRIES + 1}): ${errorMsg}`,
+    );
+
+    // If we haven't exhausted retries, retry with exponential backoff
+    if (attempt <= MAX_RETRIES) {
+      const delayMs = INITIAL_RETRY_DELAY_MS * Math.pow(2, attempt - 1);
+      console.log(
+        `[${new Date().toISOString()}] ⏳ Retrying file ${fileIndex} after ${delayMs}ms...`,
+      );
+      await new Promise((resolve) => setTimeout(resolve, delayMs));
+      return uploadMediaFileWithRetry(
+        postId,
+        fileName,
+        buffer,
+        contentType,
+        fileIndex,
+        attempt + 1,
+      );
+    }
+
+    // All retries exhausted
+    return {
+      success: false,
+      fileName,
+      error: errorMsg,
+    };
+  }
+};
+
 export const handleUpload: RequestHandler = async (req, res, next) => {
   let responseSent = false;
 
