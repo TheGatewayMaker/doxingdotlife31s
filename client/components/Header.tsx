@@ -130,6 +130,12 @@ export default function Header() {
             <span className="group-hover:text-[#0088CC]">Posts</span>
           </Link>
           <Link
+            to="/clowns"
+            className="text-sm font-semibold text-[#979797] hover:text-white transition-all duration-200 group"
+          >
+            <span className="group-hover:text-[#0088CC]">Clowns</span>
+          </Link>
+          <Link
             to="/doxx-anyone"
             className="flex items-center gap-2 px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-blue-500/30 active:scale-95 group"
           >
