@@ -127,21 +127,8 @@ export default function PostDetail() {
     );
   }
 
-  const handleShare = async () => {
-    const url = window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      toast.success("Link copied to clipboard!");
-    } catch (err) {
-      console.error("Failed to copy URL:", err);
-      if (navigator.share) {
-        navigator.share({
-          title: post.title,
-          text: post.description.substring(0, 100),
-          url: url,
-        });
-      }
-    }
+  const handleShare = () => {
+    setIsShareModalOpen(true);
   };
 
   return (
