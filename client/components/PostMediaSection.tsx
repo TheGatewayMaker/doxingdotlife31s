@@ -352,6 +352,7 @@ export default function PostMediaSection({
                             newSet.delete(idx);
                             return newSet;
                           });
+                          handleMediaError(idx);
                         }}
                       >
                         <source src={media.url} type={media.type} />
