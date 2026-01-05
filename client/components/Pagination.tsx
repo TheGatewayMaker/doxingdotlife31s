@@ -19,7 +19,10 @@ export default function Pagination({
   // Calculate which page numbers to display
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
-    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const startPage = Math.max(
+      1,
+      currentPage - Math.floor(maxVisiblePages / 2),
+    );
     const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
     const adjustedStart = Math.max(1, endPage - maxVisiblePages + 1);
 

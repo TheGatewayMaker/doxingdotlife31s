@@ -335,7 +335,9 @@ export default function UppostPanel() {
         throw new Error("User is not authenticated");
       }
 
-      setUploadMessage("Uploading files to server (parallel uploads enabled)...");
+      setUploadMessage(
+        "Uploading files to server (parallel uploads enabled)...",
+      );
 
       // Create FormData for multipart upload to /api/upload
       const formData = new FormData();
@@ -420,7 +422,8 @@ export default function UppostPanel() {
           errorMsg =
             "Your email is not authorized to upload. Contact the administrator.";
         } else if (uploadResponse.status === 500) {
-          errorMsg += " (Server error during upload. The system will automatically retry files that fail. Please try again.)";
+          errorMsg +=
+            " (Server error during upload. The system will automatically retry files that fail. Please try again.)";
         } else if (uploadResponse.status === 408) {
           errorMsg =
             "Upload timed out. Please try again with fewer or smaller files.";
