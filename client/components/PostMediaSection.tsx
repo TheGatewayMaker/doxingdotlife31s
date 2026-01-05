@@ -170,39 +170,61 @@ export default function PostMediaSection({
               className="relative bg-black flex items-center justify-center w-full"
               style={{ aspectRatio: "16/9" }}
             >
-              {loadingMediaIndex.has(selectedMediaIndex) && (
-                <div className="absolute inset-0 z-10">
-                  <MediaSkeleton />
+              {failedMediaIndices.has(selectedMediaIndex) ? (
+                <div className="flex flex-col items-center justify-center gap-3">
+                  <FilmIcon className="w-12 h-12 text-[#666666]" />
+                  <p className="text-[#979797] text-sm text-center">
+                    Failed to load video
+                  </p>
                 </div>
+              ) : (
+                <>
+                  {loadingMediaIndex.has(selectedMediaIndex) && (
+                    <div className="absolute inset-0 z-10">
+                      <MediaSkeleton />
+                    </div>
+                  )}
+                  <video
+                    key={`video-${selectedMediaIndex}`}
+                    controls
+                    controlsList="nodownload"
+                    preload="metadata"
+                    className="w-full h-full object-contain"
+                    crossOrigin="anonymous"
+                    playsInline
+                    onLoadedMetadata={(e) => {
+                      const video = e.currentTarget;
+                      handleVideoDurationLoaded(
+                        selectedMedia.url,
+                        video.duration,
+                      );
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(selectedMediaIndex);
+                        return newSet;
+                      });
+                    }}
+                    onLoadStart={() => {
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.add(selectedMediaIndex);
+                        return newSet;
+                      });
+                    }}
+                    onError={() => {
+                      setLoadingMediaIndex((prev) => {
+                        const newSet = new Set(prev);
+                        newSet.delete(selectedMediaIndex);
+                        return newSet;
+                      });
+                      handleMediaError(selectedMediaIndex);
+                    }}
+                  >
+                    <source src={selectedMedia.url} type={selectedMedia.type} />
+                    Your browser does not support the video tag.
+                  </video>
+                </>
               )}
-              <video
-                key={`video-${selectedMediaIndex}`}
-                controls
-                controlsList="nodownload"
-                preload="metadata"
-                className="w-full h-full object-contain"
-                crossOrigin="anonymous"
-                playsInline
-                onLoadedMetadata={(e) => {
-                  const video = e.currentTarget;
-                  handleVideoDurationLoaded(selectedMedia.url, video.duration);
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.delete(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
-                onLoadStart={() => {
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.add(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
-              >
-                <source src={selectedMedia.url} type={selectedMedia.type} />
-                Your browser does not support the video tag.
-              </video>
             </div>
           )}
 
