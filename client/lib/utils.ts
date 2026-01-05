@@ -16,7 +16,7 @@ export function cn(...inputs: ClassValue[]) {
 export function getVisiblePages(
   currentPage: number,
   totalPages: number,
-  maxVisible: number = 5
+  maxVisible: number = 5,
 ): (number | string)[] {
   if (totalPages <= maxVisible) {
     // Show all pages if total is less than maxVisible
