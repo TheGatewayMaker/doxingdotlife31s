@@ -262,19 +262,36 @@ export default function SimpleMediaGallery({
           >
             {isImage && (
               <div className="relative w-full">
-                <img
-                  src={currentMedia.url}
-                  alt={currentMedia.name}
-                  className="w-full max-h-[500px] object-contain cursor-pointer hover:opacity-95 transition-opacity"
-                  onClick={handleOpenNewTab}
-                  crossOrigin="anonymous"
-                />
-                <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center bg-black/40 cursor-pointer">
-                  <div className="bg-black/70 px-4 py-2 rounded text-white text-sm font-medium flex items-center gap-2">
-                    <Maximize2 className="w-4 h-4" />
-                    Click to open
+                {failedMediaIndices.has(selectedMediaIndex) ? (
+                  <div className="w-full max-h-[500px] bg-black flex flex-col items-center justify-center gap-4">
+                    <PictureIcon className="w-16 h-16 text-accent/50" />
+                    <div className="text-center">
+                      <p className="text-sm font-semibold text-muted-foreground">
+                        Image failed to load
+                      </p>
+                      <p className="text-xs text-muted-foreground/70 mt-1">
+                        {currentMedia.name}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <>
+                    <img
+                      src={currentMedia.url}
+                      alt={currentMedia.name}
+                      className="w-full max-h-[500px] object-contain cursor-pointer hover:opacity-95 transition-opacity"
+                      onClick={handleOpenNewTab}
+                      crossOrigin="anonymous"
+                      onError={() => handleMediaError(selectedMediaIndex)}
+                    />
+                    <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center bg-black/40 cursor-pointer">
+                      <div className="bg-black/70 px-4 py-2 rounded text-white text-sm font-medium flex items-center gap-2">
+                        <Maximize2 className="w-4 h-4" />
+                        Click to open
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
