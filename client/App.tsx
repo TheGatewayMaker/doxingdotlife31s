@@ -16,6 +16,7 @@ import UppostPanel from "./pages/UppostPanel";
 import PostDetail from "./pages/PostDetail";
 import DoxxAnyone from "./pages/DoxAnyone";
 import AdminPanel from "./pages/AdminPanel";
+import Clowns from "./pages/Clowns";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
