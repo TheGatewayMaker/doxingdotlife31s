@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import multer from "multer";
+import { Readable } from "stream";
 import { handleDemo } from "./routes/demo";
 import { handleUpload } from "./routes/upload";
 import { handleGenerateUploadUrls } from "./routes/generate-upload-urls";
