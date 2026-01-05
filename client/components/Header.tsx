@@ -87,24 +87,24 @@ export default function Header() {
 
   return (
     <header className="w-full bg-[#000000] backdrop-blur-md border-b border-[#333333]/50 shadow-lg animate-slideInDown sticky top-0 z-50 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
         <Link
           to="/"
           ref={logoRef}
           data-logo-link
-          className="flex items-center gap-2 sm:gap-3 hover:opacity-90 transition-opacity flex-shrink-0 group"
+          className="flex items-center gap-2 sm:gap-3 flex-shrink-0 group"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden shadow-md flex-shrink-0 group-hover:shadow-lg group-hover:shadow-[#0088CC]/30 transition-all">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden shadow-md flex-shrink-0">
             <img
               src="https://cdn.builder.io/api/v1/image/assets%2Fa9258861175949eaa27282de53009385%2F58644c317828471cb52c7ec23ee52853"
               alt="Doxing Dot Life Logo"
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="font-black text-base sm:text-lg text-white hidden xs:inline line-clamp-1 group-hover:text-[#0088CC] transition-colors">
+          <span className="font-bold text-base sm:text-lg text-white hidden xs:inline line-clamp-1 group-hover:text-[#0088CC] transition-colors">
             Doxing Dot Life
           </span>
-          <span className="font-black text-base sm:text-lg text-white xs:hidden group-hover:text-[#0088CC] transition-colors">
+          <span className="font-bold text-base sm:text-lg text-white xs:hidden group-hover:text-[#0088CC] transition-colors">
             DDL
           </span>
         </Link>
