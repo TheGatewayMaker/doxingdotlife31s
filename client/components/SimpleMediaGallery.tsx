@@ -180,6 +180,7 @@ export default function SimpleMediaGallery({
                       className="w-full aspect-square object-cover group-hover:scale-110 transition-transform duration-300"
                       loading="lazy"
                       crossOrigin="anonymous"
+                      onError={() => handleMediaError(idx)}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity">
