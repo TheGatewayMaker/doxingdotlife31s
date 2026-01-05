@@ -101,10 +101,10 @@ export default function Header() {
               className="w-full h-full object-cover"
             />
           </div>
-          <span className="font-bold text-base sm:text-lg text-white hidden xs:inline line-clamp-1 group-hover:text-[#0088CC] transition-colors">
+          <span className="font-black text-base sm:text-lg text-white hidden xs:inline line-clamp-1 group-hover:text-[#0088CC] transition-colors">
             Doxing Dot Life
           </span>
-          <span className="font-bold text-base sm:text-lg text-white xs:hidden group-hover:text-[#0088CC] transition-colors">
+          <span className="font-black text-base sm:text-lg text-white xs:hidden group-hover:text-[#0088CC] transition-colors">
             DDL
           </span>
         </Link>
