@@ -128,14 +128,6 @@ export default function PostMediaSection({
                 alt={selectedMedia.name}
                 className="w-full h-full object-contain"
                 crossOrigin="anonymous"
-                onLoadingStateChange={(e) => {
-                  // Remove from loading set when image loads
-                  setLoadingMediaIndex((prev) => {
-                    const newSet = new Set(prev);
-                    newSet.delete(selectedMediaIndex);
-                    return newSet;
-                  });
-                }}
                 onLoad={() => {
                   setLoadingMediaIndex((prev) => {
                     const newSet = new Set(prev);
