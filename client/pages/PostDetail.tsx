@@ -101,9 +101,9 @@ export default function PostDetail() {
             </p>
             <button
               onClick={() => navigate("/")}
-              className="px-6 py-3 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all shadow-md hover:shadow-lg active:scale-95"
+              className="px-5 py-2 bg-[#0088CC] text-white font-semibold rounded-lg hover:bg-[#0077BB] transition-all shadow-md hover:shadow-lg active:scale-95 text-sm"
             >
-              ← Back to Home
+              ← Back
             </button>
           </div>
         </main>
