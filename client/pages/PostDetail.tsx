@@ -59,6 +59,35 @@ export default function PostDetail() {
 
           if (foundPost) {
             setPosts(foundPost);
+
+            // Fetch and increment views only once per page load
+            if (!viewsIncremented && postId) {
+              try {
+                // Increment views (this happens when post detail page is opened)
+                const incrementResponse = await fetch(`/api/views/${postId}`, {
+                  method: "POST",
+                });
+
+                if (incrementResponse.ok) {
+                  const viewsData = await incrementResponse.json();
+                  setViews(viewsData.views);
+                  setViewsIncremented(true);
+                }
+              } catch (err) {
+                console.warn("Failed to increment views:", err);
+                // Still try to fetch current views even if increment fails
+                try {
+                  const viewsResponse = await fetch(`/api/views/${postId}`);
+                  if (viewsResponse.ok) {
+                    const viewsData = await viewsResponse.json();
+                    setViews(viewsData.views);
+                  }
+                } catch (fetchErr) {
+                  console.warn("Failed to fetch views:", fetchErr);
+                }
+              }
+            }
+
             if (foundPost.nsfw) {
               setShowNSFWWarning(true);
             }
