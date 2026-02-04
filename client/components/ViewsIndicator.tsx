@@ -73,7 +73,7 @@ export default function ViewsIndicator({
           className,
         )}
       >
-        <Eye className={cn("text-[#0088CC]", iconClasses[size])} />
+        <Eye className={cn("text-white", iconClasses[size])} />
         <span className={cn("font-bold text-white", textClasses[size])}>
           {formatViews(views)}
         </span>
