@@ -9,6 +9,7 @@ import PostMediaSection from "@/components/PostMediaSection";
 import NSFWWarningModal from "@/components/NSFWWarningModal";
 import { ShareModal } from "@/components/ShareModal";
 import ModernLoader from "@/components/ModernLoader";
+import ViewsIndicator from "@/components/ViewsIndicator";
 import {
   NSFWIcon,
   PictureIcon,
