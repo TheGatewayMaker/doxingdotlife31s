@@ -10,6 +10,7 @@ import NSFWWarningModal from "@/components/NSFWWarningModal";
 import { ShareModal } from "@/components/ShareModal";
 import ModernLoader from "@/components/ModernLoader";
 import ViewsIndicator from "@/components/ViewsIndicator";
+import { incrementPostView } from "@/utils/viewTracking";
 import {
   NSFWIcon,
   PictureIcon,
