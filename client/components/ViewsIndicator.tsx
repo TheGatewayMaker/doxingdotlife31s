@@ -6,6 +6,7 @@ interface ViewsIndicatorProps {
   size?: "sm" | "md" | "lg";
   className?: string;
   compact?: boolean;
+  thumbnail?: boolean;
 }
 
 /**
@@ -17,6 +18,7 @@ export default function ViewsIndicator({
   size = "md",
   className = "",
   compact = false,
+  thumbnail = false,
 }: ViewsIndicatorProps) {
   const formatViews = (count: number): string => {
     if (count >= 1000000) {
@@ -45,6 +47,23 @@ export default function ViewsIndicator({
     md: "text-sm",
     lg: "text-base",
   };
+
+  // Thumbnail badge style - positioned on thumbnail with higher prominence
+  if (thumbnail) {
+    return (
+      <div
+        className={cn(
+          "inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-black/70 backdrop-blur-sm border border-[#0088CC]/40 hover:border-[#0088CC]/60 transition-all drop-shadow-lg",
+          className,
+        )}
+      >
+        <Eye className="w-5 h-5 text-[#0088CC] flex-shrink-0" />
+        <span className="font-bold text-white text-sm whitespace-nowrap">
+          {formatViews(views)}
+        </span>
+      </div>
+    );
+  }
 
   if (compact) {
     return (
