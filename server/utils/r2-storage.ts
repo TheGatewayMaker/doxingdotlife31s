@@ -720,3 +720,90 @@ export const updatePostMetadataField = async (
 
   return verifiedMetadata;
 };
+
+/**
+ * Views storage interface
+ */
+export interface PostViews {
+  postId: string;
+  views: number;
+  lastUpdated: string;
+}
+
+/**
+ * Get the current view count for a post
+ * Creates initial entry with 0 views if it doesn't exist
+ */
+export const getPostViews = async (postId: string): Promise<number> => {
+  const client = getR2Client();
+  const bucketName = getBucketName();
+  const key = `posts/${postId}/views.json`;
+
+  try {
+    const response = await client.send(
+      new GetObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+      }),
+    );
+
+    if (response.Body) {
+      const bodyString = await response.Body.transformToString();
+      const parsed = JSON.parse(bodyString) as PostViews;
+      return parsed.views || 0;
+    }
+
+    return 0;
+  } catch (error) {
+    // File doesn't exist yet, return 0 and it will be created on first increment
+    if (
+      error instanceof Error &&
+      error.name === "NoSuchKey"
+    ) {
+      return 0;
+    }
+    console.warn(
+      `Error reading views for post ${postId}:`,
+      error instanceof Error ? error.message : String(error),
+    );
+    return 0;
+  }
+};
+
+/**
+ * Increment the view count for a post by 1
+ * Returns the new view count
+ */
+export const incrementPostViews = async (postId: string): Promise<number> => {
+  const client = getR2Client();
+  const bucketName = getBucketName();
+  const key = `posts/${postId}/views.json`;
+
+  try {
+    // Get current views
+    const currentViews = await getPostViews(postId);
+    const newViews = currentViews + 1;
+
+    // Store updated views
+    const viewsData: PostViews = {
+      postId,
+      views: newViews,
+      lastUpdated: new Date().toISOString(),
+    };
+
+    await client.send(
+      new PutObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+        Body: JSON.stringify(viewsData, null, 2),
+        ContentType: "application/json",
+      }),
+    );
+
+    return newViews;
+  } catch (error) {
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error(`Failed to increment views for post ${postId}:`, errorMsg);
+    throw new Error(`Failed to update post views: ${errorMsg}`);
+  }
+};
