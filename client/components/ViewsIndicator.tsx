@@ -89,7 +89,7 @@ export default function ViewsIndicator({
         className,
       )}
     >
-      <Eye className={cn("text-[#0088CC] flex-shrink-0", iconClasses[size])} />
+      <Eye className={cn("text-white flex-shrink-0", iconClasses[size])} />
       <span
         className={cn(
           "font-bold text-white whitespace-nowrap",
