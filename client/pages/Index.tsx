@@ -8,6 +8,7 @@ import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import AdvertisementBanners from "@/components/AdvertisementBanners";
 import Pagination from "@/components/Pagination";
+import ViewsIndicator from "@/components/ViewsIndicator";
 import { Post, PostsResponse } from "@shared/api";
 import { GlobeIcon, MapPinIcon, DiscordIcon } from "@/components/Icons";
 import { Flame } from "lucide-react";
