@@ -350,6 +350,10 @@ export function createServer() {
   app.get("/api/posts", handleGetPosts);
   app.get("/api/servers", handleGetServers);
 
+  // Views endpoints
+  app.get("/api/views/:postId", handleGetViews);
+  app.post("/api/views/:postId", handleIncrementViews);
+
   // Video watermarking endpoint
   app.post("/api/watermark-video", asyncHandler(handleWatermarkVideo));
 
