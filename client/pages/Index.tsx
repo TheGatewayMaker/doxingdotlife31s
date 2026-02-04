@@ -318,7 +318,7 @@ export default function Index() {
                         />
 
                         {/* Views Indicator - Top Right Corner */}
-                        <div className="absolute top-1 sm:top-3 right-1 sm:right-3 z-20">
+                        <div className="absolute top-1 xs:top-1.5 sm:top-2 md:top-3 right-1 xs:right-1.5 sm:right-2 md:right-3 z-20">
                           <ViewsIndicator
                             views={post.views || 0}
                             thumbnail
