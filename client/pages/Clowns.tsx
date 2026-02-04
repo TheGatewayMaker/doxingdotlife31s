@@ -53,9 +53,9 @@ export default function Clowns() {
         {/* Main Content Section */}
         <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20">
           <div className="text-center animate-fadeIn">
-            <p className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight">
-              Clowns Across the Internet will be Posted Here
-            </p>
+            <div className="text-8xl sm:text-9xl md:text-9xl lg:text-9xl mb-6 drop-shadow-lg">
+              🤡
+            </div>
             <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
               Check back soon for exciting clown content updates
             </p>

@@ -57,7 +57,7 @@ export default function ViewsIndicator({
           className,
         )}
       >
-        <Eye className="w-4 xs:w-4.5 sm:w-5 h-4 xs:h-4.5 sm:h-5 text-[#0088CC] flex-shrink-0" />
+        <Eye className="w-4 xs:w-4.5 sm:w-5 h-4 xs:h-4.5 sm:h-5 text-white flex-shrink-0" />
         <span className="font-bold text-white text-xs xs:text-sm whitespace-nowrap">
           {formatViews(views)}
         </span>
@@ -73,7 +73,7 @@ export default function ViewsIndicator({
           className,
         )}
       >
-        <Eye className={cn("text-[#0088CC]", iconClasses[size])} />
+        <Eye className={cn("text-white", iconClasses[size])} />
         <span className={cn("font-bold text-white", textClasses[size])}>
           {formatViews(views)}
         </span>
@@ -89,7 +89,7 @@ export default function ViewsIndicator({
         className,
       )}
     >
-      <Eye className={cn("text-[#0088CC] flex-shrink-0", iconClasses[size])} />
+      <Eye className={cn("text-white flex-shrink-0", iconClasses[size])} />
       <span
         className={cn(
           "font-bold text-white whitespace-nowrap",
