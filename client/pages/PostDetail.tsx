@@ -242,8 +242,8 @@ export default function PostDetail() {
                   <Share2 className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
               </div>
-              <div className="mb-4">
-                <ViewsIndicator views={views} size="md" />
+              <div className="mb-4 sm:mb-6">
+                <ViewsIndicator views={views} size="md" className="w-fit" />
               </div>
               <div className="flex flex-col xs:flex-row xs:items-center xs:gap-3 text-xs sm:text-sm text-[#979797] space-y-2 xs:space-y-0">
                 <div className="flex items-center gap-2">
