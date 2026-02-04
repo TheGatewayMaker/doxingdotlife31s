@@ -53,12 +53,12 @@ export default function ViewsIndicator({
     return (
       <div
         className={cn(
-          "inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-black/70 backdrop-blur-sm border border-[#0088CC]/40 hover:border-[#0088CC]/60 transition-all drop-shadow-lg",
+          "inline-flex items-center gap-1 xs:gap-1.5 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-2 rounded-md xs:rounded-lg bg-black/70 backdrop-blur-sm border border-[#0088CC]/40 hover:border-[#0088CC]/60 transition-all drop-shadow-lg",
           className,
         )}
       >
-        <Eye className="w-5 h-5 text-[#0088CC] flex-shrink-0" />
-        <span className="font-bold text-white text-sm whitespace-nowrap">
+        <Eye className="w-4 xs:w-4.5 sm:w-5 h-4 xs:h-4.5 sm:h-5 text-[#0088CC] flex-shrink-0" />
+        <span className="font-bold text-white text-xs xs:text-sm whitespace-nowrap">
           {formatViews(views)}
         </span>
       </div>
