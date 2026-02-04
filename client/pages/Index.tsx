@@ -8,6 +8,7 @@ import AnimatedSearchHeading from "@/components/AnimatedSearchHeading";
 import AnimatedNumberCounter from "@/components/AnimatedNumberCounter";
 import AdvertisementBanners from "@/components/AdvertisementBanners";
 import Pagination from "@/components/Pagination";
+import ViewsIndicator from "@/components/ViewsIndicator";
 import { Post, PostsResponse } from "@shared/api";
 import { GlobeIcon, MapPinIcon, DiscordIcon } from "@/components/Icons";
 import { Flame } from "lucide-react";
@@ -53,10 +54,30 @@ export default function Index() {
         const data: PostsResponse = await response.json();
         const postArray = Array.isArray(data.posts) ? data.posts : [];
 
+        // Fetch views for all posts in parallel
+        const postsWithViews = await Promise.all(
+          postArray.map(async (post) => {
+            try {
+              const viewsResponse = await fetch(`/api/views/${post.id}`);
+              if (viewsResponse.ok) {
+                const viewsData = await viewsResponse.json();
+                return { ...post, views: viewsData.views };
+              }
+              return post;
+            } catch (err) {
+              console.warn(`Failed to fetch views for post ${post.id}:`, err);
+              return post;
+            }
+          }),
+        );
+
         if (isMounted) {
-          setPosts(postArray);
-          localStorage.setItem("doxPostCount", postArray.length.toString());
-          setCachedPostCount(postArray.length);
+          setPosts(postsWithViews);
+          localStorage.setItem(
+            "doxPostCount",
+            postsWithViews.length.toString(),
+          );
+          setCachedPostCount(postsWithViews.length);
         }
       } catch (error) {
         if (isMounted) {
@@ -298,10 +319,16 @@ export default function Index() {
                           loading="lazy"
                           decoding="async"
                         />
+
+                        {/* Views Indicator - Top Right Corner */}
+                        <div className="absolute top-1 xs:top-1.5 sm:top-2 md:top-3 right-1 xs:right-1.5 sm:right-2 md:right-3 z-20">
+                          <ViewsIndicator views={post.views || 0} thumbnail />
+                        </div>
+
                         {post.nsfw && (
                           <>
                             <div className="absolute top-0 right-0 w-1/5 h-1/5 bg-gradient-to-bl from-black/40 to-transparent pointer-events-none blur-xl" />
-                            <div className="absolute top-1 sm:top-3 right-1 sm:right-3 flex flex-col gap-1 z-10">
+                            <div className="absolute bottom-1 sm:bottom-3 right-1 sm:right-3 flex flex-col gap-1 z-10">
                               <span className="bg-[#FF0000] text-white font-black text-xs sm:text-sm px-2 sm:px-2.5 py-0.5 sm:py-1.5 rounded-md drop-shadow-lg">
                                 NSFW
                               </span>

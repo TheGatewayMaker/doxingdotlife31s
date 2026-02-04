@@ -9,6 +9,8 @@ import PostMediaSection from "@/components/PostMediaSection";
 import NSFWWarningModal from "@/components/NSFWWarningModal";
 import { ShareModal } from "@/components/ShareModal";
 import ModernLoader from "@/components/ModernLoader";
+import ViewsIndicator from "@/components/ViewsIndicator";
+import { incrementPostView } from "@/utils/viewTracking";
 import {
   NSFWIcon,
   PictureIcon,
@@ -32,6 +34,8 @@ export default function PostDetail() {
   const [showNSFWWarning, setShowNSFWWarning] = useState(false);
   const [nsfwApproved, setNsfwApproved] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [views, setViews] = useState<number>(0);
+  const [viewsIncremented, setViewsIncremented] = useState(false);
 
   useEffect(() => {
     const loadPost = async () => {
@@ -56,6 +60,20 @@ export default function PostDetail() {
 
           if (foundPost) {
             setPosts(foundPost);
+
+            // Increment views only once per page load (works on mobile and desktop)
+            if (!viewsIncremented && postId) {
+              const result = await incrementPostView(postId);
+              if (result.success) {
+                setViews(result.views);
+                setViewsIncremented(true);
+              } else {
+                // If increment failed, still try to display current view count
+                setViews(result.views);
+                setViewsIncremented(true);
+              }
+            }
+
             if (foundPost.nsfw) {
               setShowNSFWWarning(true);
             }
@@ -195,10 +213,12 @@ export default function PostDetail() {
                   Post
                 </span>
               </div>
-              <div className="flex items-center gap-3 mb-4">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight flex-1">
-                  {post.title}
-                </h1>
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <div className="flex-1 min-w-0">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight">
+                    {post.title}
+                  </h1>
+                </div>
                 <button
                   onClick={handleShare}
                   className="flex-shrink-0 p-3 sm:p-4 w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center bg-[#0088CC] text-white rounded-lg hover:bg-[#0077BB] transition-all shadow-lg hover:shadow-lg hover:shadow-[#0088CC]/40 active:scale-95"
@@ -207,6 +227,9 @@ export default function PostDetail() {
                 >
                   <Share2 className="w-5 h-5 sm:w-6 sm:h-6" />
                 </button>
+              </div>
+              <div className="mb-4 sm:mb-6">
+                <ViewsIndicator views={views} size="md" className="w-fit" />
               </div>
               <div className="flex flex-col xs:flex-row xs:items-center xs:gap-3 text-xs sm:text-sm text-[#979797] space-y-2 xs:space-y-0">
                 <div className="flex items-center gap-2">

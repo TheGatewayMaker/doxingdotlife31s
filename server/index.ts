@@ -9,6 +9,7 @@ import { handleGenerateUploadUrls } from "./routes/generate-upload-urls";
 import { handleUploadMetadata } from "./routes/upload-metadata";
 import { handleGetPosts, handleGetPostDetail } from "./routes/posts";
 import { handleGetServers } from "./routes/servers";
+import { handleGetViews, handleIncrementViews } from "./routes/views";
 import {
   handleDeletePost,
   handleDeleteMediaFile,
@@ -348,6 +349,10 @@ export function createServer() {
   app.get("/api/posts/:postId", handleGetPostDetail);
   app.get("/api/posts", handleGetPosts);
   app.get("/api/servers", handleGetServers);
+
+  // Views endpoints
+  app.get("/api/views/:postId", handleGetViews);
+  app.post("/api/views/:postId", handleIncrementViews);
 
   // Video watermarking endpoint
   app.post("/api/watermark-video", asyncHandler(handleWatermarkVideo));

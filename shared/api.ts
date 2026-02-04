@@ -32,6 +32,7 @@ export interface Post {
     type: string;
   }>;
   createdAt: string;
+  views?: number;
 }
 
 /**
