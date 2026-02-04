@@ -54,10 +54,27 @@ export default function Index() {
         const data: PostsResponse = await response.json();
         const postArray = Array.isArray(data.posts) ? data.posts : [];
 
+        // Fetch views for all posts in parallel
+        const postsWithViews = await Promise.all(
+          postArray.map(async (post) => {
+            try {
+              const viewsResponse = await fetch(`/api/views/${post.id}`);
+              if (viewsResponse.ok) {
+                const viewsData = await viewsResponse.json();
+                return { ...post, views: viewsData.views };
+              }
+              return post;
+            } catch (err) {
+              console.warn(`Failed to fetch views for post ${post.id}:`, err);
+              return post;
+            }
+          })
+        );
+
         if (isMounted) {
-          setPosts(postArray);
-          localStorage.setItem("doxPostCount", postArray.length.toString());
-          setCachedPostCount(postArray.length);
+          setPosts(postsWithViews);
+          localStorage.setItem("doxPostCount", postsWithViews.length.toString());
+          setCachedPostCount(postsWithViews.length);
         }
       } catch (error) {
         if (isMounted) {
