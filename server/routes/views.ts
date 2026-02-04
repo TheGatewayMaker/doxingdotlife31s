@@ -39,7 +39,10 @@ export const handleIncrementViews: RequestHandler = async (req, res) => {
 
     res.json({ postId, views: newViews, message: "View incremented" });
   } catch (error) {
-    console.error(`Error incrementing views for post ${req.params.postId}:`, error);
+    console.error(
+      `Error incrementing views for post ${req.params.postId}:`,
+      error,
+    );
     res.status(500).json({ error: "Failed to increment view count" });
   }
 };

@@ -30,12 +30,12 @@ export const markViewIncremented = (postId: string): void => {
  * Works consistently on mobile and desktop networks
  */
 export const incrementPostView = async (
-  postId: string
+  postId: string,
 ): Promise<{ success: boolean; views: number }> => {
   // Prevent duplicate increments
   if (hasViewBeenIncremented(postId)) {
     console.warn(
-      `View for post ${postId} was already incremented in this session`
+      `View for post ${postId} was already incremented in this session`,
     );
     // Still fetch current views even if already incremented
     try {
@@ -101,7 +101,7 @@ export const incrementPostView = async (
  * Optimized for mobile and desktop
  */
 export const fetchPostsViews = async (
-  postIds: string[]
+  postIds: string[],
 ): Promise<Map<string, number>> => {
   const viewsMap = new Map<string, number>();
 

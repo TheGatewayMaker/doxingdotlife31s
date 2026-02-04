@@ -70,7 +70,7 @@ export default function AllPosts() {
               console.warn(`Failed to fetch views for post ${post.id}:`, err);
               return post;
             }
-          })
+          }),
         );
 
         setPosts(postsWithViews);
@@ -306,10 +306,7 @@ export default function AllPosts() {
 
                         {/* Views Indicator - Top Right Corner */}
                         <div className="absolute top-1 xs:top-1.5 sm:top-2 md:top-3 right-1 xs:right-1.5 sm:right-2 md:right-3 z-20">
-                          <ViewsIndicator
-                            views={post.views || 0}
-                            thumbnail
-                          />
+                          <ViewsIndicator views={post.views || 0} thumbnail />
                         </div>
 
                         {post.nsfw && (

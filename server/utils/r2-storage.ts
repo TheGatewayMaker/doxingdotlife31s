@@ -756,10 +756,7 @@ export const getPostViews = async (postId: string): Promise<number> => {
     return 0;
   } catch (error) {
     // File doesn't exist yet, return 0 and it will be created on first increment
-    if (
-      error instanceof Error &&
-      error.name === "NoSuchKey"
-    ) {
+    if (error instanceof Error && error.name === "NoSuchKey") {
       return 0;
     }
     console.warn(

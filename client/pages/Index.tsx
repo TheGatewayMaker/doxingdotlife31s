@@ -68,12 +68,15 @@ export default function Index() {
               console.warn(`Failed to fetch views for post ${post.id}:`, err);
               return post;
             }
-          })
+          }),
         );
 
         if (isMounted) {
           setPosts(postsWithViews);
-          localStorage.setItem("doxPostCount", postsWithViews.length.toString());
+          localStorage.setItem(
+            "doxPostCount",
+            postsWithViews.length.toString(),
+          );
           setCachedPostCount(postsWithViews.length);
         }
       } catch (error) {
@@ -319,10 +322,7 @@ export default function Index() {
 
                         {/* Views Indicator - Top Right Corner */}
                         <div className="absolute top-1 xs:top-1.5 sm:top-2 md:top-3 right-1 xs:right-1.5 sm:right-2 md:right-3 z-20">
-                          <ViewsIndicator
-                            views={post.views || 0}
-                            thumbnail
-                          />
+                          <ViewsIndicator views={post.views || 0} thumbnail />
                         </div>
 
                         {post.nsfw && (
