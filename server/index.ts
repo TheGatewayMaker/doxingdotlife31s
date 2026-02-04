@@ -9,6 +9,7 @@ import { handleGenerateUploadUrls } from "./routes/generate-upload-urls";
 import { handleUploadMetadata } from "./routes/upload-metadata";
 import { handleGetPosts, handleGetPostDetail } from "./routes/posts";
 import { handleGetServers } from "./routes/servers";
+import { handleGetViews, handleIncrementViews } from "./routes/views";
 import {
   handleDeletePost,
   handleDeleteMediaFile,
